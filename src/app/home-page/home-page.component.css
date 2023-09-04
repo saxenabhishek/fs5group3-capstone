@@ -1,0 +1,78 @@
+.fidtrade{
+    color: white;
+    padding-left: 25px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.template {
+    
+    background-color: #A9DEF9
+    /* background-image: radial-gradient(650px circle at 0% 0%,
+        hsl(218, 41%, 35%) 15%,
+        hsl(218, 41%, 30%) 35%,
+        hsl(218, 41%, 20%) 75%,
+        hsl(218, 41%, 19%) 80%,
+        transparent 100%),
+      radial-gradient(1250px circle at 100% 100%,
+        hsl(218, 41%, 45%) 15%,
+        hsl(218, 41%, 30%) 35%,
+        hsl(218, 41%, 20%) 75%,
+        hsl(218, 41%, 19%) 80%,
+        transparent 100%); */
+  }
+
+.template{
+    display:flex;
+    flex-direction: row;
+}
+
+.title{
+    padding-left: 25px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.bg_image{
+    flex:1
+}
+
+.title{
+    flex:1
+}
+
+.header{
+    background-color:#2F4858 ;
+    display: flex;
+    flex-direction: row;
+}
+
+.loginbtn{
+    align-self: center; 
+    padding-left: 50px;
+    width: 100px;
+    vertical-align: middle;    
+}
+
+.signupbtn{  
+    text-decoration: solid;
+    align-items: center;
+    align-self: center;
+    padding-left: 800px;
+    width: 100px;
+    vertical-align: middle;  
+}
+
+.About{ 
+    text-decoration: solid;
+    align-items: center;
+    align-self: center;
+    padding-left: 50px;
+    width: 100px;
+    vertical-align: middle;
+}
+button{
+    background-color: #D0F4DE;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 100px;
+    color: #2F4858;
+    font-weight: 600;
+}
