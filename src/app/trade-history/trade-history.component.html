@@ -1,0 +1,24 @@
+<div class="card-table" >    
+    <h3>Order History</h3>
+    <hr>
+    <table *ngIf="orders.length" cellspacing="0">
+        <thead>
+            <th>Stock</th>
+            <th>Shares</th>
+            <th>Type</th>
+            <th>Price</th>
+            <th>Net Value</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let order of orders">
+                <td>{{order.instrument}}</td>
+                <td>{{order.quantity}}</td>
+                <td>{{order.direction.stringValue === "B" ? "BUY" : "SELL"}}</td>
+                <td>&dollar;{{order.targetPrice}}</td>
+                <td>{{order.quantity * order.targetPrice}}</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <div id="noorders" *ngIf="!orders.length">No trading history available !</div>
+</div>

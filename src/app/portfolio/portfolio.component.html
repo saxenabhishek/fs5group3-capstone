@@ -1,0 +1,24 @@
+<div class="card-table" >    
+    <h3>Your Portfolio</h3>
+    <hr>
+    <table *ngIf="trades.length" cellspacing="0">
+        <thead>
+            <th>Stock</th>
+            <th>Shares</th>
+            <th>Type</th>
+            <th>Price</th>
+            <th>Value</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let trade of trades">
+                <td>{{trade.instrumentId}}</td>
+                <td>{{trade.quantity}}</td>
+                <td>{{trade.direction.stringValue === "B" ? "BUY" : "SELL"}}</td>
+                <td>&dollar;{{trade.executionPrice}}</td>
+                <td>{{trade.cashValue}}</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <div id="notrades" *ngIf="!trades.length">No trading history available !</div>
+</div>
