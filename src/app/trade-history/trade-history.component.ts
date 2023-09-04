@@ -73,6 +73,7 @@ const testData: Order[]=
 })
 export class TradeHistoryComponent implements OnInit{
   orders: Order[]= [];
+  date: string= `${new Date().toLocaleDateString('en-GB')}, ${new Date().toLocaleTimeString()} IST`
 
   constructor(private tradeService: TradeService) { }
 

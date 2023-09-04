@@ -5,12 +5,11 @@
     border-radius: 10px;
     width: 60%;
     padding: 1.5rem;
-    margin: 4rem auto 0;
+    margin: 2rem auto;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 h3{
     margin-top: 0;
-    font-weight: 500;
     color: rgb(82, 82, 82);
 }
 table{
@@ -32,6 +31,12 @@ th:first-child, td:first-child{
     padding-left: 0;
     text-align: left;
 }
+td:nth-child(3){ 
+    font-weight: 600;
+}
 tr:hover{
-    background-color: rgb(222, 237, 240);    
+    background-color: rgb(233, 240, 241); 
+}
+#noorders{
+    margin: 0 auto;
 }
