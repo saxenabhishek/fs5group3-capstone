@@ -1,6 +1,7 @@
 <p>portfolio-page works!</p>
 
-<h2>Name of stock</h2> <span>Current price</span>
+<h2>Name of stock</h2>
+<span>Current price</span>
 
 <section class="container">
   <section class="main-part">
@@ -11,6 +12,14 @@
     </article>
 
     <figure>
+      <div>
+        <apx-chart
+          [series]="chartOptions.series"
+          [chart]="chartOptions.chart"
+          [xaxis]="chartOptions.xaxis"
+          [title]="chartOptions.title"
+        ></apx-chart>
+      </div>
       <p>A Chart to show info</p>
     </figure>
   </section>

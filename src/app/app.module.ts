@@ -6,8 +6,10 @@ import { AppComponent } from './app.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
-import { PortfolioPageComponent } from './portfolio-page/portfolio-page.component';
+import { StockPageComponent } from './stock-page/stock-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgApexchartsModule } from 'ng-apexcharts';
+import { ExplorePageComponent } from './explore-page/explore-page.component';
 
 @NgModule({
   declarations: [
@@ -15,14 +17,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HomePageComponent,
     LoginPageComponent,
     RegisterPageComponent,
-    PortfolioPageComponent
+    StockPageComponent,
+    ExplorePageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgApexchartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
