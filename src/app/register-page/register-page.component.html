@@ -1,1 +1,109 @@
-<p>register-page works!</p>
+<h2>Registration</h2>
+      <section class="h-100 bg-dark">
+        <div class="container py-5 h-100">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col">
+              <div class="card card-registration my-4">
+                <div class="row g-0">
+                  <div class="col-xl-6 d-none d-xl-block">
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img4.webp"
+                      alt="Sample photo" class="img-fluid"
+                      style="border-top-left-radius: .25rem; border-bottom-left-radius: .25rem;" />
+                  </div>
+                  <div class="col-xl-6">
+                    <div class="card-body p-md-5 text-black">
+                      <h3 class="mb-5 text-uppercase">Registration form</h3>
+                      <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+                      <div class="row">
+                        <div class="col-md-6 mb-4">
+                          <div class="form-outline">
+                            <input type="text" class="form-control form-control-lg" />
+                            <label class="form-label" >First name</label>
+                          </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                          <div class="form-outline">
+                            <input type="text" class="form-control form-control-lg" />
+                            <label class="form-label" >Last name</label>
+                          </div>
+                        </div>
+                      </div>
+      
+                              
+            <div class="form-outline mb-4">
+              <label class="form-label" type="email" name="email"  formControlName="email">
+                Email ID</label>
+              <input type="email" name="email" id="email" formControlName="email" [(ngModel)]="formInfo.email"  >     
+                  <div *ngIf="email.invalid && (email.dirty||email.touched)">
+                  <div *ngIf="email.errors['required']">Email is required</div>
+                  <div *ngIf="email.errors['email']">Email is invalid</div>
+             </div>
+             </div> 
+                      <div class="form-outline mb-4">
+                        <input type="date"  class="form-control form-control-lg" [(ngModel)]="formInfo.dob" required />
+                        <label class="form-label" >DOB</label>
+                      </div>
+      
+                      
+                      <div class="row">
+                        <div class="col-md-6 mb-4">
+                          <select class="Country"  [(ngModel)]="formInfo.country" required>
+                            <option value="1">Country</option>
+                            <option value="2">India</option>
+                            <option value="3">USA</option>
+                            <option value="4">Ireland</option>
+                          </select>
+                        </div>
+                        <!-- <datalist id="codes">
+                          <option *ngFor="let code of countryCodes" [value]="code">
+                                  {{ code }}
+                          </option>
+                          </datalist>
+                          <br />
+                          <label for="pin" class="col1"
+                          >{{ postalCodes.get(formInfo.country) }}:</label
+                          > -->
+
+                        <div class="form-outline mb-4">
+                          <input type="text"  class="form-control form-control-lg" [(ngModel)]="formInfo.postalCode" required />
+                          <label class="form-label" >Postal code</label>
+                        </div>
+                      </div>   
+                      <legend>Client Identification</legend>
+<br />
+<label for="type" class="col1">Identification Type:</label>
+<input
+        list="id-types"
+        [(ngModel)]="formInfo.type"
+        autocomplete="off"
+        required
+      />
+<!-- <datalist id="id-types">
+<option *ngFor="let idType of identityTypes.get(formInfo.country)" [value]="idType"></option>
+</datalist> -->
+<br>
+<label for="value" class="col1">Value:</label>
+<input   type="value" [(ngModel)]="formInfo.value"required />
+<br />
+ </form>                     
+                      <div class="d-flex justify-content-end pt-3">
+
+                        <button type="button" class="btn btn-warning btn-lg ms-2">Submit form</button>
+                      </div>
+      
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+     
+
+
+          
+
+
+       
