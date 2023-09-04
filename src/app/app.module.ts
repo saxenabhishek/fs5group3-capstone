@@ -6,8 +6,9 @@ import { AppComponent } from './app.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
-import { PortfolioPageComponent } from './portfolio-page/portfolio-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TradeHistoryComponent } from './trade-history/trade-history.component';
+import { PortfolioComponent } from './portfolio/portfolio.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HomePageComponent,
     LoginPageComponent,
     RegisterPageComponent,
-    PortfolioPageComponent
+    TradeHistoryComponent,
+    PortfolioComponent
   ],
   imports: [
     BrowserModule,
