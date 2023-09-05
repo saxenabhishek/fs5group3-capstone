@@ -1,11 +1,40 @@
-
 .card-registration .select-input.form-control[readonly]:not([disabled]) {
-    font-size: 1rem;
-    line-height: 2.15;
-    padding-left: .75em;
-    padding-right: .75em;
-    }
-    .card-registration .select-arrow {
-    top: 13px;
-    }
-    
+  font-size: 1rem;
+  line-height: 2.15;
+  padding-left: 0.75em;
+  padding-right: 0.75em;
+}
+.card-registration .select-arrow {
+  top: 13px;
+}
+
+.container {
+  height: 100vh;
+  font-family: Montserrat, sans-serif;
+}
+.img-container {
+  position: relative;
+  overflow: hidden;
+}
+.img-fluid {
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 110% !important;
+}
+.card-registration {
+  border: 0;
+}
+.btn {
+  background-color: #96bfc5;
+  color: white;
+  font-weight: 600;
+  transition: all 300ms ease-in-out;
+}
+.btn:hover {
+  border: 1px solid #96bfc5;
+  background-color: transparent;
+  color: #96bfc5;
+}
