@@ -1,0 +1,120 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+table {
+    color: #2879af;
+    width: 80%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+
+td,
+th {
+    height: 2em;
+}
+
+
+
+th {
+    background-color: aquamarine;
+    background: #8ac273;
+    /* Darken header a bit */
+    font-weight: bold;
+}
+
+
+
+td {
+    background: #FAFAFA;
+}
+
+button {
+    color: #11bb90;
+}
+
+
+#nocars {
+    text-align: center;
+}
+
+
+
+/* color every other row differently */
+
+
+
+tbody tr:nth-child(even) td {
+    background: #0fa1a6;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+#button2 {
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #1a48d2;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
+
+.button2:hover {
+    background-color: #1e8ad2
+}
+
+.button2:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+.button1 {
+    background-color: #4CAF50;
+    /* Green */
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.center {
+    text-align: center;
+
+}
+
+.cent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+h2 {
+    font-family: Georgia;
+    padding-bottom: 20px;
+    padding-top: 20px;
+}

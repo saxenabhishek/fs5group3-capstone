@@ -7,6 +7,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { PortfolioPageComponent } from './portfolio-page/portfolio-page.component';
+import { ReportPageComponent } from './report-page/report-page.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { PortfolioPageComponent } from './portfolio-page/portfolio-page.componen
     HomePageComponent,
     LoginPageComponent,
     RegisterPageComponent,
-    PortfolioPageComponent
+    PortfolioPageComponent,
+    ReportPageComponent
   ],
   imports: [
     BrowserModule,
