@@ -1,0 +1,68 @@
+<!-- app.component.html -->
+<div class="home-container">  
+  <app-navbar></app-navbar>
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <img
+          src="../../assets/trade-logo.png"
+          alt="Trading App Logo"
+          class="logo"
+        />
+        <h1>Welcome to FidTrade</h1>
+        <p>Trade stocks, cryptocurrencies, and more with ease.</p>
+        <div class="cta-buttons">
+          <a 
+            routerLink="/login" 
+           class="btn btn-primary" 
+           (click)="changeLogin()">Login</a>
+          <a routerLink="/register" class="btn btn-secondary">Sign Up</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- featured-assets.component.html -->
+    <section class="featured-assets">
+      <div class="container">
+        <h2 class="section-title">Featured Assets</h2>
+        <div class="asset-card" *ngFor="let asset of featuredAssets">
+          <div class="asset-image">
+            <img [src]="asset.imageUrl" alt="{{ asset.name }}" />
+          </div>
+          <div class="asset-details">
+            <h3 class="asset-name">{{ asset.name }}</h3>
+            <p class="asset-description">{{ asset.description }}</p>
+            <a href="#" class="asset-link">Learn More</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- contacts.component.html -->
+    <section class="contacts">
+      <div class="container">
+        <h2 class="section-title">Contact Us</h2>
+        <div class="contact-info">
+          <div class="contact-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <p>Your Address Here</p>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-phone"></i>
+            <p>+1 123-456-7890</p>
+          </div>
+          <div class="contact-item">
+            <i class="far fa-envelope"></i>
+            <p>info@example.com</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- app.component.html -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2023 Fidelity Investments. All rights reserved.</p>
+    </div>
+  </footer>
+</div>

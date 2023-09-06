@@ -1,14 +1,19 @@
-
-<section class="h-100 bg-dark">
-  <div class="container py-5 h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
+<section style="background-color: #2f4858;">
+  <div class="container py-5">
+    <div class="row d-flex justify-content-center align-items-center">
       <div class="col">
         <div class="card card-registration my-4">
           <div class="row g-0">
-            <div class="col-xl-6 d-none d-xl-block">
-              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img4.webp"
-                alt="Sample photo" class="img-fluid"
-                style="border-top-left-radius: .25rem; border-bottom-left-radius: .25rem;" />
+            <div class="col-xl-6 d-none d-xl-block img-container">
+              <img
+                src="https://cdn4.vectorstock.com/i/1000x1000/69/18/stock-market-trader-looking-at-multiple-computer-vector-19626918.jpg"
+                alt="Sample photo"
+                class="img-fluid"
+                style="
+                  border-top-left-radius: 0.25rem;
+                  border-bottom-left-radius: 0.25rem;
+                "
+              />
             </div>
             <div class="col-xl-6">
               <div class="card-body p-md-5 text-black">
@@ -16,92 +21,150 @@
                   <div class="row">
                     <div class="col-md-6 mb-4">
                       <div class="form-outline">
-                        <label class="form-label">First name</label>
-                        <input type="text" class="form-control form-control-lg" />
-                        
+                        <label class="form-label">First Name</label>
+                        <input
+                          type="text"
+                          class="form-control form-control-md"
+                          formControlName="fName"
+                          required
+                        />
                       </div>
                     </div>
                     <div class="col-md-6 mb-4">
                       <div class="form-outline">
-                        <label class="form-label">Last name</label>
-                        <input type="text" class="form-control form-control-lg" />
-                        
+                        <label class="form-label">Last Name</label>
+                        <input
+                          type="text"
+                          class="form-control form-control-md"
+                          formControlName="lName"
+                        />
                       </div>
                     </div>
                   </div>
 
-
                   <div class="form-outline mb-4">
-                    <label class="form-label" type="email" name="email" >
-                      Email ID</label>
-                    <input class="form-control form-control-lg" [class.is-invalid] type="email" name="email" id="email" formControlName="email">
+                    <label class="form-label" for="email">
+                      Email ID</label
+                    >
+                    <input
+                      class="form-control form-control-md"
+                      [class.is-invalid]
+                      type="email"
+                      name="email"
+                      id="email"
+                      formControlName="email"
+                      required
+                    />
                     <!-- <div *ngIf="email.invalid && (email.dirty||email.touched)">
-                  <div *ngIf="email.errors?.required">Email is required</div>
-                  <div *ngIf="email.errors?.email">Email is invalid</div>
-             </div> -->
+                      <div *ngIf="email.errors?.required">Email is required</div>
+                      <div *ngIf="email.errors?.email">Email is invalid</div>
+                    </div>  -->
                   </div>
+
                   <div class="form-outline mb-4">
-                    <label class="form-label">DOB</label>
-                    <input type="date" class="form-control form-control-lg" required />
-                    
-                  </div>
-
-
-                  <!-- <div class="row"> -->
-                    
-                  <div class="col-md-6 mb-4">
-                    <label for="country" class="form-label" class="form-control form-control-lg">Select Country:</label>
-                    <select id="country" class="Country"   formControlName="country">
-
-                      <option value="india" >India</option>
-                      <option value="us">USA</option>
-                      <option value="ireland">Ireland</option>
-                    </select>
-
+                    <label class="form-label" for="password">
+                      Password</label
+                    >
+                    <input
+                      class="form-control form-control-md"
+                      [class.is-invalid]
+                      type="password"
+                      name="password"
+                      id="password"
+                      formControlName="password"
+                      required
+                    />
+                    <!-- <div *ngIf="email.invalid && (email.dirty||email.touched)">
+                      <div *ngIf="email.errors?.required">Email is required</div>
+                      <div *ngIf="email.errors?.email">Email is invalid</div>
+                    </div>  -->
                   </div>
                   
-                  <div *ngIf="registrationForm.get('country').value==='india'">
-                    <label for="pin">PIN:</label>
-                    <input class="form-control form-control-lg" type="text" id="pin" name="pin" formControlName="pin">
+                  <div class="row">
+                    <div class="form-outline mb-4 col-md-6">
+                      <label class="form-label">Date Of Birth</label>
+                      <input
+                        type="date"
+                        class="form-control form-control-md"
+                        formControlName="dob"
+                        required
+                      />
+                    </div>
+  
+                    <div class="col-md-6 mb-4">
+                      <label for="country" class="form-label">Country</label
+                      >
+                      <select
+                        id="country"
+                        class="form-select"
+                        formControlName="country"
+                      >
+                        <option value="" disabled selected>-- Select a country --</option>
+                        <option value="india">India</option>
+                        <option value="us">USA</option>
+                        <option value="ireland">Ireland</option>
+                      </select>
+                    </div>
                   </div>
-                  <div *ngIf="registrationForm.get('country').value==='us'">
-                    <label for="zip">ZIP:</label>
-                    <input class="form-control form-control-lg" type="text" id="zip" name="zip" formControlName="zip">
+                  
+                  <div class="row">
+                    <div class="col-md-4 mb-4" [ngSwitch]="registrationForm.get('country')?.value">
+                      <label for="postal-code" *ngSwitchCase="'india'">PIN Code</label>
+                      <label for="postal-code" *ngSwitchCase="'us'">ZIP Code</label>
+                      <label for="postal-code" *ngSwitchCase="'ireland'">EIR Code</label>
+                      <input
+                        *ngIf="registrationForm.get('country')?.value"
+                        class="form-control form-control-md"
+                        type="text"
+                        id="postal-code"
+                        name="postal-code"
+                        formControlName="postalCode"
+                        required
+                      />
+                    </div>
+                    <!-- <legend 
+                      *ngIf="registrationForm.get('country')?.value" 
+                      style="margin: 1.5rem 0 0.5rem;">
+                        Client Identification
+                    </legend> -->
+  
+                    <div class="col-md-8 mb-4" [ngSwitch]="registrationForm.get('country')?.value">
+                      <label for="identification" *ngSwitchCase="'india'">Aadhaar</label>
+                      <label for="identification" *ngSwitchCase="'us'">SSN</label>
+                      <label for="identification" *ngSwitchCase="'ireland'">Passport</label>
+                      <input
+                        *ngIf="registrationForm.get('country')?.value"
+                        class="form-control form-control-md"
+                        type="text"
+                        id="identification"
+                        name="identification"
+                        formControlName="identification"
+                        placeholder="Enter valid document details"
+                        required
+                      />
+                    </div>
                   </div>
-                  <div *ngIf="registrationForm.get('country').value==='ireland'">
-                    <label for="eircode">EIRCODE:</label>
-                    <input class="form-control form-control-lg" type="text" id="eircode" name="eircode" formControlName="eircode">
+                  
+                  <div class="d-flex justify-content-end pt-3">
+                    <button type="submit" class="btn btn-lg ms-2">
+                      Sign Up
+                    </button>
                   </div>
-
-
-                  <legend>Client Identification</legend>
-                  <br />
-                  <!-- <label for="type" class="col1">Identification Type:</label> -->
-                  <div *ngIf="registrationForm.get('country').value==='india'">
-                    <label for="aadhar">AADHAR</label>
-                    <input class="form-control form-control-lg" type="text" id="aadhar" name="aadhar" formControlName="aadhar">
-                  </div>
-                  <div *ngIf="registrationForm.get('country').value==='us'">
-                    <label for="ssn">SSN:</label>
-                    <input class="form-control form-control-lg" type="text" id="ssn" name="ssn" formControlName="ssn">
-                  </div>
-                  <div *ngIf="registrationForm.get('country').value==='ireland'">
-                    <label for="passport">PASSPORT:</label>
-                    <input class="form-control form-control-lg" type="text" id="passport" name="passport" formControlName="passport">
-                  </div>
-
-                  <br>
-                  <label for="value" class="col1">Value:</label>
-                  <input  class="form-control form-control-lg" type="value" required />
-                  <br />
                 </form>
-
-                <div class="d-flex justify-content-end pt-3">
-
-                  <button type="button" class="btn btn-warning btn-lg ms-2">Submit form</button>
+                
+                <br/>
+                <div *ngIf="!emailUnique" class="alert alert-danger" role="alert">
+                  Email ID already exists !
                 </div>
-                <p>Already have an account?<a routerLink="/login">Login here</a></p>
 
+                <div *ngIf="emailUnique && userRegistered && showDiv" class="alert alert-success" role="alert">
+                  Successfully registered ! <br/>Please log-in with your credentials.
+                </div>
+
+                <br/>
+                <p>
+                  Already have an account?&nbsp;<a routerLink="/login">Login here</a>
+                </p>
               </div>
             </div>
           </div>
