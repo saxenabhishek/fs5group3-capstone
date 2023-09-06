@@ -7,6 +7,8 @@ import { TradeHistoryComponent } from './trade-history/trade-history.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { ReportPageComponent } from './report-page/report-page.component';
 import { RoboadvisorPageComponent } from './roboadvisor-page/roboadvisor-page.component';
+import { InvestmentPreferComponent } from './investment-prefer/investment-prefer.component';
+import { InvestmentPreferUpdateComponent } from './investment-prefer-update/investment-prefer-update.component';
 
 const routes: Routes = [
   {
@@ -28,6 +30,14 @@ const routes: Routes = [
   {
     path:'trade-history',
     component: TradeHistoryComponent
+  },
+  {
+    path:'preferences/add',
+    component: InvestmentPreferComponent
+  },
+  {
+    path:'preferences/update',
+    component: InvestmentPreferUpdateComponent
   },
   {
     path:'report',

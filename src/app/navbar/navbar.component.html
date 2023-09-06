@@ -14,7 +14,15 @@
       <li *ngIf="!login"><a routerLink="/portfolio">Portfolio</a></li>
       <li *ngIf="!login"><a routerLink="/trade-history">Trade History</a></li>
       <li *ngIf="!login"><a routerLink="/explore">Explore</a></li>
-      <li *ngIf="!login"><a routerLink="/preferences">Preferences</a></li>
+      <li *ngIf="!login">
+        <div>
+          <b>Preferences</b>
+        </div>
+        <div>      
+          <a routerLink="/preferences/add">Add</a>
+          <a routerLink="/preferences/update">Update</a>
+        </div>
+      </li>
       <li *ngIf="!login"><a routerLink="/roboadvisor">Robo Advisor</a></li>
       <li *ngIf="!login"><a routerLink="/report">Reports</a></li>
     </ul>

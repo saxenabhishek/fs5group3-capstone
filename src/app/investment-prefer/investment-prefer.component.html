@@ -63,10 +63,13 @@
                     </div>
                     <div class="col-md-6 mb-4">
                       <div class="form-outline">
-                        <label class="form-label"><input type="checkbox"  formControlName="cb" class="form-control form-control-md"  >Accept the Robo-Advisor terms and conditions</label> 
+                        <label class="form-label"><input type="checkbox"  formControlName="cb"   >Accept the Robo-Advisor terms and conditions</label> 
                         
                       </div>
                     </div>
+              </div>
+              <div>
+                <button class="btn btn-lg ms-2" type="submit" [disabled]="investmentForm.invalid">Submit</button>
               </div>
               </form>
             </div>
