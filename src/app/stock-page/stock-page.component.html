@@ -1,0 +1,45 @@
+<app-navbar></app-navbar>
+<section class="hero">
+  <div>
+    <h2>{{ (instrument?.instrumentDescription | slice : 0 : 12) + "" }}</h2>
+    <h3>{{ prices?.askPrice | currency }}</h3>
+  </div>
+</section>
+
+<section class="container">
+  <section class="main-part">
+    <!-- <article>
+      <div>52 week high:{{h52w}}</div>
+      <div>52 week low:{{l52w}}</div>
+      <div>Min</div>
+      <div></div>
+    </article> -->
+
+    <figure>
+      <div>
+        <apx-chart
+          [series]="chartOptions.series"
+          [chart]="chartOptions.chart"
+          [xaxis]="chartOptions.xaxis"
+          [title]="chartOptions.title"
+          [noData]="chartOptions.noData"
+        ></apx-chart>
+      </div>
+    </figure>
+  </section>
+  <aside class="side-part">
+    <form [formGroup]="buyForm" (ngSubmit)="submitTrade()">
+      <span>
+        <label for="title">Price</label>
+        <input type="text" id="title" formControlName="price" />
+      </span>
+      <span>
+        <label for="author">Quantity</label>
+        <input type="text" id="author" formControlName="quantity" />
+      </span>
+      <span class="subm">
+        <button type="submit" [disabled]="!buyForm.valid">Buy</button>
+      </span>
+    </form>
+  </aside>
+</section>

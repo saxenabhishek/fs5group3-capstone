@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { RegisterPageComponent } from './register-page/register-page.component';
+
+import { StockPageComponent } from './stock-page/stock-page.component';
+import { ExplorePageComponent } from './explore-page/explore-page.component';
 import { DemoLandingComponent } from './demo-landing/demo-landing.component';
 import { PortfolioComponent } from './portfolio/portfolio.component';
 import { TradeHistoryComponent } from './trade-history/trade-history.component';
@@ -12,45 +15,48 @@ import { InvestmentPreferUpdateComponent } from './investment-prefer-update/inve
 
 const routes: Routes = [
   {
-    path:'',
-    component: DemoLandingComponent
-  },  
-  {
-    path:'register',
-    component: RegisterPageComponent
+    path: '',
+    component: DemoLandingComponent,
   },
   {
-    path:'login',
-    component: LoginPageComponent
+    path: 'register',
+    component: RegisterPageComponent,
   },
   {
-    path:'portfolio',
-    component: PortfolioComponent
+    path: 'login',
+    component: LoginPageComponent,
   },
   {
-    path:'trade-history',
-    component: TradeHistoryComponent
+    path: 'portfolio',
+    component: PortfolioComponent,
   },
   {
-    path:'preferences/add',
-    component: InvestmentPreferComponent
+    path: 'preferences/add',
+    component: InvestmentPreferComponent,
   },
   {
-    path:'preferences/update',
-    component: InvestmentPreferUpdateComponent
+    path: 'preferences/update',
+    component: InvestmentPreferUpdateComponent,
   },
   {
-    path:'report',
-    component: ReportPageComponent
+    path: 'trade-history',
+    component: TradeHistoryComponent,
+  },
+
+  {
+    path: 'report',
+    component: ReportPageComponent,
   },
   {
-    path:'roboadvisor',
-    component: RoboadvisorPageComponent
-  }
+    path: 'roboadvisor',
+    component: RoboadvisorPageComponent,
+  },
+  { path: 'explore', component: ExplorePageComponent },
+  { path: 'instrument/:id', component: StockPageComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

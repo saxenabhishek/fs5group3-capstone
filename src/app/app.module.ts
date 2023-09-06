@@ -5,6 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
+import { StockPageComponent } from './stock-page/stock-page.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgApexchartsModule } from 'ng-apexcharts';
+import { ExplorePageComponent } from './explore-page/explore-page.component';
+import { HttpClientModule } from '@angular/common/http';
 import { ReportPageComponent } from './report-page/report-page.component';
 import { RoboadvisorPageComponent } from './roboadvisor-page/roboadvisor-page.component';
 import { DemoLandingComponent } from './demo-landing/demo-landing.component';
@@ -19,6 +24,8 @@ import { InvestmentPreferUpdateComponent } from './investment-prefer-update/inve
     AppComponent,
     LoginPageComponent,
     RegisterPageComponent,
+    StockPageComponent,
+    ExplorePageComponent,
     ReportPageComponent,
     RoboadvisorPageComponent,
     DemoLandingComponent,
@@ -32,9 +39,12 @@ import { InvestmentPreferUpdateComponent } from './investment-prefer-update/inve
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    NgApexchartsModule,
+    HttpClientModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
