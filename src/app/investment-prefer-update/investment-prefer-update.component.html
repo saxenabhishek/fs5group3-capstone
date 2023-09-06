@@ -1,0 +1,71 @@
+<section style="background-color: #2f4858;">
+    <div class="container py-5">
+      <div class="row d-flex justify-content-center align-items-center">
+        <div class="col">
+          <div class="card card-registration my-4">
+            <div class="row g-0">
+              <div class="col-xl-6 d-none d-xl-block img-container">
+                <img
+                  src="https://cdn4.vectorstock.com/i/1000x1000/69/18/stock-market-trader-looking-at-multiple-computer-vector-19626918.jpg"
+                  alt="Sample photo"
+                  class="img-fluid"
+                  style="
+                    border-top-left-radius: 0.25rem;
+                    border-bottom-left-radius: 0.25rem;
+                  "
+                />
+              </div>
+              
+              <div class="col-xl-6">
+                <div>
+                    <h3 style="font-weight: bolder; text-align:center ;">Update Preferences</h3>
+                  </div>
+                <div class="card-body p-md-5 text-black">
+                <form [formGroup]="updateForm" (ngSubmit)="updatePreference()">
+                    <div class="row">
+                      <div class="col-md-6 mb-4">
+                        <div class="form-outline">
+                          <label class="form-label" for="purpose">Investment Purpose</label> 
+                          <input type="text"  formControlName="purpose" class="form-control form-control-md" placeholder="{{preference.purpose}}" >
+                        </div>
+                      </div>
+                      <div class="row">
+                      <div class="col-md-6 mb-4">
+                        <div class="form-outline">
+                          <label class="form-label" for="risk">Risk Tolerance</label>
+                          <select formControlName="risk" class="form-select">
+                            <option value="" >{{preference.risk}}</option>
+                            <option *ngFor="let risk of riskTolerance">{{risk}}</option>
+                       </select>
+                        </div>
+                      </div>
+                    </div>
+  
+                    <div class="form-outline mb-4">
+                      <label class="form-label" for="income">Income Category</label>
+                      <select formControlName="income" class="form-select">
+                        <option value="">{{preference.income}}</option>
+                        <option *ngFor="let income of incomeCategory">{{income}}</option>
+                    </select>
+                     
+                    </div>
+  
+                    <div class="form-outline mb-4">
+                      <label class="form-label" for="length">Length of Investment</label>
+                      <select formControlName="length" class="form-select">
+                        <option value="">{{preference.length}}</option>
+                        <option *ngFor="let length of lengthOfInvestment">{{length}}</option>
+                    </select>
+                  
+                
+                    </div>
+              </div>
+              </form>
+            </div>
+            </div>
+          </div>
+          </div></div>
+        </div>
+      </div>
+   
+  </section>
