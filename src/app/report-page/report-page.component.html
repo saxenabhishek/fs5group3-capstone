@@ -1,0 +1,40 @@
+<app-navbar></app-navbar>
+<body><div class="center">
+    <h2>SELECT A REPORT</h2>
+</div>
+
+<div class="button-container">
+    <button id="button2">Trade Confirmation</button>
+    <button id="button2">Tax Confirmation</button>
+    <button id="button2">Account Statements</button>
+    <button id="button2">Order Confirmation</button>
+    <button id="button2">Trade Settlement Statement</button>
+</div>
+<div class="cent">
+    <button class="button1" (click)="loadReport()">GENERATE REPORT</button>
+</div>
+<table *ngIf="reports.length">
+    <thead>
+        <tr>
+            <th>TradePrice</th>
+            <th>TradeType</th>
+            <th>TaxInfo</th>
+            <th>Currency</th>
+            <th>TradeDate</th>
+            <th>ConfirmationDate</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let r of reports">
+            <td>{{r.tradePrice}}</td>
+            <td>{{r.tradeType}}</td>
+            <td>{{r.taxInfo}}</td>
+            <td>{{r.currency}}</td>
+            <td>{{r.tradeDate}}</td>
+            <td>{{r.confirmationDate}}</td>
+        </tr>
+    </tbody>
+</table>
+
+<div id="nobooks" *ngIf="!reports.length"><h2>Click on Generate Reports to View report</h2></div>
+</body>

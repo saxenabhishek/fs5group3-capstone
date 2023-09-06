@@ -1,82 +1,82 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-import { first } from 'rxjs/operators';
-// import { IdentificationTypes } from '../models/enums/IdentificationTypeEnum';
-// import { CountryCodes } from '../models/enums/CountryEnum';
-// import { PostalCodes } from '../models/enums/PostalCodeEnum';
+import { Router } from '@angular/router';
+import { Person } from '../models/person.model';
+import { ClientIdentification } from '../models/client-identification.model';
+import { Client } from '../models/client.model';
+import { ClientService } from '../services/client.service';
 
-//import { AccountService, AlertService } from '@app/_services';
 @Component({
   selector: 'app-register-page',
   templateUrl: './register-page.component.html',
   styleUrls: ['./register-page.component.css'],
 })
 export class RegisterPageComponent {
-  registrationForm: FormGroup = new FormGroup<any>({});
-  email: any;
+  registrationForm: FormGroup = new FormGroup({});
+  clients: Client[]= [];
+  emailUnique: boolean= true;
+  userRegistered: boolean= false;
+  showDiv: boolean= false;
 
-  // identityTypes = new Map<string, string[]>([
-  //     [CountryCodes.India, [IdentificationTypes.Aadhaar, IdentificationTypes.Passport]],
-  //     [CountryCodes.USA, [IdentificationTypes.SSN, IdentificationTypes.Passport]],
-  //     [CountryCodes.Ireland, [ IdentificationTypes.Passport]]
-  // ])
-  // postalCodes = new Map<string, string>([
-  //     [CountryCodes.India, PostalCodes.India],
-  //     [CountryCodes.USA, PostalCodes.USA],
-  //     [CountryCodes.Ireland, PostalCodes.Ireland]
-  // ])
-  // countryCodes: string[] = Array.from(this.identityTypes.keys());
-  //   constructor(private fb:FormBuilder){}
-  //   ngOnInit():void{
-  //     this.registrationForm=this.fb.group({
-  //       email:['',[Validators.required,Validators.email]]
-  //     });
-  //   }
+  constructor(
+    private fb: FormBuilder, 
+    private clientService: ClientService
+    ) {}
+
+  ngOnInit() {
+    this.registrationForm = this.fb.group({
+      fName: ['', Validators.required],
+      lName: [''],
+      dob: ['', Validators.required],
+      country: ['', Validators.required],
+      postalCode: ['', Validators.required],
+      identification: ['', Validators.required],
+      email: ['', Validators.compose([Validators.required, Validators.email])],
+      password: ['', Validators.required],
+    });
+
+    this.loadAllClients();
+  }
+
   onSubmit() {
-    if (this.registrationForm.valid) {
+    if(this.registrationForm.valid)
+    {
+      if (this.clientService.verifyEmail(this.registrationForm.get('email')?.value)){
+        let newUser= new Person(
+          this.clients[this.clients.length-1].person.id + 1, 
+          this.registrationForm.get('country')?.value,
+          this.registrationForm.get('postalCode')?.value,
+          this.registrationForm.get('dob')?.value,
+          this.registrationForm.get('email')?.value,
+          this.registrationForm.get('password')?.value
+        );
+        let newUserID= new ClientIdentification(
+          this.registrationForm.get('country')?.value === 'india' ? 'Aadhaar' : 
+            (this.registrationForm.get('country')?.value === 'us' ? 'SSN' : 'Passport'),
+          this.registrationForm.get('identification')?.value
+        );
+        let newClient= new Client(
+          newUser,
+          newUserID
+        );
+        // console.log(newUser, newUserID);
+        this.clientService.addNewClient(newClient);
+        this.userRegistered= true;
+        this.showDiv= true;
+        this.emailUnique= true;
+        this.registrationForm.reset();
+        // Makes success msg div disappear after 5 seconds
+        setTimeout(() => this.showDiv = false, 5000);
+      }
+      else{
+        console.log("User Exists");
+        this.emailUnique= false;
+      }
     }
   }
 
-  //   get email()
-  //   {
-  //     return this.registrationForm.get('email');
-  //   }
-  // isEmailValidAndAvailable = false;
-  formInfo: any = {
-    name: '',
-    email: '',
-    password: '',
-    id: 0,
-    dob: '',
-    country: 'IN',
-    postalCode: '',
-    token: '',
-    type: '',
-    value: '',
-  };
-
-  //   onSubmit() {
-  //     if(this.registrationForm.valid)
-  //     {
-  //     console.log('Registration form submitted!');
-  //     console.log(`Name: ${this.name}`);
-  //     console.log(`Email: ${this.email}`);
-  //     console.log(`Id: ${this.id}`);
-  //     console.log(`Id: ${this.dob}`);
-  //     console.log(`Id: ${this.country}`);
-  //     console.log(`Id: ${this.postalcode}`);
-  //   }
-  // }
-  // constructor() { }
-
-  // ngOnInit() {
-  // }
-
-  //valid = this.terms.nativeElement.checked;
-
-  // onSignUp(form: NgForm) {
-  //   // console.log(this.terms);
-  //   // console.log(this.terms.nativeElement.checked);
-  // }
+  loadAllClients(){
+    this.clientService.getClients()
+      .subscribe(data => this.clients= data);
+  }
 }

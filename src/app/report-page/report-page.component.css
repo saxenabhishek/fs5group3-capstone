@@ -1,0 +1,127 @@
+body {
+   
+ background-image: url('src\assets\reportpage.jpg');
+ background-size: cover;
+ background-repeat: no-repeat;
+ background-attachment: fixed;
+ background-position: center; 
+ height: 110vh;
+ overflow: hidden; 
+ 
+}
+
+table {
+    table-layout: auto;
+    width: 90%;
+    margin: 3rem auto;
+    border-collapse: collapse;
+    border-spacing: 0;
+    text-align: center;
+    vertical-align: middle;
+     }
+  
+  tr {
+    height: 5rem;
+    border-bottom: 1px gray solid;
+  }
+  
+  tr:hover {
+    background-color: #e2ebf0;
+  }
+  
+  td {
+    padding: 2px;
+  }
+button {
+    color: #11bb90;
+}
+th {
+    background-color: #04AA6D;
+    color: white;
+    font-weight: bolder;
+  }
+
+#nobooks {
+    text-align: center;
+    width: 300px;
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 50px;
+    box-shadow: 0px 2px 5px rgba(0,0,0,0.2);
+}
+#nobooks h2
+{
+color: #333;
+}
+tbody tr:nth-child(even) td {
+    background: #cad9d9;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+#button2 {
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #1a48d2;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
+
+.button2:hover {
+    background-color: #1e8ad2
+}
+
+.button2:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+.button1 {
+    background-color: #4CAF50;
+    /* Green */
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.center {
+    text-align: center;
+
+}
+
+.cent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+h2 {
+    font-weight: bold;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    padding-bottom: 20px;
+    padding-top: 20px;
+   
+}

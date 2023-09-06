@@ -1,3 +1,20 @@
+<app-navbar></app-navbar>
+
+<div class="overview-card" >    
+    <h3>Total Portfolio Value</h3>
+    <div class="overview-card-details">
+        <span>&dollar;</span> 
+        {{ totalHoldings }}
+    </div>    
+    <div class="loss-gain"
+        [ngStyle]="{'color' : (totalCashValue < totalHoldings) ? 'green' : (totalCashValue > totalHoldings ? 'red' : 'gray')}"
+    >
+        <span *ngIf="totalCashValue < totalHoldings; else down">&#11105;</span>
+        <ng-template #down>&#11107;</ng-template>
+        {{ (totalHoldings - totalCashValue) * 100 / totalCashValue | number:'1.2-2'}} &percnt;
+    </div> 
+</div>
+
 <div class="card-table" >    
     <h3>Your Portfolio</h3>
     <hr>
@@ -5,20 +22,47 @@
         <thead>
             <th>Stock</th>
             <th>Shares</th>
-            <th>Type</th>
-            <th>Price</th>
-            <th>Value</th>
+            <th>Type <br><span>&percnt; Holdings</span></th>
+            <th>Price <br><span>&percnt; Change</span></th>
+            <th>Value <br><span>Gain/Loss</span></th>
         </thead>
         <tbody>
             <tr *ngFor="let trade of trades">
                 <td>{{trade.instrumentId}}</td>
                 <td>{{trade.quantity}}</td>
-                <td>{{trade.direction.stringValue === "B" ? "BUY" : "SELL"}}</td>
-                <td>&dollar;{{trade.executionPrice}}</td>
-                <td>{{trade.cashValue}}</td>
+                <td>
+                    {{trade.direction.stringValue === "B" ? "BUY" : "SELL"}} 
+                    <br>
+                    <span>{{ (1+((currentPrice1-trade.executionPrice) / trade.executionPrice)) * trade.cashValue * 100 / totalHoldings | number:'1.2-2' }} &percnt;</span>                    
+                </td>
+                <td>
+                    &dollar;{{trade.executionPrice}}
+                    <br>
+                    <span
+                        [ngStyle]="{'color' : (trade.executionPrice < currentPrice1) ? 'green' : (trade.executionPrice > currentPrice1 ? 'red' : 'gray')}"
+                    >
+                        {{ (currentPrice1-trade.executionPrice) * 100 / trade.executionPrice | number:'1.2-2' }} &percnt;
+                    </span>                
+                </td>
+                <td>
+                    {{ (1+((currentPrice1-trade.executionPrice) / trade.executionPrice)) * trade.cashValue | number:'1.2-2'}}
+                    <br>
+                    <span
+                        [ngStyle]="{'color': (trade.cashValue - (1+((currentPrice1-trade.executionPrice) / trade.executionPrice)) * trade.cashValue < 0 ? 
+                                        'green' : (trade.cashValue - (1+((currentPrice1-trade.executionPrice) / trade.executionPrice)) * trade.cashValue > 0 ? 'red' : 'gray')
+                        )}"
+                    >
+                        &dollar; 
+                       {{ abs(trade.cashValue - (1+((currentPrice1-trade.executionPrice) / trade.executionPrice)) * trade.cashValue) | number:'1.2-2' }}
+                    </span>               
+                </td>
+                <td id="buy-sell-td">
+                    <button id="buy-btn" >Buy</button>
+                    <button id="sell-btn">Sell</button>
+                </td>
             </tr>
         </tbody>
     </table>
     
-    <div id="notrades" *ngIf="!trades.length">No trading history available !</div>
+    <div id="notrades" *ngIf="!trades.length">No active investments available !</div>
 </div>

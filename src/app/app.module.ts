@@ -3,23 +3,33 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomePageComponent } from './home-page/home-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { StockPageComponent } from './stock-page/stock-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { ExplorePageComponent } from './explore-page/explore-page.component';
-import {HttpClientModule} from "@angular/common/http"
+import { HttpClientModule } from '@angular/common/http';
+import { ReportPageComponent } from './report-page/report-page.component';
+import { RoboadvisorPageComponent } from './roboadvisor-page/roboadvisor-page.component';
+import { DemoLandingComponent } from './demo-landing/demo-landing.component';
+import { TradeHistoryComponent } from './trade-history/trade-history.component';
+import { PortfolioComponent } from './portfolio/portfolio.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomePageComponent,
     LoginPageComponent,
     RegisterPageComponent,
     StockPageComponent,
-    ExplorePageComponent
+    ExplorePageComponent,
+    ReportPageComponent,
+    RoboadvisorPageComponent,
+    DemoLandingComponent,
+    TradeHistoryComponent,
+    PortfolioComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,9 +38,9 @@ import {HttpClientModule} from "@angular/common/http"
     FormsModule,
     BrowserAnimationsModule,
     NgApexchartsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
