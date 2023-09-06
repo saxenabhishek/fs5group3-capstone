@@ -1,23 +1,6 @@
-<!-- 
-<form>
-    <div class="form-group">
-        <label for="reportSelect">Choose a Report:</label>
-        <select id="reportSelect" [(ngModel)]="selectedReport" name="reportSelect" class="form-control">
-            <option *ngFor="let report of availableReports" [value]="report">
-               {{report}}
-            </option>
-        </select>
-        
-    </div>
-</form>
 
-
-<div *ngIf="selectedReport">
-    
-    <h3>You selected:{{selectedReport}}</h3>
-</div> -->
-<div class="center">
-    <h2>Select a report</h2>
+<body><div class="center">
+    <h2>SELECT A REPORT</h2>
 </div>
 
 <div class="button-container">
@@ -28,7 +11,7 @@
     <button id="button2">Trade Settlement Statement</button>
 </div>
 <div class="cent">
-    <button class="button1" (click)="loadReport()">Generate Report</button>
+    <button class="button1" (click)="loadReport()">GENERATE REPORT</button>
 </div>
 <table *ngIf="reports.length">
     <thead>
@@ -53,4 +36,5 @@
     </tbody>
 </table>
 
-<div id="nobooks" *ngIf="!reports.length">There are no reports available</div>
+<div id="nobooks" *ngIf="!reports.length"><h2>Click on Generate Reports to View report</h2></div>
+</body>
