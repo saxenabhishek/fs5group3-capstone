@@ -6,8 +6,7 @@ export class MockRoboadvisor {
         public tradeId:number,
         public tradePrice:number,
         public tradeType:string,
-        public tradeQuantity:number,
-        public tradeDate:string,
+        public tradeFluctuation:number,
         public buy:string,
         public sell:string
         

@@ -12,8 +12,7 @@ export class RoboadvisorService {
     tradeId: 12,
     tradePrice:50000,
     tradeType: 'Mutual Fund',
-    tradeQuantity:20,
-    tradeDate:'12/07/2021', 
+    tradeFluctuation:20,
     buy:'BUY' ,
     sell:'SELL' 
 }, {
@@ -22,8 +21,7 @@ export class RoboadvisorService {
   tradeId: 22,
   tradePrice:60000,
   tradeType: 'ETF',
-  tradeQuantity:90,
-  tradeDate:'12/07/2021',
+  tradeFluctuation:90,
   buy:'BUY' ,
   sell:'SELL'
 },
@@ -33,10 +31,29 @@ export class RoboadvisorService {
   tradeId: 12,
   tradePrice:50000,
   tradeType: 'Stock',
-  tradeQuantity:50,
-  tradeDate:'12/07/2021',
+  tradeFluctuation:50,
   buy:'BUY' ,
   sell:'SELL'
+},
+{
+  securityName:'Microsoft',
+  stockSymbol:'MSFT',
+  tradeId: 12,
+  tradePrice:50000,
+  tradeType: 'Stock',
+  tradeFluctuation:90, 
+  buy:'BUY' ,
+  sell:'SELL' 
+},
+{
+  securityName:'Google',
+  stockSymbol:'GOOG',
+  tradeId: 12,
+  tradePrice:50000,
+  tradeType: 'Stock',
+  tradeFluctuation:60, 
+  buy:'BUY' ,
+  sell:'SELL' 
 }
 
 ];
