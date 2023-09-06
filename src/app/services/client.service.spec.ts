@@ -11,7 +11,6 @@ describe('ClientService', () => {
   });
 
   it('should be created', () => {
-    //service
     expect(service).toBeTruthy();
   });
 });
