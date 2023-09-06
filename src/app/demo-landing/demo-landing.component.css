@@ -102,7 +102,7 @@ nav {
 
 /* Hero section */
 .hero {
-  background-image: url("https://www.heritagewestfutures.com/wp-content/uploads/2017/04/homepage-futures-trading-background-image.jpg");
+  background-image: url("https://media.istockphoto.com/id/1317587887/photo/trading-charts-on-a-display.jpg?b=1&s=612x612&w=0&k=20&c=hUdGYMkhZCfk5eYSxJh247HHnHc6kvgWBBPrAR1zsXI=");
   background-size: cover;
   background-position: center;
   color: #fff;
@@ -201,6 +201,7 @@ nav {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   margin: 20px;
   padding: 20px;
+  text-align: center;
 }
 
 .asset-card:hover {
@@ -209,7 +210,7 @@ nav {
 }
 
 .asset-image img {
-  max-width: 100%;
+  max-width: 30%;
   height: auto;
   border-radius: 8px;
   transition: transform 0.3s ease;

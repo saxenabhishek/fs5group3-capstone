@@ -3,13 +3,22 @@
   <header>
     <nav>
       <div class="nav-logo">
-        <a routerLink="/">FidTrade</a>
+        <a routerLink="/">
+          <img
+            src="../../assets/trade-logo.png"
+            alt="Trading App Logo"
+            class="logo"
+          />
+          FidTrade</a>
       </div>
       <ul class="nav-links">
         <li><a routerLink="/">Home</a></li>
-        <li><a routerLink="/about">About</a></li>
-        <li><a routerLink="/services">Services</a></li>
-        <li><a routerLink="/contact">Contact</a></li>
+        <li *ngIf="login"><a routerLink="/portfolio" >Portfolio</a></li>
+        <li *ngIf="login"><a routerLink="/trade-history">Trade History</a></li>
+        <li *ngIf="login"><a routerLink="/explore" >Explore</a></li>
+        <li *ngIf="login"><a routerLink="/preferences">Preferences</a></li>
+        <li *ngIf="login"><a routerLink="/robo-advisor">Preferences</a></li>
+        <li><a href="contacts">Contact</a></li>
       </ul>
     </nav>
   </header>
@@ -18,14 +27,16 @@
     <section class="hero">
       <div class="hero-content">
         <img
-          src="https://p2.hiclipart.com/preview/468/819/744/050-trading-text-relative-strength-index-trader-investor-market-maker-stock-trader-stock-market-trading-strategy-png-clipart.jpg"
+          src="../../assets/trade-logo.png"
           alt="Trading App Logo"
           class="logo"
         />
         <h1>Welcome to FidTrade</h1>
         <p>Trade stocks, cryptocurrencies, and more with ease.</p>
         <div class="cta-buttons">
-          <a routerLink="/login" class="btn btn-primary">Login</a>
+          <a  
+           class="btn btn-primary" 
+           (click)="changeLogin()">Login</a>
           <a routerLink="/register" class="btn btn-secondary">Sign Up</a>
         </div>
       </div>
@@ -48,7 +59,7 @@
       </div>
     </section>
     <!-- contacts.component.html -->
-    <section class="contacts">
+    <section class="contacts" id="contacts">
       <div class="container">
         <h2 class="section-title">Contact Us</h2>
         <div class="contact-info">
