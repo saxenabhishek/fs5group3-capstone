@@ -18,9 +18,7 @@ export class ReportPageComponent {
   // ];
   selectedReport: string = "";
   constructor(private reportsService: ReportsService) { }
-  ngOnInit() {
-    this.loadReport();
-  }
+  
 
   loadReport() {
     this.reportsService.getReport().subscribe(data => this.reports = data);

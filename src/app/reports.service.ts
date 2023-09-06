@@ -9,14 +9,14 @@ export class ReportsService {
   reports:MockReport[]= [{
     tradePrice: 12309,
     tradeType: 'Mutual Fund',
-    taxInfo: '',
+    taxInfo: 'VAT',
     currency: 500,
     tradeDate:'12/07/2021',
     confirmationDate:'13/07/2021'
 }, {
   tradePrice: 758659,
   tradeType: 'ETF',
-  taxInfo: '',
+  taxInfo: 'General tax',
   currency: 800,
   tradeDate:'12/07/2021',
   confirmationDate:'13/07/2021'
@@ -24,7 +24,7 @@ export class ReportsService {
 {
   tradePrice: 7683951,
   tradeType: 'Mutual Fund',
-  taxInfo: '',
+  taxInfo: 'VAT',
   currency: 500,
   tradeDate:'12/07/2021',
   confirmationDate:'13/07/2021'
