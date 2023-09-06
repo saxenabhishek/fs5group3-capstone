@@ -1,12 +1,10 @@
+<app-navbar></app-navbar>
 <section class="hero">
   <div>
     <h2>{{ (instrument?.instrumentDescription | slice : 0 : 12) + "" }}</h2>
     <h3>{{ prices?.askPrice | currency }}</h3>
   </div>
 </section>
-
-<h2></h2>
-<span>{{ prices?.askPrice }}</span>
 
 <section class="container">
   <section class="main-part">
@@ -30,7 +28,7 @@
     </figure>
   </section>
   <aside class="side-part">
-    <form [formGroup]="buyForm">
+    <form [formGroup]="buyForm" (ngSubmit)="submitTrade()">
       <span>
         <label for="title">Price</label>
         <input type="text" id="title" formControlName="price" />

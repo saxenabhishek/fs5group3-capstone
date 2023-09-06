@@ -40,7 +40,7 @@ const routes: Routes = [
     path: 'roboadvisor',
     component: RoboadvisorPageComponent,
   },
-  { path: 'instruments', component: ExplorePageComponent },
+  { path: 'explore', component: ExplorePageComponent },
   { path: 'instrument/:id', component: StockPageComponent },
 ];
 

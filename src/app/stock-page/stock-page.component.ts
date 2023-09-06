@@ -46,7 +46,7 @@ export class StockPageComponent {
     this.instrumentId = route.snapshot.params['id'];
     this.buyForm = this.formBuilder.group({
       price: ['', Validators.compose([Validators.required, Validators.min(3)])],
-      quantity: ['', Validators.required],
+      quantity: ['1', Validators.required],
     });
     this.chartOptions = {
       series: [],
@@ -67,6 +67,7 @@ export class StockPageComponent {
     tradeService.getPriceById(this.instrumentId).subscribe((data) => {
       this.prices = data;
       this.instrument = data.instrument;
+      this.buyForm.get("price")?.setValue(this.prices.askPrice)
       this.chartOptions.series = [
         {
           // data: [10, 41, 35, 51, 49, 62, 69, 91, 148].map((e, i) => {
@@ -79,5 +80,9 @@ export class StockPageComponent {
         },
       ];
     });
+  }
+
+  submitTrade(){
+    alert("Trade Executed")
   }
 }
