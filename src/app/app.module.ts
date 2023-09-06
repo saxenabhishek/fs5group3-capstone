@@ -10,6 +10,7 @@ import { StockPageComponent } from './stock-page/stock-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { ExplorePageComponent } from './explore-page/explore-page.component';
+import {HttpClientModule} from "@angular/common/http"
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ExplorePageComponent } from './explore-page/explore-page.component';
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
-    NgApexchartsModule
+    NgApexchartsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
