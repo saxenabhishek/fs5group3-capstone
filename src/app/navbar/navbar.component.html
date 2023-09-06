@@ -1,0 +1,22 @@
+<header>
+  <nav>
+    <div class="nav-logo">
+      <a routerLink="/">
+        <img
+          src="../../assets/trade-logo.png"
+          alt="Trading App Logo"
+          class="logo"
+        />
+        FidTrade</a
+      >
+    </div>
+    <ul class="nav-links">
+      <li *ngIf="!login"><a routerLink="/portfolio">Portfolio</a></li>
+      <li *ngIf="!login"><a routerLink="/trade-history">Trade History</a></li>
+      <li *ngIf="!login"><a routerLink="/explore">Explore</a></li>
+      <li *ngIf="!login"><a routerLink="/preferences">Preferences</a></li>
+      <li *ngIf="!login"><a routerLink="/roboadvisor">Robo Advisor</a></li>
+      <li *ngIf="!login"><a routerLink="/report">Reports</a></li>
+    </ul>
+  </nav>
+</header>

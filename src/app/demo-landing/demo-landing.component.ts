@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ClientService } from '../services/client.service';
 
 @Component({
   selector: 'app-demo-landing',
@@ -6,7 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./demo-landing.component.css']
 })
 export class DemoLandingComponent {
-  login: boolean= false;
+
+  constructor(private clientService: ClientService) {}
+
   featuredAssets: any[] = [
     {
       name: 'Alphabet Stocks',
@@ -31,6 +34,6 @@ export class DemoLandingComponent {
   ];
 
   changeLogin(){
-    this.login= true;
+    this.clientService.toggleLogin();
   }
 }

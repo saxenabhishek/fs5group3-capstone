@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Client } from '../models/client.model';
 import { Observable, of } from 'rxjs';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 const testClients= [
   {
@@ -93,8 +94,8 @@ const testClients= [
   providedIn: 'root'
 })
 export class ClientService {
-
-  constructor() { }
+  login: boolean= false;
+  constructor(private navbar: NavbarComponent) { }
 
   getClients(): Observable<Client[]>{
     return of(testClients);
@@ -107,5 +108,10 @@ export class ClientService {
 
   verifyEmail(email: string): Boolean{
     return !testClients.find(client => client.person.email === email);
+  }
+
+  toggleLogin(){
+    this.login= true;
+    this.navbar.changeLogin(this.login);
   }
 }
