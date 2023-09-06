@@ -1,1 +1,86 @@
-<p>login-page works!</p>
+<section style="background-color: #2f4858;">
+    <div class="container py-5">
+      <div class="row d-flex justify-content-center align-items-center">
+        <div class="col">
+          <div class="card card-registration my-4">
+            <div class="row g-0">
+              <div class="col-xl-6 d-none d-xl-block img-container">
+                <img
+                  src="https://cdn4.vectorstock.com/i/1000x1000/69/18/stock-market-trader-looking-at-multiple-computer-vector-19626918.jpg"
+                  alt="Sample photo"
+                  class="img-fluid"
+                  style="
+                    border-top-left-radius: 0.25rem;
+                    border-bottom-left-radius: 0.25rem;
+                  "
+                />
+              </div>
+              <div class="col-xl-6">
+                <div class="card-body p-md-5 text-black">
+                  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                    
+                    <div class="form-outline mb-4">
+                      <label class="form-label" for="email">
+                        Email ID</label
+                      >
+                      <input
+                        class="form-control form-control-md"
+                        [class.is-invalid]
+                        type="email"
+                        name="email"
+                        id="email"
+                        formControlName="email"
+                        required/>
+                        <span class="text-danger" *ngIf="(loginData.email.touched || submitted) && loginData.email.errors?.['required']">
+                            emailAddress is required    
+                         </span>
+                         <span class="text-danger" *ngIf="loginData.email.touched && loginData.email.errors?.['email']">
+                            Enter a valid email address. It should be in the format (test@example.com)
+                        </span>
+                      
+                      <!-- <div *ngIf="email.invalid && (email.dirty||email.touched)">
+                        <div *ngIf="email.errors?.required">Email is required</div>
+                        <div *ngIf="email.errors?.email">Email is invalid</div>
+                      </div>  -->
+                    </div>
+  
+                    <div class="form-outline mb-4">
+                      <label class="form-label" for="password">
+                        Password</label
+                      >
+                      <input
+                        class="form-control form-control-md"
+                        [class.is-invalid]
+                        type="password"
+                        name="password"
+                        id="password"
+                        formControlName="password"
+                        required
+                      />
+                      
+                      <span class="text-danger" *ngIf="(submitted && loginData.password.hasError('required')) || loginData.password.touched && loginData.password.errors?.['invalidpassword']">
+                        password cannot be empty and it should have minimum 8 characters, at least 1 uppercase letter, 1 lowercase
+                        letter and 1 number
+                      </span>
+                      <!-- <div *ngIf="email.invalid && (email.dirty||email.touched)">
+                        <div *ngIf="email.errors?.required">Email is required</div>
+                        <div *ngIf="email.errors?.email">Email is invalid</div>
+                      </div>  -->
+                    </div>                  
+                    <div class="d-flex justify-content-end pt-3">
+                      <button type="submit" class="btn btn-lg ms-2">
+                        Login
+                      </button>                    
+                    </div>
+                  </form>                 
+                  <br/>                 
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
