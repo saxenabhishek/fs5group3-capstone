@@ -1,0 +1,128 @@
+body {
+   background-color: #d0f4de;
+    height: 110vh;
+    overflow: hidden;
+}
+
+table {
+    table-layout: auto;
+    width: 90%;
+    margin: 3rem auto;
+    text-align: center;
+    vertical-align: middle;
+  }
+  
+  tr {
+    height: 5rem;
+    border-bottom: 1px gray solid;
+  }
+  
+  tr:hover {
+    background-color: #e2ebf0;
+  }
+  
+  td {
+    padding: 2px;
+  }
+
+button {
+    color: #11bb90;
+}
+
+
+#nocars {
+    text-align: center;
+}
+
+
+
+/* color every other row differently */
+
+
+th {
+    background-color: #04AA6D;
+    color: white;
+    font-weight: bolder;
+  }
+tbody tr:nth-child(even) td {
+    background: #d4ddde;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+#button2 {
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #1a48d2;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
+
+.button2:hover {
+    background-color: #1e8ad2
+}
+
+.button2:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+.button1 {
+    background-color: #3fac43;
+    /* Green */
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    font-weight:bolder;
+}
+
+.center {
+    text-align: center;
+
+}
+
+.cent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+h2 {
+    font-family: Georgia;
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+.button3{
+    /* border: 1px #F9ADA0  solid; */
+    border:none;
+    background-color: #D0F4DE;
+    color:#2f4858;
+    font-weight: 600;
+    padding: 1rem;
+    border-radius: 1rem;
+    width: 90%;
+  }
+  
+  .button3:hover{
+    background-color: #2f4858;
+    color: white;
+  }
