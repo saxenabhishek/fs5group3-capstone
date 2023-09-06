@@ -1,0 +1,91 @@
+.overview-card-details span{
+    font-size: 2rem;
+    font-weight: 600;
+    color: #2F4858;
+}
+.overview-card-details{
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+
+.card-table, .overview-card{    
+    box-shadow: 1px 1px 29px -7px rgba(0,0,0,0.83);
+    -webkit-box-shadow: 1px 1px 29px -7px rgba(0,0,0,0.83);
+    -moz-box-shadow: 1px 1px 29px -7px rgba(0,0,0,0.83);    
+    border-radius: 10px;
+    width: 60%;
+    padding: 1.5rem;
+    margin: 2rem auto;
+    font-family: Montserrat, sans-serif;
+}
+h3{
+    margin-top: 0;
+    color: rgb(82, 82, 82);
+}
+table{
+    width:-webkit-fill-available;
+}
+td{
+    padding: 1rem 0 1rem 2rem;
+    font-size: 0.9rem;    
+    width: 20%;
+    text-align: right;
+}
+th{
+    width: 20%;
+    color: rgb(82, 82, 82);
+    text-align: right;
+    padding: 1rem 0;
+}
+th span, td span{
+    font-size: 0.7rem;
+}
+th:first-child, td:first-child{
+    padding-left: 0;
+    text-align: left;
+}
+td:nth-child(3){
+    color: #2F4858; 
+    font-weight: 600;
+}
+tr:hover{
+    background-color: rgb(233, 240, 241); 
+}
+#notrades{
+    margin: 0 auto;
+}
+
+#buy-sell-td{
+    display: flex;
+    width: 20%;
+    justify-content: space-between;
+
+}
+#buy-sell-td button{
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;    
+    margin-right: 0.5rem;
+}
+#buy-btn{
+    background-color: #2F4858;
+    color: white;
+    border: 0.5px solid #2F4858 !important;
+}
+#buy-btn:hover{
+    background-color: transparent;
+    color: #2F4858;
+    transition: all 300ms ease-in-out;
+}
+#sell-btn{
+    background-color: #336699;
+    color: white;
+    border: 0.5px solid #336699 !important;
+}
+#sell-btn:hover{
+    background-color: transparent;
+    color: #336699;
+    transition: all 300ms ease-in-out;
+}
