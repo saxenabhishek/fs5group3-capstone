@@ -1,15 +1,21 @@
-<p>portfolio-page works!</p>
+<section class="hero">
+  <div>
+    <h2>{{ (instrument?.instrumentDescription | slice : 0 : 12) + "" }}</h2>
+    <h3>{{ prices?.askPrice | currency }}</h3>
+  </div>
+</section>
 
-<h2>Name of stock</h2>
-<span>Current price</span>
+<h2></h2>
+<span>{{ prices?.askPrice }}</span>
 
 <section class="container">
   <section class="main-part">
-    <article>
-      <div>info card 1</div>
-      <div>info card 2</div>
-      <div>info card 3</div>
-    </article>
+    <!-- <article>
+      <div>52 week high:{{h52w}}</div>
+      <div>52 week low:{{l52w}}</div>
+      <div>Min</div>
+      <div></div>
+    </article> -->
 
     <figure>
       <div>
@@ -18,17 +24,24 @@
           [chart]="chartOptions.chart"
           [xaxis]="chartOptions.xaxis"
           [title]="chartOptions.title"
+          [noData]="chartOptions.noData"
         ></apx-chart>
       </div>
-      <p>A Chart to show info</p>
     </figure>
   </section>
   <aside class="side-part">
-    <button>Buy</button>
-    <button>Sell</button>
-    <div>
-      A form that changes based on button press
-      <button>Confirm</button>
-    </div>
+    <form [formGroup]="buyForm">
+      <span>
+        <label for="title">Price</label>
+        <input type="text" id="title" formControlName="price" />
+      </span>
+      <span>
+        <label for="author">Quantity</label>
+        <input type="text" id="author" formControlName="quantity" />
+      </span>
+      <span class="subm">
+        <button type="submit" [disabled]="!buyForm.valid">Buy</button>
+      </span>
+    </form>
   </aside>
 </section>

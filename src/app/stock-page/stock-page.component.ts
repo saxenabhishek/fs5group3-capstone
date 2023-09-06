@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-ActivatedRoute
+ActivatedRoute;
 
 import {
   ChartComponent,
@@ -9,13 +9,20 @@ import {
   ApexChart,
   ApexXAxis,
   ApexTitleSubtitle,
+  ApexNoData,
 } from 'ng-apexcharts';
+import { TradeService } from '../services/trade.service';
+import { Instruments } from '../models/instruments';
+import { Prices } from '../models/prices';
+
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
   xaxis: ApexXAxis;
   title: ApexTitleSubtitle;
+  noData: ApexNoData;
 };
 
 @Component({
@@ -24,39 +31,53 @@ export type ChartOptions = {
   styleUrls: ['./stock-page.component.css'],
 })
 export class StockPageComponent {
-  @ViewChild('chart') chart?: ChartComponent
+  @ViewChild('chart') chart?: ChartComponent;
   public chartOptions: ChartOptions;
-  instrumentId: string = ""
+  instrumentId: string = '';
+  instrument?: Instruments;
+  prices?: Prices;
+  buyForm: FormGroup = new FormGroup({});
 
-  constructor( private route: ActivatedRoute) {
-    this.instrumentId = route.snapshot.params["id"]
+  constructor(
+    private route: ActivatedRoute,
+    private tradeService: TradeService,
+    private formBuilder: FormBuilder
+  ) {
+    this.instrumentId = route.snapshot.params['id'];
+    this.buyForm = this.formBuilder.group({
+      price: ['', Validators.compose([Validators.required, Validators.min(3)])],
+      quantity: ['', Validators.required],
+    });
     this.chartOptions = {
-      series: [
-        {
-          name: 'My-series',
-          data: [10, 41, 35, 51, 49, 62, 69, 91, 148],
-        },
-      ],
+      series: [],
       chart: {
         height: 500,
-        type: 'bar',
+        type: 'line',
       },
       title: {
-        text: 'price of ' + this.instrumentId,
+        text: this.instrumentId,
       },
       xaxis: {
-        categories: [
-          'Jan',
-          'Feb',
-          'Mar',
-          'Apr',
-          'May',
-          'Jun',
-          'Jul',
-          'Aug',
-          'Sep',
-        ],
+        type: 'datetime',
+      },
+      noData: {
+        text: 'Loading...',
       },
     };
+    tradeService.getPriceById(this.instrumentId).subscribe((data) => {
+      this.prices = data;
+      this.instrument = data.instrument;
+      this.chartOptions.series = [
+        {
+          // data: [10, 41, 35, 51, 49, 62, 69, 91, 148].map((e, i) => {
+          data: [...Array(20)].map((e, i) => {
+            return [
+              new Date().getTime() + i * 1800000,
+              Math.round(Math.random() * 100) + (this.prices?.askPrice || 1000),
+            ];
+          }),
+        },
+      ];
+    });
   }
 }
