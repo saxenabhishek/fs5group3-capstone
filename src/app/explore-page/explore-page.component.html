@@ -1,0 +1,33 @@
+<p>explore-page works!</p>
+
+<section class="hero">
+  <div>
+    <h2>Instruments</h2>
+    <h3>Buy anything you want</h3>
+  </div>
+</section>
+
+<section class="container">
+  <table>
+    <th>ID</th>
+    <th>Type</th>
+    <th>Category</th>
+    <th>Description</th>
+    <th></th>
+    <tr *ngFor="let instrument of instruments">
+      <td>
+        <a [routerLink]="['/instrument', instrument.instrumentId]">{{
+          instrument.externalId
+        }}</a>
+      </td>
+      <td>{{ instrument.externalIdType }}</td>
+      <td>
+        <span class="tags">
+          {{ instrument.categoryId | lowercase }}
+        </span>
+      </td>
+      <td>{{ instrument.instrumentDescription }}</td>
+      <td><button>Buy</button></td>
+    </tr>
+  </table>
+</section>
