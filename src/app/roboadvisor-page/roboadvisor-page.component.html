@@ -1,0 +1,38 @@
+
+<div class="cent">
+    <button class="button1" (click)="loadData()">Top 5 BUY/SELL Trades</button>
+</div>
+
+<table *ngIf="roboadvisor.length">
+    <thead>
+        <tr>
+            
+            <th>SecurityName</th>
+            <th>SecuriySymbol</th>
+            <th>TradeID</th>
+            <th>TradePrice</th>
+            <th>TradeType</th>
+            <th>TradeQuantity</th>
+            <th>TradeDate</th>
+            <th>Execute Trade</th>
+          
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let r of roboadvisor">
+            <td>{{r.securityName}}</td>
+            <td>{{r.stockSymbol}}</td>
+            <td>{{r.tradeId}}</td>
+            <td>{{r.tradePrice}}</td>
+            <td>{{r.tradeType}}</td>
+            <td>{{r.tradeQuantity}}</td>
+            <td>{{r.tradeDate}}</td>
+            <td col-span="2"><button class=".button3">{{r.buy}}</button>
+                <button class=".button3">{{r.sell}}</button>
+            </td>
+            
+        </tr>
+    </tbody>
+</table>
+
+<div id="nobooks" *ngIf="!roboadvisor.length">There are no reports available</div>
