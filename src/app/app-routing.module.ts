@@ -5,6 +5,8 @@ import { DemoLandingComponent } from './demo-landing/demo-landing.component';
 import { PortfolioComponent } from './portfolio/portfolio.component';
 import { TradeHistoryComponent } from './trade-history/trade-history.component';
 import { LoginPageComponent } from './login-page/login-page.component';
+import { ReportPageComponent } from './report-page/report-page.component';
+import { RoboadvisorPageComponent } from './roboadvisor-page/roboadvisor-page.component';
 
 const routes: Routes = [
   {
@@ -26,6 +28,14 @@ const routes: Routes = [
   {
     path:'trade-history',
     component: TradeHistoryComponent
+  },
+  {
+    path:'report',
+    component: ReportPageComponent
+  },
+  {
+    path:'roboadvisor',
+    component: RoboadvisorPageComponent
   }
 ];
 
