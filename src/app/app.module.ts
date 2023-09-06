@@ -16,6 +16,8 @@ import { DemoLandingComponent } from './demo-landing/demo-landing.component';
 import { TradeHistoryComponent } from './trade-history/trade-history.component';
 import { PortfolioComponent } from './portfolio/portfolio.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { InvestmentPreferComponent } from './investment-prefer/investment-prefer.component';
+import { InvestmentPreferUpdateComponent } from './investment-prefer-update/investment-prefer-update.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,8 @@ import { NavbarComponent } from './navbar/navbar.component';
     TradeHistoryComponent,
     PortfolioComponent,
     NavbarComponent,
+    InvestmentPreferComponent,
+    InvestmentPreferUpdateComponent
   ],
   imports: [
     BrowserModule,
