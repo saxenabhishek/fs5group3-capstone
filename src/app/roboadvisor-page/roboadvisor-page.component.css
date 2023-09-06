@@ -1,11 +1,7 @@
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    
-    
+   background-color: #d0f4de;
+    height: 110vh;
+    overflow: hidden;
 }
 
 table {
