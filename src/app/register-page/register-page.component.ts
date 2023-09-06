@@ -63,7 +63,7 @@ export class RegisterPageComponent {
         this.clientService.addNewClient(newClient);
         this.userRegistered= true;
         this.showDiv= true;
-
+        this.emailUnique= true;
         this.registrationForm.reset();
         // Makes success msg div disappear after 5 seconds
         setTimeout(() => this.showDiv = false, 5000);

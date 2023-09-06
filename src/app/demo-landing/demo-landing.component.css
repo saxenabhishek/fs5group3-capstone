@@ -1,0 +1,285 @@
+/* styles.css or your component-specific CSS */
+
+/* Primary color */
+:root {
+  --primary-color: #336699;
+}
+
+/* Background color */
+body {
+  background-color: #2f4858;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  margin: 0;
+}
+
+/* Header */
+/* styles.css or your component-specific CSS */
+
+/* Navbar */
+/* styles.css or your component-specific CSS */
+
+/* Navbar */
+header {
+  background-color: #2f4858; /* Dark background color */
+  color: #fff; /* Light text color */
+  padding: 20px 0;
+  text-align: center;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px; /* Add horizontal padding */
+}
+
+.nav-logo a {
+  font-size: 1.8rem;
+  color: #f18d05; /* Contrasting color for the app name */
+  text-decoration: none;
+  font-weight: bold; /* Make the app name bold */
+}
+
+.nav-links {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center; /* Center-align the links horizontally */
+}
+
+.nav-links li {
+  margin-right: 20px;
+}
+
+.nav-links a {
+  color: #fff; /* White link text */
+  text-decoration: none;
+  transition: color 0.3s ease;
+  font-weight: bold; /* Make the link text bold */
+  padding: 10px 15px; /* Add padding around the links */
+  border-radius: 5px; /* Add rounded corners to the links */
+}
+
+.nav-links a:hover {
+  background-color: #336699; /* Background color on hover */
+  color: #fff; /* Text color on hover */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Add a mobile responsive menu icon */
+.nav-toggle {
+  display: none; /* Initially hidden on larger screens */
+  font-size: 24px;
+  cursor: pointer;
+  color: #fff; /* White menu icon color */
+}
+
+/* Adjustments for mobile responsiveness */
+@media screen and (max-width: 768px) {
+  .nav-links {
+    display: none; /* Hide the links on smaller screens */
+    flex-direction: column; /* Stack links vertically */
+    position: absolute;
+    top: 60px; /* Adjust the top position to avoid overlapping header */
+    right: 20px;
+    background-color: #2f4858; /* Dark background color */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    z-index: 1;
+  }
+
+  .nav-links.show {
+    display: flex; /* Show the links when the menu is active */
+  }
+
+  .nav-toggle {
+    display: block; /* Show the menu icon on smaller screens */
+  }
+}
+
+/* Hero section */
+.hero {
+  background-image: url("https://www.heritagewestfutures.com/wp-content/uploads/2017/04/homepage-futures-trading-background-image.jpg");
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  text-align: center;
+  padding: 100px 0;
+  animation: fadeIn 2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.logo {
+  width: 100px;
+  margin-bottom: 20px;
+}
+
+.hero-content {
+  max-width: 600px;
+  margin: 0 auto;
+  transform: translateY(-20px);
+  animation: slideUp 1.5s ease-in-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100px);
+  }
+  to {
+    transform: translateY(-20px);
+  }
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.cta-buttons {
+  margin-top: 20px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 10px;
+  border-radius: 4px;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #a0c8c9;
+}
+
+.btn-secondary {
+  background-color: #96bfc5;
+  color: #fff;
+}
+
+.btn-secondary:hover {
+  background-color: #82adbc;
+}
+
+/* Featured Assets section */
+.featured-assets {
+  background-color: #a0c8c9;
+  padding: 40px 0;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 20px;
+  color: var(--primary-color);
+}
+
+.asset-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #d0f4de;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin: 20px;
+  padding: 20px;
+}
+
+.asset-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.asset-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.asset-card:hover .asset-image img {
+  transform: scale(1.1);
+}
+
+.asset-name {
+  font-size: 1.2rem;
+  margin-top: 10px;
+  color: var(--primary-color);
+}
+
+.asset-description {
+  margin-top: 10px;
+  color: #777;
+}
+
+.asset-link {
+  margin-top: 10px;
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.asset-card:hover .asset-link {
+  color: #82adbc;
+}
+
+/* Contacts section */
+.contacts {
+  background-color: #96bfc5;
+  padding: 40px 0;
+}
+
+.contact-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+}
+
+.contact-item i {
+  font-size: 24px;
+  margin-right: 10px;
+  color: var(--primary-color);
+}
+
+.contact-item p {
+  margin: 0;
+  font-size: 1rem;
+  color: #333;
+}
+
+
+footer {
+  background-color: #2f4858; /* Background color for the footer */
+  color: #fff; /* Text color in the footer */
+  padding: 10px 0;
+  text-align: center;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}

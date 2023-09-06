@@ -1,6 +1,6 @@
-<section class="h-100 bg-dark">
+<section style="background-color: #2f4858;">
   <div class="container py-5">
-    <div class="row d-flex justify-content-center align-items-center h-100">
+    <div class="row d-flex justify-content-center align-items-center">
       <div class="col">
         <div class="card card-registration my-4">
           <div class="row g-0">
@@ -154,7 +154,7 @@
                 
                 <br/>
                 <div *ngIf="!emailUnique" class="alert alert-danger" role="alert">
-                  Email ID already exists ! <br/>Please log-in.
+                  Email ID already exists !
                 </div>
 
                 <div *ngIf="emailUnique && userRegistered && showDiv" class="alert alert-success" role="alert">
