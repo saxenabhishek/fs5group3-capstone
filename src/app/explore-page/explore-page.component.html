@@ -26,7 +26,11 @@
         </span>
       </td>
       <td>{{ instrument.instrumentDescription }}</td>
-      <td><button>Buy</button></td>
+      <td>
+        <a [routerLink]="['/instrument', instrument.instrumentId]">
+          <button>Buy</button>
+        </a>
+      </td>
     </tr>
   </table>
 </section>
