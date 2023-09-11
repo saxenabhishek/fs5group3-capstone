@@ -6,6 +6,9 @@ import { Instruments } from '../models/instruments';
 import { INSTRUMENT_DATA } from '../const/instrument';
 import { Prices } from '../models/prices';
 import { PRICES } from '../const/prices';
+import { TRADE_DATA } from '../const/trade';
+import { Order } from '../models/order';
+import { ORDER_DATA } from '../const/order';
 
 @Injectable({
   providedIn: 'root',
@@ -16,13 +19,21 @@ export class TradeService {
 
   constructor(private http: HttpClient) {}
 
-  getAllTrades(): Trade[] {
-    return this.trades;
+  getTrades(): Observable<Trade[]> {
+    return of(TRADE_DATA);
   }
 
   getInstruments(): Observable<Instruments[]> {
     // return this.http.get<Instruments[]>(this.url)
     return of(INSTRUMENT_DATA);
+  }
+
+  getPrices(): Observable<Prices[]> {
+    return of(PRICES);
+  }
+
+  getOrders(): Observable<Order[]> {
+    return of(ORDER_DATA);
   }
 
   getInstrumentsById(id: String): Observable<Instruments> {
@@ -44,4 +55,5 @@ export class TradeService {
     });
     return of(ele);
   }
+  
 }

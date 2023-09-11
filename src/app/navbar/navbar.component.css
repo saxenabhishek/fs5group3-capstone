@@ -1,7 +1,7 @@
 /* Navbar */
 header {
   background-color: #2f4858; /* Dark background color */
-  color: #fff; /* Light text color */
+  color: antiquewhite; /* Light text color */
   padding: 20px 0;
   text-align: center;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
@@ -38,7 +38,7 @@ nav {
 } */
 
 .nav-links a {
-  color: #fff; /* White link text */
+  color: antiquewhite; /* White link text */
   text-decoration: none;
   transition: color 0.3s ease;
   font-weight: bold; /* Make the link text bold */

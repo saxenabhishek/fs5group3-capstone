@@ -108,13 +108,14 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #d0f4de;
+  background-color: #2f4858;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   margin: 20px;
   padding: 20px;
   text-align: center;
+  color: antiquewhite;
 }
 
 .asset-card:hover {
@@ -141,7 +142,7 @@ body {
 
 .asset-description {
   margin-top: 10px;
-  color: #777;
+  color: antiquewhite;
 }
 
 .asset-link {
