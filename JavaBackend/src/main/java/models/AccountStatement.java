@@ -1,3 +1,5 @@
+package models;
+
 public class AccountStatement extends Report {
 
 	public AccountStatement(String reportType) {

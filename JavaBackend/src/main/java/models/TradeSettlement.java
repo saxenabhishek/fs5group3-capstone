@@ -1,7 +1,8 @@
+package models;
 
-public class TradeSettlementStatement extends Report {
+public class TradeSettlement extends Report {
 
-	public TradeSettlementStatement(String reportType) {
+	public TradeSettlement(String reportType) {
 		super(reportType);
 		// TODO Auto-generated constructor stub
 	}

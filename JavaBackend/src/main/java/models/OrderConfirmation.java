@@ -1,3 +1,5 @@
+package models;
+
 public class OrderConfirmation extends Report {
 
 	public OrderConfirmation(String reportType) {

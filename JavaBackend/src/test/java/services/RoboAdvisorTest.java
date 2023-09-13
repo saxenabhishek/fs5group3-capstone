@@ -1,5 +1,7 @@
-import static org.junit.jupiter.api.Assertions.*;
+package services;
 
+import static org.junit.jupiter.api.Assertions.*;
+import models.RoboTrade;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

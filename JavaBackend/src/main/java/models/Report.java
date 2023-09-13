@@ -1,3 +1,5 @@
+package models;
+
 public abstract class Report {
     private String reportType;
     public Report(String reportType)
