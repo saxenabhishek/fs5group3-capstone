@@ -5,7 +5,7 @@ public class Preference {
 	private String riskTolerance;
 	private String incomeCategory;
 	private String lengthOfInvestmet;
-	boolean isAccept;
+	private boolean isAccept;
 	
 	public Preference(String investmentPurpose,String riskTolerance,String incomeCategory,String lengthOfInvestmet,boolean isAccept) {
 		this.setInvestmentPurpose(investmentPurpose);
@@ -47,6 +47,14 @@ public class Preference {
 	public void setLengthOfInvestmet(String lengthOfInvestmet) {
 		this.lengthOfInvestmet = lengthOfInvestmet;
 	}
-	
 
+	public boolean isAccept() {
+		return isAccept;
+	}
+
+	public void setAccept(boolean isAccept) {
+		this.isAccept = isAccept;
+	}
+	
+	
 }

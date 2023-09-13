@@ -18,7 +18,7 @@ public class ClientService {
 		if(pre==null) {
 			throw new NullPointerException("Preference can't be null ");
 		}
-		if(pre.isAccept) {
+		if(pre.isAccept()) {
 			preferences.add(pre);
 		}
 		
@@ -29,7 +29,7 @@ public class ClientService {
 			throw new NullPointerException("All fields are required");
 		}
 		for (Preference pre:preferences) {
-			pre.isAccept=true;
+			pre.setAccept(true);
 			if(!pre.getInvestmentPurpose().equals(purpose)) {
 				if(purpose.length()>1) {
 					pre.setInvestmentPurpose(purpose);
