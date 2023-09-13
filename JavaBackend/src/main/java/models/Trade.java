@@ -1,7 +1,9 @@
 package models;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.Instant;
+import java.util.Objects;
 
 public class Trade {
 	private Order order;
@@ -22,7 +24,8 @@ public class Trade {
 		this.executionPrice = executionPrice;
 		
 		this.quantity = order.getQuantity();
-		this.cashValue = executionPrice.multiply(new BigDecimal(quantity));		
+		this.cashValue = executionPrice.multiply(new BigDecimal(quantity))
+								.add(new BigDecimal("2.0")).setScale(2, RoundingMode.HALF_UP);		
         this.direction = order.getDirection();
 		this.instrumentId = order.getInstrumentId();
 		this.clientId = order.getClientId();
@@ -72,5 +75,27 @@ public class Trade {
 
 	public Instant getTimestamp() {
 		return this.timestamp;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(cashValue, clientId, direction, executionPrice, instrumentId, order, quantity, timestamp,
+				tradeId);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Trade other = (Trade) obj;
+		return Objects.equals(cashValue, other.cashValue) && Objects.equals(clientId, other.clientId)
+				&& direction == other.direction && Objects.equals(executionPrice, other.executionPrice)
+				&& Objects.equals(instrumentId, other.instrumentId) && Objects.equals(order, other.order)
+				&& quantity == other.quantity && Objects.equals(timestamp, other.timestamp)
+				&& Objects.equals(tradeId, other.tradeId);
 	}	
 }

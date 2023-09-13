@@ -2,6 +2,7 @@ package models;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.Objects;
 
 public class Order {
 	private String instrumentId, clientId, orderId;
@@ -79,5 +80,25 @@ public class Order {
 	
 	public Instant getTimestamp() {
 		return this.timestamp;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(clientId, direction, instrumentId, orderId, quantity, targetPrice, timestamp);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Order other = (Order) obj;
+		return Objects.equals(clientId, other.clientId) && direction == other.direction
+				&& Objects.equals(instrumentId, other.instrumentId) && Objects.equals(orderId, other.orderId)
+				&& quantity == other.quantity && Objects.equals(targetPrice, other.targetPrice)
+				&& Objects.equals(timestamp, other.timestamp);
 	}
 }
