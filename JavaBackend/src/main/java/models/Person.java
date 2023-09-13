@@ -5,7 +5,7 @@ import java.util.regex.*;
 import java.util.*;  
 
 public class Person {
-    private long id;
+	private long id;
     private String country;
     private String postalCode;
     private String dob;
@@ -13,14 +13,41 @@ public class Person {
     private String password;
 
     public Person(long id, String country, String postalCode, String dob, String email, String password) {
-        if (id <= 0) {
-            throw new IllegalArgumentException("ID must be a positive value.");
+        if (id < 0) {
+            throw new IllegalArgumentException("ID cant be negative");
         }
-        if (email == null || !isValidEmail(email)) {
+        if (id == 0) {
+            throw new IllegalArgumentException("ID cannot be 0");
+        }
+        if (!isValidEmail(email)) {
             throw new IllegalArgumentException("Invalid email address.");
         }
-        if (password == null || password.isEmpty()) {
+        if (email == null ) {
+            throw new IllegalArgumentException("email address cant be null");
+        }
+        if (password == null ) {
+            throw new IllegalArgumentException("Password cannot be null");
+        }
+        if (password.isEmpty()) {
             throw new IllegalArgumentException("Password cannot be empty.");
+        }
+        if (postalCode == null) {
+            throw new IllegalArgumentException("postal code cannot be null");
+        }
+        if (dob == null ) {
+            throw new IllegalArgumentException("dob cannot be null");
+        }
+        if (dob.isEmpty()) {
+            throw new IllegalArgumentException("dob cannot be empty.");
+        }
+        if (postalCode.isEmpty()) {
+            throw new IllegalArgumentException("postal code cannot be empty.");
+        }
+        if (country == null ) {
+            throw new IllegalArgumentException("dob cannot be null");
+        }
+        if (country.isEmpty()) {
+            throw new IllegalArgumentException("dob cannot be empty.");
         }
 
         this.id = id;
@@ -32,14 +59,11 @@ public class Person {
     }
 
     public static boolean isValidEmail(String email) {
-    	   
+
     	String EMAIL_REGEX = "^(?=.{1,256}$)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$";
         Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
-
-            return EMAIL_PATTERN.matcher(email).matches();
-        }
-   	
-    // Getter and setter methods
+        return EMAIL_PATTERN.matcher(email).matches();
+    }
 
     @Override
     public boolean equals(Object obj) {

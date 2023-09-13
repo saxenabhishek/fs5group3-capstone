@@ -5,11 +5,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ClientTest {
 
-    @Test
+	@Test
     void testValidClientCreation() {
-        Person person = new Person(1, "US", "12345", "1990-01-01", "test@example.com", "password");
+        Person person = new Person(1, "India", "12345", "01-01-2001", "testing@yahoo.com", "password");
         ClientIdentification identification = new ClientIdentification("Passport", "AB123456");
-
         assertDoesNotThrow(() ->
                 new Client(person, identification));
     }
@@ -23,7 +22,7 @@ public class ClientTest {
     @Test
     void testNullClientIdentification() {
         assertThrows(IllegalArgumentException.class, () ->
-                new Client(new Person(1, "US", "12345", "1990-01-01", "test@example.com","password"),null));
+                new Client(new Person(1, "US", "123", "01-01-2001", "testemail@gmail.com","password"),null));
     }
 
     @Test
@@ -35,16 +34,16 @@ public class ClientTest {
     @Test
     void testEmptyClientIdentification() {
         assertThrows(IllegalArgumentException.class, () ->
-                new Client(new Person(1, "US", "12345", "1990-01-01", "test@example.com", "password"), new ClientIdentification("", "")));
+                new Client(new Person(1, "US", "12345678", "01-01-2001", "testemail@gmail.com", "password"), new ClientIdentification("", "")));
     }
-    
+
     void testEmptyPerson() {
         assertThrows(IllegalArgumentException.class, () ->
-                new Client(new Person(1,"","","","",""), new ClientIdentification("Passport", "AB123456")));
+                new Client(new Person(1,"","","","",""), new ClientIdentification("Passport", "ABC12345")));
     }
     @Test
     void testEmptyClient() {
         assertThrows(IllegalArgumentException.class, () ->
                 new Client(new Person(1,"","","","",""), new ClientIdentification("", "")));
-    }  
+    }    
 }
