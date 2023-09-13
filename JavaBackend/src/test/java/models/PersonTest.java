@@ -1,6 +1,6 @@
-package TestClasses;
+package models;
+
 import org.junit.jupiter.api.Test;
-import Classes.Person;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 

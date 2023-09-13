@@ -1,8 +1,5 @@
-package TestClasses;
+package models;
 import org.junit.jupiter.api.Test;
-import Classes.Client;
-import Classes.ClientIdentification;
-import Classes.Person;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ClientIdentificationTest {
