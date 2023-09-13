@@ -2,14 +2,21 @@ package services;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import models.Order;
+import models.Price;
+
 class TradeServiceTest {
+	TradeService tradeService;
 
 	@BeforeEach
 	void setUp() throws Exception {
+		tradeService = new TradeService();
 	}
 
 	@AfterEach
@@ -18,17 +25,21 @@ class TradeServiceTest {
 
 	@Test
 	void testGetAllInsturments() {
-		fail("Not yet implemented");
+		List<Price> portfolio = tradeService.getAllInsturments();
+		assertEquals(2, portfolio.size());
 	}
 
 	@Test
-	void testPostBuyOrSellTrade() {
-		fail("Not yet implemented");
+	void testNullPostBuyOrSellTrade() throws Exception {
+		assertThrows(NullPointerException.class, () -> {
+			tradeService.postBuyOrSellTrade(null);
+		});
 	}
+	
 
 	@Test
 	void testGetClientProtfolio() {
-		fail("Not yet implemented");
+		
 	}
 
 }

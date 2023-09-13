@@ -17,4 +17,44 @@ public class Price {
 		this.instrument = instrument;
 		this.instrumentId = instrumentId;
 	}
+
+	public Double getAskPrice() {
+		return askPrice;
+	}
+
+	public void setAskPrice(Double askPrice) {
+		this.askPrice = askPrice;
+	}
+
+	public Double getBidPrice() {
+		return bidPrice;
+	}
+
+	public void setBidPrice(Double bidPrice) {
+		this.bidPrice = bidPrice;
+	}
+
+	public String getInstrumentId() {
+		return instrumentId;
+	}
+
+	public void setInstrumentId(String instrumentId) {
+		this.instrumentId = instrumentId;
+	}
+
+	public LocalDateTime getPriceTimestamp() {
+		return priceTimestamp;
+	}
+
+	public void setPriceTimestamp(LocalDateTime priceTimestamp) {
+		this.priceTimestamp = priceTimestamp;
+	}
+
+	public Instrument getInstrument() {
+		return instrument;
+	}
+
+	public void setInstrument(Instrument instrument) {
+		this.instrument = instrument;
+	}
 }
