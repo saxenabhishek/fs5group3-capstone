@@ -35,13 +35,6 @@ public class Instrument {
 	public void setMaxQuantity(int maxQuantity) {
 		this.maxQuantity = maxQuantity;
 	}
-
- 
-
-	public String getInstrumentId() {
-		return instrumentId;
-	}
-
  
 
 	public void setInstrumentId(String instrumentId) {
@@ -85,5 +78,9 @@ public class Instrument {
 		this.categoryId = categoryId;
 	}
 	
+	
+	public String getInstrumentId() {
+		return "";
+	}
 }
 

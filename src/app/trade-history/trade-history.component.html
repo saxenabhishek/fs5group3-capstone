@@ -12,7 +12,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let order of orders">
-                <td>{{order.instrument}}</td>
+                <td>{{order.instrumentId}}</td>
                 <td>{{date}}</td>
                 <td [ngStyle]="{'color' : (order.direction.stringValue == 'B') ? '#2F4858' : '#336699'}">
                     {{order.direction.stringValue === "B" ? "BUY" : "SELL"}}

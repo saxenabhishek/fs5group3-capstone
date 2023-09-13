@@ -18,6 +18,7 @@ import { PortfolioComponent } from './portfolio/portfolio.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { InvestmentPreferComponent } from './investment-prefer/investment-prefer.component';
 import { InvestmentPreferUpdateComponent } from './investment-prefer-update/investment-prefer-update.component';
+import { PortfolioChartComponent } from './portfolio-chart/portfolio-chart.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { InvestmentPreferUpdateComponent } from './investment-prefer-update/inve
     PortfolioComponent,
     NavbarComponent,
     InvestmentPreferComponent,
-    InvestmentPreferUpdateComponent
+    InvestmentPreferUpdateComponent,
+    PortfolioChartComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +44,7 @@ import { InvestmentPreferUpdateComponent } from './investment-prefer-update/inve
     FormsModule,
     BrowserAnimationsModule,
     NgApexchartsModule,
-    HttpClientModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent],

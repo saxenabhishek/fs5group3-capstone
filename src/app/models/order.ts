@@ -2,7 +2,7 @@ import { Direction } from "./direction";
 
 export class Order {
     constructor(
-        public instrument: string,
+        public instrumentId: string,
         public quantity: number,
         public targetPrice: number,
         public direction: Direction,

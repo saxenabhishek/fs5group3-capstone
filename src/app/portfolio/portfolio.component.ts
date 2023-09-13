@@ -1,115 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Trade } from '../models/trade';
 import { TradeService } from '../services/trade.service';
-
-const testData: Trade[]= 
-[
-  {
-    "order": {
-      "instrument": "GOOGL",
-      "quantity": 900,
-      "targetPrice": 6.673,
-      "direction": { 
-        "stringValue": "B" 
-      },
-      "clientId": "UID001",
-      "orderId": "OID003"
-    },
-    "cashValue": 6005.7,
-    "quantity": 900,
-    "direction": { 
-      "stringValue": "B" 
-    },
-    "executionPrice": 6.673,
-    "instrumentId": "GOOGL",
-    "clientId": "UID001",
-    "tradeId": "TRX011"
-  },
-    {
-      "order": {
-        "instrument": "AAPS",
-        "quantity": 1000,
-        "targetPrice": 7.8625,
-        "direction": { 
-          "stringValue": "B" 
-        },
-        "clientId": "UID001",
-        "orderId": "OID001"
-      },
-      "cashValue": 7862.5,
-      "quantity": 1000,
-      "direction": { 
-        "stringValue": "B" 
-      },
-      "executionPrice": 7.8625,
-      "instrumentId": "AAPS",
-      "clientId": "UID001",
-      "tradeId": "TRX011"
-    },
-    {
-      "order": {
-        "instrument": "AMD",
-        "quantity": 100,
-        "targetPrice": 7.745,
-        "direction": { 
-          "stringValue": "B" 
-        },
-        "clientId": "UID001",
-        "orderId": "OID002"
-      },
-      "cashValue": 774.5,
-      "quantity": 100,
-      "direction": { 
-        "stringValue": "B" 
-      },
-      "executionPrice": 7.745,
-      "instrumentId": "AMD",
-      "clientId": "UID001",
-      "tradeId": "TRX012"
-    },
-    {
-      "order": {
-        "instrument": "AAPS",
-        "quantity": 1000,
-        "targetPrice": 7.8625,
-        "direction": { 
-          "stringValue": "B" 
-        },
-        "clientId": "UID001",
-        "orderId": "OID001"
-      },
-      "cashValue": 7862.5,
-      "quantity": 1000,
-      "direction": { 
-        "stringValue": "B" 
-      },
-      "executionPrice": 7.8625,
-      "instrumentId": "AAPS",
-      "clientId": "UID001",
-      "tradeId": "TRX011"
-    },
-    {
-      "order": {
-        "instrument": "GOOGL",
-        "quantity": 900,
-        "targetPrice": 6.673,
-        "direction": { 
-          "stringValue": "B" 
-        },
-        "clientId": "UID001",
-        "orderId": "OID003"
-      },
-      "cashValue": 6005.7,
-      "quantity": 900,
-      "direction": { 
-        "stringValue": "B" 
-      },
-      "executionPrice": 6.673,
-      "instrumentId": "GOOGL",
-      "clientId": "UID001",
-      "tradeId": "TRX011"
-    }  
-];
+import { Prices } from '../models/prices';
+import { Instruments } from '../models/instruments';
 
 @Component({
   selector: 'app-portfolio',
@@ -120,26 +13,64 @@ export class PortfolioComponent implements OnInit{
   trades: Trade[]= [];
   totalHoldings: number= 0;
   totalCashValue: number= 0;
-  currentPrice1: number= 7.745;
+  prices: Prices[]= [];
+  instruments: Instruments[]= [];
+  portfolioData: number[] = []; 
+  portfolioLabels: any[] = []; 
 
   constructor(private tradeService: TradeService) { }
 
   ngOnInit() {
+    this.loadAllInstruments();
+    this.loadAllPrices();
     this.loadAllTrades();
-    this.calcTotalHoldings();
     this.calcTotalCashValue();
+    this.setPortfolioChartValues();
+    this.calcTotalHoldings();
   }
 
   calcTotalHoldings(){
-    testData.forEach(trade => this.totalHoldings+= (1 + ((this.currentPrice1-trade.executionPrice) / trade.executionPrice)) * trade.cashValue);
+    this.trades.forEach(trade => 
+      this.totalHoldings+= (1 + 
+        ((this.getInstrumentPrice(trade.instrumentId) - trade.executionPrice) / trade.executionPrice)) * trade.cashValue);
   }
 
   calcTotalCashValue(){
-    testData.forEach(trade => this.totalCashValue+=  trade.cashValue);
+    this.trades.forEach(trade => this.totalCashValue+=  trade.cashValue);
   }
   
   loadAllTrades(){
-    this.trades= testData;
+    this.tradeService.getTrades()
+          .subscribe(trades => this.trades= trades);
+  }
+
+  loadAllInstruments(){
+    this.tradeService.getInstruments()
+          .subscribe(ins => this.instruments= ins);
+  }
+
+  loadAllPrices(){
+    this.tradeService.getPrices()
+          .subscribe(prices => this.prices= prices);
+  }
+
+  setPortfolioChartValues(){
+    this.trades.forEach(trade => this.portfolioLabels.push(this.getInstrumentName(trade.instrumentId)));
+    this.trades.forEach(trade => this.portfolioData.push(((1 + 
+                                  (this.getInstrumentPrice(trade.instrumentId) - trade.executionPrice) 
+                                  / trade.executionPrice) * trade.cashValue)).toFixed(2));
+  }
+
+  getInstrumentName(id: string): any{
+    return this.instruments.find(ins => ins.instrumentId === id)?.instrumentDescription;
+  }
+
+  getInstrumentCategory(id: string): any{
+    return this.instruments.find(ins => ins.instrumentId === id)?.categoryId;
+  }
+
+  getInstrumentPrice(id: string): any{
+    return this.prices.find(ins => ins.instrument.instrumentId === id)?.askPrice;
   }
 
   abs(num: number): number{
