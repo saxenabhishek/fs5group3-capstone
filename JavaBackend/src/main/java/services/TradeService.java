@@ -9,6 +9,7 @@ import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 
+import models.Client;
 import models.Instrument;
 import models.Order;
 import models.Portfolio;
@@ -34,6 +35,15 @@ public final class TradeService {
 		}
 	public List<Price> getAllInsturments() {
 		return instrumentPrices;
+	}
+	
+	public Price getPriceByInstrumentId(String id) {
+		for(Price p: instrumentPrices) {
+			if(p.getInstrumentId().equals(id)) {
+				return p;
+			}
+		}
+		return null;
 	}
 	
 	public  Trade postBuyOrSellTrade(Order order) throws Exception {
@@ -83,7 +93,68 @@ public final class TradeService {
 		else {
 			throw new NullPointerException("Bad instrument Prices");
 		}
+	}
+	
+	public Trade sell(Order order, Client c, List<Portfolio> portfolio) throws Exception {
 
+		//accept list of portfolio objects of current client
+
+		BigDecimal execPrice = BigDecimal.ZERO.setScale(2, RoundingMode.HALF_DOWN);
+		Trade trade;
+		double currentBalance = 1000.00;
+
+		if(portfolio != null) {
+			for(Portfolio p: portfolio) {
+				if(p.getInstrumentId().equals(order.getInstrumentId())) {
+
+					if(p.getQuantity() < order.getQuantity()) {
+						throw new NullPointerException("Can't sell more than you have");
+					}
+
+					Price currentPrice = getPriceByInstrumentId(p.getInstrumentId()); 
+
+
+
+					if (order.getTargetPrice().doubleValue() > currentPrice.getBidPrice() * (1.0 - this.tolerance) &&
+				            order.getTargetPrice().doubleValue() < currentPrice.getBidPrice() * (1.0 + this.tolerance)) {
+
+				            execPrice = new BigDecimal(currentPrice.getBidPrice()).setScale(2, RoundingMode.HALF_DOWN) ;
+				     }
+
+
+				}
+			}
+
+			if(execPrice.compareTo(BigDecimal.ZERO) != 0) {
+				double cashValuePre = order.getQuantity()  * (1.0 + fee);
+				BigDecimal cashValue = new BigDecimal(cashValuePre).multiply(execPrice).setScale(2, RoundingMode.HALF_DOWN);
+
+				trade = new Trade(
+						order,
+						cashValue,
+						"123",
+						Instant.now()
+					);
+				
+//				trade = new Trade(order, cashValue, order.getQuantity(), "S", order.getInstrumentId(), order.getClientId(), "XYZ", execPrice );
+//				c.setBalance(currentBalance + cashValue.doubleValue());
+
+
+
+				//to update portfolio
+				//portfolioManager.updatePortfolio(trade);
+
+
+				return trade;
+
+			}
+			else {
+				throw new Exception("Sell couldn't get executed, Invalid bid price");
+			}
+		}
+		else {
+			throw new NullPointerException("Bad portfolio list");
+		}
 
 
 	}
