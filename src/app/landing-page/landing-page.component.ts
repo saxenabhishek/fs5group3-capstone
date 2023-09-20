@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { ClientService } from '../services/client.service';
 
 @Component({
-  selector: 'app-demo-landing',
-  templateUrl: './demo-landing.component.html',
-  styleUrls: ['./demo-landing.component.css']
+  selector: 'app-landing-page',
+  templateUrl: './landing-page.component.html',
+  styleUrls: ['./landing-page.component.css']
 })
-export class DemoLandingComponent {
+export class LandingPageComponent {
 
   constructor(private clientService: ClientService) {}
 

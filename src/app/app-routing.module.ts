@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { RegisterPageComponent } from './register-page/register-page.component';
-
 import { StockPageComponent } from './stock-page/stock-page.component';
 import { ExplorePageComponent } from './explore-page/explore-page.component';
-import { DemoLandingComponent } from './demo-landing/demo-landing.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 import { PortfolioComponent } from './portfolio/portfolio.component';
 import { TradeHistoryComponent } from './trade-history/trade-history.component';
 import { LoginPageComponent } from './login-page/login-page.component';
@@ -16,7 +15,7 @@ import { InvestmentPreferUpdateComponent } from './investment-prefer-update/inve
 const routes: Routes = [
   {
     path: '',
-    component: DemoLandingComponent,
+    component: LandingPageComponent,
   },
   {
     path: 'register',
@@ -42,7 +41,6 @@ const routes: Routes = [
     path: 'trade-history',
     component: TradeHistoryComponent,
   },
-
   {
     path: 'report',
     component: ReportPageComponent,
@@ -51,8 +49,14 @@ const routes: Routes = [
     path: 'roboadvisor',
     component: RoboadvisorPageComponent,
   },
-  { path: 'explore', component: ExplorePageComponent },
-  { path: 'instrument/:id', component: StockPageComponent },
+  { 
+    path: 'explore', 
+    component: ExplorePageComponent 
+  },
+  { 
+    path: 'instrument/:id', 
+    component: StockPageComponent 
+  }
 ];
 
 @NgModule({
