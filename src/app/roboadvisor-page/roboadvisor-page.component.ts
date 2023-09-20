@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MockRoboadvisor } from '../models/mock-roboadvisor';
-import { RoboadvisorService } from '../roboadvisor.service';
+import { RoboadvisorService } from '../services/roboadvisor.service';
 
 @Component({
   selector: 'app-roboadvisor-page',
