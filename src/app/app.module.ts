@@ -12,7 +12,7 @@ import { ExplorePageComponent } from './explore-page/explore-page.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReportPageComponent } from './report-page/report-page.component';
 import { RoboadvisorPageComponent } from './roboadvisor-page/roboadvisor-page.component';
-import { DemoLandingComponent } from './demo-landing/demo-landing.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 import { TradeHistoryComponent } from './trade-history/trade-history.component';
 import { PortfolioComponent } from './portfolio/portfolio.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -29,7 +29,7 @@ import { PortfolioChartComponent } from './portfolio-chart/portfolio-chart.compo
     ExplorePageComponent,
     ReportPageComponent,
     RoboadvisorPageComponent,
-    DemoLandingComponent,
+    LandingPageComponent,
     TradeHistoryComponent,
     PortfolioComponent,
     NavbarComponent,
