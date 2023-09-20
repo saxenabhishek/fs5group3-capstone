@@ -6,20 +6,17 @@ public class Portfolio {
 	private String instrumentId;
 	private String instrumentDescription;
 	private BigDecimal boughtPrice;
-	private BigDecimal totalInvestment;
-	private int quantity;
-	private long clientId;
+	private long quantity;
+	private String clientId;
 
-	public Portfolio(String instrumentId, String instrumentDescription, BigDecimal boughtPrice,
-			BigDecimal totalInvestment, int quantity, long clientId) {
+	public Portfolio(String instrumentId, String instrumentDescription, BigDecimal boughtPrice, long l, String string) {
 
 		super();
-		this.setInstrumentId(instrumentId);
+		this.instrumentId = instrumentId;
 		this.setInstrumentDescription(instrumentDescription);
 		this.setBoughtPrice(boughtPrice);
-		this.setTotalInvestment(totalInvestment);
-		this.setQuantity(quantity);
-		this.setClientId(clientId);
+		this.setQuantity(l);
+		this.setClientId(string);
 
 	}
 
@@ -47,7 +44,7 @@ public class Portfolio {
 
 	public void setInstrumentDescription(String instrumentDescription) {
 
-		if (this.instrumentDescription.length() <= 0)
+		if (instrumentDescription.length() <= 0)
 
 			throw new IllegalArgumentException("Instrument Description can't be empty");
 
@@ -73,39 +70,21 @@ public class Portfolio {
 
 	}
 
-	public BigDecimal getTotalInvestment() {
-
-		return totalInvestment;
-
-	}
-
-	public void setTotalInvestment(BigDecimal totalInvestment) {
-
-		if (totalInvestment.compareTo(BigDecimal.ZERO) == 0 ||
-
-				totalInvestment.compareTo(BigDecimal.ZERO) == -1)
-
-			throw new IllegalArgumentException("Bought Price can't be zero or negative");
-
-		this.totalInvestment = totalInvestment;
-
-	}
-
-	public int getQuantity() {
+	public long getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(int quantity) {
+	public void setQuantity(long quantity) {
 		if (quantity <= 0)
-			throw new IllegalArgumentException("Invalid quanity");
+			throw new IllegalArgumentException("Invalid quantity");
 		this.quantity = quantity;
 	}
 
-	public long getClientId() {
+	public String getClientId() {
 		return clientId;
 	}
 
-	public void setClientId(long clientId) {
+	public void setClientId(String clientId) {
 		this.clientId = clientId;
 	}
 }
