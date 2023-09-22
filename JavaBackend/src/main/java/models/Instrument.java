@@ -80,7 +80,7 @@ public class Instrument {
 	
 	
 	public String getInstrumentId() {
-		return "";
+		return this.instrumentId;
 	}
 }
 

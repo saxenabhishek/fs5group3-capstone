@@ -56,9 +56,11 @@ public final class TradeService {
 		// Trade trade = new Trade(order, order.getTargetPrice(), "", Instant.now());
 
 		BigDecimal execPrice;
+		
+		// get balance from client
 		double currentBalance = 1000.00;
 
-		if (instrumentPrices == null && order.getDirection() == Direction.BUY) {
+		if (instrumentPrices == null && order.getDirection() != Direction.BUY) {
 			throw new NullPointerException("Bad instrument Prices");
 		}
 
@@ -79,7 +81,6 @@ public final class TradeService {
 		double cashValuePre = order.getQuantity() * (1.0 + fee);
 		BigDecimal cashValue = new BigDecimal(cashValuePre).multiply(execPrice);
 
-		System.out.println(cashValue);
 		if (cashValue.compareTo(new BigDecimal(currentBalance)) > 0) {
 			throw new Exception("Can't execute trade, not enough balance");
 		}
