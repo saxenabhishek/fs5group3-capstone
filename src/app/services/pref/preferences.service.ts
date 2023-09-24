@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Preference } from '../models/preference';
+import { Preference } from '../../models/preference';
 import { Observable, of} from 'rxjs';
 
 

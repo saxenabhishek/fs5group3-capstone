@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MockRoboadvisor } from '../models/mock-roboadvisor';
+import { MockRoboadvisor } from '../../models/mock-roboadvisor';
 import { Observable, of } from 'rxjs';
 
 @Injectable({

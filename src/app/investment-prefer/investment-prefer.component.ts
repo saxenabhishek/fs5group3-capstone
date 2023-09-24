@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder,Validators,FormGroup } from '@angular/forms';
 import { Preference } from '../models/preference';
-import { PreferencesService } from '../services/preferences.service';
+import { PreferencesService } from '../services/pref/preferences.service';
 
 @Component({
   selector: 'app-investment-prefer',

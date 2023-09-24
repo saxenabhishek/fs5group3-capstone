@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
-import { PreferencesService } from '../services/preferences.service';
+import { PreferencesService } from '../services/pref/preferences.service';
 import { InvestmentPreferComponent } from '../investment-prefer/investment-prefer.component';
 import { Preference } from '../models/preference';
 

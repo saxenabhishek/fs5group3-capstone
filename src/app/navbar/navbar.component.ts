@@ -1,5 +1,5 @@
 import { Component, Injectable } from '@angular/core';
-import { ClientService } from '../services/client.service';
+import { ClientService } from '../services/client/client.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,10 +12,14 @@ import { ClientService } from '../services/client.service';
 export class NavbarComponent {
   login: boolean= false;
 
-  // constructor(private clientService: ClientService) {}
+  constructor(private clientService: ClientService) {}
+
+  isLoggedIn(){
+    return this.clientService.getIfLoggedIn()
+  }
 
   changeLogin(flag: boolean){
     this.login= flag;
-    console.log(this.login)
+    console.debug(this.login)
   }
 }

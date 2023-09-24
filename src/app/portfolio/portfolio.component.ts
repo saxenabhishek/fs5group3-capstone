@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Trade } from '../models/trade';
-import { TradeService } from '../services/trade.service';
+import { TradeService } from '../services/trade/trade.service';
 import { Prices } from '../models/prices';
 import { Instruments } from '../models/instruments';
 

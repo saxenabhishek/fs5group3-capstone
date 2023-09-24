@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ClientService } from '../services/client.service';
+import { ClientService } from '../services/client/client.service';
 
 @Component({
   selector: 'app-landing-page',
@@ -33,7 +33,4 @@ export class LandingPageComponent {
     }
   ];
 
-  changeLogin(){
-    this.clientService.toggleLogin();
-  }
 }

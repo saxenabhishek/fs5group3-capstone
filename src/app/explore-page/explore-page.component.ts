@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TradeService } from '../services/trade.service';
+import { TradeService } from '../services/trade/trade.service';
 import { Instruments } from '../models/instruments';
 
 @Component({
