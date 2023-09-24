@@ -16,11 +16,30 @@ import { Trade } from 'src/app/models/trade';
 export class TradeService {
   trades: Trade[] = [];
   url = 'http://localhost:3000/fmts/trades/instruments';
+  order_data = ORDER_DATA;
+  trade_data = TRADE_DATA;
 
   constructor(private http: HttpClient) {}
 
+  processOrder(order: Order) {
+    // todo: make call to backend to process an order and make a trade
+    this.order_data.push(order);
+    this.trade_data.push(
+      new Trade(
+        order,
+        order.targetPrice + 12,
+        order.quantity,
+        order.direction,
+        order.targetPrice + 3,
+        order.instrumentId,
+        order.clientId,
+        this.trade_data.length + 1 + '23423'
+      )
+    );
+  }
+
   getTrades(): Observable<Trade[]> {
-    return of(TRADE_DATA);
+    return of(this.trade_data);
   }
 
   getInstruments(): Observable<Instruments[]> {
@@ -33,7 +52,7 @@ export class TradeService {
   }
 
   getOrders(): Observable<Order[]> {
-    return of(ORDER_DATA);
+    return of(this.order_data);
   }
 
   getInstrumentsById(id: String): Observable<Instruments> {

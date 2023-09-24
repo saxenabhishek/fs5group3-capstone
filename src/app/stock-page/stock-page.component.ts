@@ -16,6 +16,9 @@ import { Instruments } from '../models/instruments';
 import { Prices } from '../models/prices';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Order } from '../models/order';
+import { Direction } from '../models/direction';
+import { ClientService } from '../services/client/client.service';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -32,7 +35,13 @@ export type ChartOptions = {
 })
 export class StockPageComponent {
   @ViewChild('chart') chart?: ChartComponent;
-  public chartOptions: ChartOptions;
+  public chartOptions: ChartOptions = {
+    series: [],
+    chart: { height: 0, type: 'line' },
+    xaxis: {},
+    title: {},
+    noData: {},
+  };
   instrumentId: string = '';
   instrument?: Instruments;
   prices?: Prices;
@@ -41,9 +50,11 @@ export class StockPageComponent {
   constructor(
     private route: ActivatedRoute,
     private tradeService: TradeService,
-    private formBuilder: FormBuilder
-  ) {
-    this.instrumentId = route.snapshot.params['id'];
+    private formBuilder: FormBuilder,
+    private clientService: ClientService
+  ) {}
+  ngOnInit() {
+    this.instrumentId = this.route.snapshot.params['id'];
     this.buyForm = this.formBuilder.group({
       price: ['', Validators.compose([Validators.required, Validators.min(3)])],
       quantity: ['1', Validators.required],
@@ -64,10 +75,10 @@ export class StockPageComponent {
         text: 'Loading...',
       },
     };
-    tradeService.getPriceById(this.instrumentId).subscribe((data) => {
+    this.tradeService.getPriceById(this.instrumentId).subscribe((data) => {
       this.prices = data;
       this.instrument = data.instrument;
-      this.buyForm.get("price")?.setValue(this.prices.askPrice)
+      this.buyForm.get('price')?.setValue(this.prices.askPrice);
       this.chartOptions.series = [
         {
           // data: [10, 41, 35, 51, 49, 62, 69, 91, 148].map((e, i) => {
@@ -82,7 +93,16 @@ export class StockPageComponent {
     });
   }
 
-  submitTrade(){
-    alert("Trade Executed")
+  submitTrade() {
+    alert('Trade Executed');
+    let newOrder = new Order(
+      this.instrumentId,
+      this.buyForm.get('quantity')?.value,
+      this.buyForm.get('price')?.value,
+      new Direction('B'),
+      this.clientService.getClientId(),
+      ''
+    );
+    this.tradeService.processOrder(newOrder);
   }
 }
