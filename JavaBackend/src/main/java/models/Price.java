@@ -1,15 +1,16 @@
 package models;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class Price {
-	public Double askPrice;
-	public Double bidPrice;
+	public BigDecimal askPrice;
+	public BigDecimal bidPrice;
 	public String instrumentId;
 	public LocalDateTime priceTimestamp;
 	public Instrument instrument;
 	
-	public Price(Instrument instrument, Double askPrice, String instrumentId ,Double bidPrice, LocalDateTime priceTimestamp) {
+	public Price(Instrument instrument, BigDecimal askPrice, String instrumentId ,BigDecimal bidPrice, LocalDateTime priceTimestamp) {
 		super();
 		this.askPrice = askPrice;
 		this.bidPrice = bidPrice;
@@ -18,19 +19,19 @@ public class Price {
 		this.instrumentId = instrumentId;
 	}
 
-	public Double getAskPrice() {
+	public BigDecimal getAskPrice() {
 		return askPrice;
 	}
 
-	public void setAskPrice(Double askPrice) {
+	public void setAskPrice(BigDecimal askPrice) {
 		this.askPrice = askPrice;
 	}
 
-	public Double getBidPrice() {
+	public BigDecimal getBidPrice() {
 		return bidPrice;
 	}
 
-	public void setBidPrice(Double bidPrice) {
+	public void setBidPrice(BigDecimal bidPrice) {
 		this.bidPrice = bidPrice;
 	}
 

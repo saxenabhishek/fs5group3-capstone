@@ -2,14 +2,18 @@ package services;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import models.Direction;
 import models.Order;
 import models.Price;
+import shared.Helper;
 
 class TradeServiceTest {
 	TradeService tradeService;
@@ -32,9 +36,26 @@ class TradeServiceTest {
 	@Test
 	void testNullPostBuyOrSellTrade() throws Exception {
 		assertThrows(NullPointerException.class, () -> {
-			tradeService.postBuyOrSellTrade(null);
+			tradeService.postBuyTrade(null);
 		});
 	}
+
+	@Test
+	void testBuyTrade() throws Exception{
+		Order order = new Order("N234", 2, Helper.makeBigDecimal("102"), Direction.BUY.getStringValue(), "100012242", "123", Instant.now());
+		tradeService.postBuyTrade(order);
+
+	}
+	
+	@Test
+	void testSellTrade() throws Exception{
+		Order buyorder = new Order("N234", 2, Helper.makeBigDecimal("102"), Direction.BUY.getStringValue(), "100012242", "123", Instant.now());
+		tradeService.postBuyTrade(buyorder);
+		Order sellorder = new Order("N234", 2, Helper.makeBigDecimal("110"), Direction.SELL.getStringValue(), "100012242", "123", Instant.now());
+		tradeService.postSellTrade(sellorder);
+	}
+
+
 	
 
 	@Test
