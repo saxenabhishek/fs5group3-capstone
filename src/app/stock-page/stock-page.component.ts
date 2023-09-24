@@ -11,7 +11,7 @@ import {
   ApexTitleSubtitle,
   ApexNoData,
 } from 'ng-apexcharts';
-import { TradeService } from '../services/trade.service';
+import { TradeService } from '../services/trade/trade.service';
 import { Instruments } from '../models/instruments';
 import { Prices } from '../models/prices';
 

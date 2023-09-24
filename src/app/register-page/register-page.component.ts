@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Person } from '../models/person.model';
 import { ClientIdentification } from '../models/client-identification.model';
 import { Client } from '../models/client.model';
-import { ClientService } from '../services/client.service';
+import { ClientService } from '../services/client/client.service';
 
 @Component({
   selector: 'app-register-page',

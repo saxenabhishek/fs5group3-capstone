@@ -1,14 +1,14 @@
-import { Injectable } from '@angular/core';
-import { Observable, of, retry } from 'rxjs';
-import { Trade } from '../models/trade';
 import { HttpClient } from '@angular/common/http';
-import { Instruments } from '../models/instruments';
-import { INSTRUMENT_DATA } from '../const/instrument';
-import { Prices } from '../models/prices';
-import { PRICES } from '../const/prices';
-import { TRADE_DATA } from '../const/trade';
-import { Order } from '../models/order';
-import { ORDER_DATA } from '../const/order';
+import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { INSTRUMENT_DATA } from 'src/app/const/instrument';
+import { ORDER_DATA } from 'src/app/const/order';
+import { PRICES } from 'src/app/const/prices';
+import { TRADE_DATA } from 'src/app/const/trade';
+import { Instruments } from 'src/app/models/instruments';
+import { Order } from 'src/app/models/order';
+import { Prices } from 'src/app/models/prices';
+import { Trade } from 'src/app/models/trade';
 
 @Injectable({
   providedIn: 'root',
@@ -47,13 +47,17 @@ export class TradeService {
   }
 
   getPriceById(id: String): Observable<Prices> {
-    let ele: Prices = new Prices(0, 0, '', new Instruments('', '', '', '', '', 0, 0))
+    let ele: Prices = new Prices(
+      0,
+      0,
+      '',
+      new Instruments('', '', '', '', '', 0, 0)
+    );
     PRICES.forEach((element) => {
       if (element.instrument.instrumentId == id) {
-        ele = element
+        ele = element;
       }
     });
     return of(ele);
   }
-  
 }

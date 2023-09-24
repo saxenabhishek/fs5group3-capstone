@@ -1,5 +1,5 @@
 import { Component, Injectable } from '@angular/core';
-import { ClientService } from '../services/client.service';
+import { ClientService } from '../services/client/client.service';
 
 @Component({
   selector: 'app-navbar',
