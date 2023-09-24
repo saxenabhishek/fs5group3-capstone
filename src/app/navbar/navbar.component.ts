@@ -12,10 +12,14 @@ import { ClientService } from '../services/client/client.service';
 export class NavbarComponent {
   login: boolean= false;
 
-  // constructor(private clientService: ClientService) {}
+  constructor(private clientService: ClientService) {}
+
+  isLoggedIn(){
+    return this.clientService.getIfLoggedIn()
+  }
 
   changeLogin(flag: boolean){
     this.login= flag;
-    console.log(this.login)
+    console.debug(this.login)
   }
 }

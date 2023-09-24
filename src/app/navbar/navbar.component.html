@@ -11,20 +11,22 @@
       >
     </div>
     <ul class="nav-links">
-      <li *ngIf="!login"><a routerLink="/portfolio">Portfolio</a></li>
-      <li *ngIf="!login"><a routerLink="/trade-history">Trade History</a></li>
-      <li *ngIf="!login"><a routerLink="/explore">Explore</a></li>
-      <li *ngIf="!login">
-        <div>
-          <b>Preferences</b>
-        </div>
-        <div>      
-          <a routerLink="/preferences/add">Add</a>
-          <a routerLink="/preferences/update">Update</a>
-        </div>
-      </li>
-      <li *ngIf="!login"><a routerLink="/roboadvisor">Robo Advisor</a></li>
-      <li *ngIf="!login"><a routerLink="/report">Reports</a></li>
+      <div *ngIf="isLoggedIn()">
+        <!-- todo: Make sure they aae in the same order as before -->
+
+      <a routerLink="/portfolio">Portfolio</a>
+      <a routerLink="/trade-history">Trade History</a>
+      <a routerLink="/explore">Explore</a>
+      <a routerLink="/roboadvisor">Robo Advisor</a>
+      <a routerLink="/report">Reports</a>
+      <!-- todo: make prefrences one page -->
+        <a routerLink="/preferences/add">Add Preferences</a>
+        <a routerLink="/preferences/update">Update Preferences</a>
+      </div>
+      <div *ngIf="!isLoggedIn()">
+        <a routerLink="/">Home</a>
+        <a routerLink="/explore">Explore</a>
+      </div>
     </ul>
   </nav>
 </header>
