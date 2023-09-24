@@ -14,6 +14,7 @@ import { ClientService } from '../services/client/client.service';
 export class RegisterPageComponent {
   registrationForm: FormGroup = new FormGroup({});
   clients: Client[]= [];
+  // ? do email unique and user registered do the same thing
   emailUnique: boolean= true;
   userRegistered: boolean= false;
   showDiv: boolean= false;
@@ -41,32 +42,32 @@ export class RegisterPageComponent {
   onSubmit() {
     if(this.registrationForm.valid)
     {
-      if (this.clientService.verifyEmail(this.registrationForm.get('email')?.value)){
-        let newUser= new Person(
-          this.clients[this.clients.length-1].person.id + 1, 
-          this.registrationForm.get('country')?.value,
-          this.registrationForm.get('postalCode')?.value,
-          this.registrationForm.get('dob')?.value,
-          this.registrationForm.get('email')?.value,
-          this.registrationForm.get('password')?.value
-        );
-        let newUserID= new ClientIdentification(
-          this.registrationForm.get('country')?.value === 'india' ? 'Aadhaar' : 
-            (this.registrationForm.get('country')?.value === 'us' ? 'SSN' : 'Passport'),
-          this.registrationForm.get('identification')?.value
-        );
-        let newClient= new Client(
-          newUser,
-          newUserID
-        );
-        // console.log(newUser, newUserID);
-        this.clientService.addNewClient(newClient);
+      let newUser= new Person(
+        this.clients[this.clients.length-1].person.id + 1, 
+        this.registrationForm.get('country')?.value,
+        this.registrationForm.get('postalCode')?.value,
+        this.registrationForm.get('dob')?.value,
+        this.registrationForm.get('email')?.value,
+        this.registrationForm.get('password')?.value
+      );
+      let newUserID= new ClientIdentification(
+        this.registrationForm.get('country')?.value === 'india' ? 'Aadhaar' : 
+          (this.registrationForm.get('country')?.value === 'us' ? 'SSN' : 'Passport'),
+        this.registrationForm.get('identification')?.value
+      );
+      let newClient= new Client(
+        newUser,
+        newUserID
+      );
+      if(this.clientService.registerNewClient(newClient)){
         this.userRegistered= true;
         this.showDiv= true;
         this.emailUnique= true;
         this.registrationForm.reset();
         // Makes success msg div disappear after 5 seconds
         setTimeout(() => this.showDiv = false, 5000);
+
+        //todo: redirect to login page;
       }
       else{
         console.log("User Exists");
