@@ -179,7 +179,9 @@ CREATE TABLE ft_preference (
     investment_purpose VARCHAR2(10),
     risk_tolerance VARCHAR2(20),
     income_category VARCHAR2(20),
-    length_of_investment VARCHAR2(20) 
+    length_of_investment VARCHAR2(20), 
+    is_checked VARCHAR2(1)
+    
 );
  
 ALTER TABLE ft_preference
@@ -187,9 +189,9 @@ ADD CONSTRAINT fk_preference_clientid
 FOREIGN KEY (client_id)
 REFERENCES ft_client(id);
 
-INSERT INTO ft_preference (client_id, investment_purpose, risk_tolerance, income_category, length_of_investment)
-VALUES ('UID001','College','Average','60,001 - 80,000','0-5 years');
-INSERT INTO ft_preference (client_id, investment_purpose, risk_tolerance, income_category, length_of_investment)
-VALUES ('UID002','Retirement','Above Average','80,001-100,000','5-7 years');
-INSERT INTO ft_preference (client_id, investment_purpose, risk_tolerance, income_category, length_of_investment)
-VALUES ('UID003','School','Average','80,001-100,000','10-15 years');
+INSERT INTO ft_preference (client_id, investment_purpose, risk_tolerance, income_category, length_of_investment, is_checked)
+VALUES ('UID001','College','Average','60,001 - 80,000','0-5 years','T');
+INSERT INTO ft_preference (client_id, investment_purpose, risk_tolerance, income_category, length_of_investment, is_checked)
+VALUES ('UID002','Retirement','Above Average','80,001-100,000','5-7 years','T');
+INSERT INTO ft_preference (client_id, investment_purpose, risk_tolerance, income_category, length_of_investment, is_checked)
+VALUES ('UID003','School','Average','80,001-100,000','10-15 years','T');
