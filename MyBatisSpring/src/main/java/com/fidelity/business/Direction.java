@@ -1,10 +1,10 @@
 package com.fidelity.business;
 
 public enum Direction {
-    BUY("B"),
-    SELL("S");
+    BUY("BUY"),
+    SELL("SELL");
 
-    private final String stringValue;
+    private String stringValue;
 
     private Direction(String stringValue) {
         this.stringValue = stringValue;
@@ -13,5 +13,13 @@ public enum Direction {
     public String getStringValue() {
         return stringValue;
     }
+    
+    public static Direction of(String code) {
+		for (Direction d: values()) 
+			if (d.stringValue.equals(code)) 
+				return d;
+		
+		throw new IllegalArgumentException("Unknown trade direction");
+	}
 }
 
