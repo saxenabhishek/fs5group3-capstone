@@ -192,6 +192,6 @@ REFERENCES ft_client(id);
 INSERT INTO ft_preference (client_id, investment_purpose, risk_tolerance, income_category, length_of_investment, is_checked)
 VALUES ('UID001','College','Average','60,001 - 80,000','0-5 years','T');
 INSERT INTO ft_preference (client_id, investment_purpose, risk_tolerance, income_category, length_of_investment, is_checked)
-VALUES ('UID002','Retirement','Above Average','80,001-100,000','5-7 years','T');
+VALUES ('UID002','Retirement','Above Average','80,001 - 100,000','5-7 years','T');
 INSERT INTO ft_preference (client_id, investment_purpose, risk_tolerance, income_category, length_of_investment, is_checked)
-VALUES ('UID003','School','Average','80,001-100,000','10-15 years','T');
+VALUES ('UID003','School','Average','80,001 - 100,000','10-15 years','T');
