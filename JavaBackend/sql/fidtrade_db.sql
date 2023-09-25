@@ -83,6 +83,7 @@ INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (
 INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (1.00375, 1.00375, TO_TIMESTAMP('21-AUG-2019 10.00.02.000000000', 'DD-MON-YYYY HH.MI.SS.FF'), 'T67880');
 INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (1.0596875, 1.0596875, TO_TIMESTAMP('21-AUG-2019 10.00.02.000000000', 'DD-MON-YYYY HH.MI.SS.FF'), 'T67883');
 INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (0.9853125, 0.98546875, TO_TIMESTAMP('21-AUG-2019 10.00.02.000000000', 'DD-MON-YYYY HH.MI.SS.FF'), 'T67878');
+INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (1162.42, 1161.42, TO_TIMESTAMP('21-AUG-2019 10.00.02.000000000', 'DD-MON-YYYY HH.MI.SS.FF'), 'Q123');
 
 -- Create a new table for order data named ft_order with lowercase column names
 CREATE TABLE ft_order (
@@ -90,7 +91,7 @@ CREATE TABLE ft_order (
     instrumentid VARCHAR2(10) NOT NULL,
     quantity NUMBER(10) NOT NULL,
     targetprice NUMBER(10, 5) NOT NULL,
-    direction CHAR(1) NOT NULL,
+    direction VARCHAR2(4) NOT NULL,
     clientid VARCHAR2(10) NOT NULL,
     ordertimestamp TIMESTAMP NOT NULL
 );
@@ -117,11 +118,11 @@ REFERENCES ft_instrument(id);
 
 -- Insert individual rows into the ft_order table one by one
 INSERT INTO ft_order (id, instrumentid, quantity, targetprice, direction, clientid, ordertimestamp) 
-VALUES ('OID001', 'Q123', 50, 1161.42, 'B', 'UID001', TIMESTAMP '2023-09-20 10:30:00');
+VALUES ('OID001', 'Q123', 50, 1161.42, 'BUY', 'UID001', TIMESTAMP '2023-09-20 10:30:00');
 INSERT INTO ft_order (id, instrumentid, quantity, targetprice, direction, clientid, ordertimestamp) 
-VALUES ('OID002', 'T67878', 8000, 0.98546875, 'B', 'UID001', TIMESTAMP '2023-09-20 11:15:00');
+VALUES ('OID002', 'T67878', 8000, 0.98546875, 'BUY', 'UID001', TIMESTAMP '2023-09-20 11:15:00');
 INSERT INTO ft_order (id, instrumentid, quantity, targetprice, direction, clientid, ordertimestamp) 
-VALUES ('OID003', 'T67880', 6500, 1.00375, 'B', 'UID001', TIMESTAMP '2023-09-20 12:00:00');
+VALUES ('OID003', 'T67880', 6500, 1.00375, 'BUY', 'UID001', TIMESTAMP '2023-09-20 12:00:00');
 
 -- Create a new table for trade data named ft_trade with lowercase column names and NOT NULL constraints
 CREATE TABLE ft_trade (    
@@ -130,7 +131,7 @@ CREATE TABLE ft_trade (
     instrumentid VARCHAR2(10) NOT NULL,
     quantity NUMBER(10) NOT NULL,
     targetprice NUMBER(10, 5) NOT NULL,
-    direction CHAR(1) NOT NULL,
+    direction VARCHAR2(4) NOT NULL,
     clientid VARCHAR2(10) NOT NULL,
     cashvalue NUMBER(10, 2) NOT NULL,
     executionprice NUMBER(10, 5) NOT NULL,
@@ -169,9 +170,9 @@ FOREIGN KEY (instrumentid)
 REFERENCES ft_instrument(id);
 
 -- Insert trade data into the ft_trade table one by one
-INSERT INTO ft_trade (id, orderid, instrumentid, quantity, targetprice, direction, clientid, cashvalue, executionprice, tradetimestamp) VALUES ('TID001', 'OID001', 'Q123', 50, 1161.42, 'B', 'UID001', 58071, 1161.42, TIMESTAMP '2023-09-20 10:30:00');
-INSERT INTO ft_trade (id, orderid, instrumentid, quantity, targetprice, direction, clientid, cashvalue, executionprice, tradetimestamp) VALUES ('TID002', 'OID002', 'T67878', 8000, 0.98546875, 'B', 'UID001', 7883.75, 0.98546875, TIMESTAMP '2023-09-20 11:15:09');
-INSERT INTO ft_trade (id, orderid, instrumentid, quantity, targetprice, direction, clientid, cashvalue, executionprice, tradetimestamp) VALUES ('TID003', 'OID003', 'T67880', 6500, 1.00375, 'B', 'UID001', 6524.375, 1.00375, TIMESTAMP '2023-09-20 12:00:50');
+INSERT INTO ft_trade (id, orderid, instrumentid, quantity, targetprice, direction, clientid, cashvalue, executionprice, tradetimestamp) VALUES ('TID001', 'OID001', 'Q123', 50, 1161.42, 'BUY', 'UID001', 58071, 1161.42, TIMESTAMP '2023-09-20 10:30:00');
+INSERT INTO ft_trade (id, orderid, instrumentid, quantity, targetprice, direction, clientid, cashvalue, executionprice, tradetimestamp) VALUES ('TID002', 'OID002', 'T67878', 8000, 0.98546875, 'BUY', 'UID001', 7883.75, 0.98546875, TIMESTAMP '2023-09-20 11:15:09');
+INSERT INTO ft_trade (id, orderid, instrumentid, quantity, targetprice, direction, clientid, cashvalue, executionprice, tradetimestamp) VALUES ('TID003', 'OID003', 'T67880', 6500, 1.00375, 'BUY', 'UID001', 6524.375, 1.00375, TIMESTAMP '2023-09-20 12:00:50');
 
 
 CREATE TABLE ft_preference (
