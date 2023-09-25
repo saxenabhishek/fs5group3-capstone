@@ -19,7 +19,7 @@ public class TradeTest {
 	
 	@BeforeEach
 	void setUp() throws Exception {
-		orderOverloaded = new Order("AAPL", 100, new BigDecimal("150.50"), "B", "Client123", "Order001", Instant.now().minusSeconds(60));
+		orderOverloaded = new Order("AAPL", 100, new BigDecimal("150.50"), "BUY", "Client123", "Order001", Instant.now().minusSeconds(60));
 		tradeOverloaded = new Trade(orderOverloaded, new BigDecimal("151.50"), "Trade001", Instant.now());
 	}
 
@@ -37,7 +37,7 @@ public class TradeTest {
         assertEquals(100, tradeOverloaded.getQuantity());
         assertEquals(new BigDecimal("151.50"), tradeOverloaded.getExecutionPrice());
         assertEquals(new BigDecimal("15152.00"), tradeOverloaded.getCashValue());
-        assertEquals("B", tradeOverloaded.getDirection().getStringValue());
+        assertEquals("BUY", tradeOverloaded.getDirection().getStringValue());
     }
     
     @Test
