@@ -1,4 +1,4 @@
-package com.fidelity.dao;
+package com.fidelity.integration;
 
 import java.util.List;
 

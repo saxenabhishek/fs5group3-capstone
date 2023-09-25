@@ -4,10 +4,10 @@ import java.time.Instant;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import com.fidelity.models.Instrument;
-import com.fidelity.models.Order;
-import com.fidelity.models.Price;
-import com.fidelity.models.Trade;
+import com.fidelity.business.Instrument;
+import com.fidelity.business.Order;
+import com.fidelity.business.Price;
+import com.fidelity.business.Trade;
 
 public class PortfolioService {	
 	private List<Order> tradeHistory;

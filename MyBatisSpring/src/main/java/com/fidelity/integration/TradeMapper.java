@@ -1,4 +1,4 @@
-package com.fidelity.dao;
+package com.fidelity.integration;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,14 +10,13 @@ import java.time.ZoneOffset;
 
 import javax.sql.DataSource;
 
-import com.fidelity.models.Order;
-import com.fidelity.models.Trade;
-import com.fidelity.shared.DatabaseException;
+import com.fidelity.business.Order;
+import com.fidelity.business.Trade;
 
-public class TradeDao {
+public class TradeMapper {
 	DataSource ds;
 
-	public TradeDao(DataSource ds) {
+	public TradeMapper(DataSource ds) {
 		this.ds = ds;
 		// TODO Auto-generated constructor stub
 	}
@@ -26,7 +25,7 @@ public class TradeDao {
 		String query = "INSERT INTO ft_trade (id, orderid, instrumentid, quantity, targetprice, direction, clientid, cashvalue, executionprice, tradetimestamp)"
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
-		Connection conn;
+		Connection conn= null;
 		try {
 			conn = ds.getConnection();
 			PreparedStatement statement = conn.prepareStatement(query);
@@ -49,7 +48,7 @@ public class TradeDao {
 			System.out.println(statement.executeUpdate());
 			
 		} catch (SQLException e) {
-			throw new DatabaseException("Could not add a trade to db", e);
+			e.printStackTrace();
 		}
 		try {
 			conn.close();
@@ -66,7 +65,7 @@ public class TradeDao {
 		String query = "INSERT INTO ft_order (id, instrumentid, quantity, targetprice, direction, clientid, ordertimestamp)"
 				+ "	VALUES (?, ?,?,?, ?,?,?)";
 		
-		Connection conn;
+		Connection conn= null;
 		try {
 			conn = ds.getConnection();
 			PreparedStatement statement = conn.prepareStatement(query);
@@ -85,7 +84,7 @@ public class TradeDao {
 			System.out.println(statement.executeUpdate());
 			
 		} catch (SQLException e) {
-			throw new DatabaseException("Could not add a order to db", e);
+			e.printStackTrace();
 		}
 		try {
 			conn.close();

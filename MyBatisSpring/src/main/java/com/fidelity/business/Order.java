@@ -1,4 +1,4 @@
-package com.fidelity.models;
+package com.fidelity.business;
 
 import java.math.BigDecimal;
 import java.time.Instant;
