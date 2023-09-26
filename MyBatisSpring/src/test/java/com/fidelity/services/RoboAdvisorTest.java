@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.fidelity.business.Direction;
 import com.fidelity.business.RoboTrade;
 
 class RoboTradeServiceTest {
@@ -13,7 +14,7 @@ class RoboTradeServiceTest {
 
 	@BeforeEach
 	void setUp() {
-		ts = new RoboTrade("ETF India","IETF",2,80000,"ETF",20,"BUY","SELL");
+		ts = new RoboTrade("ETF India","IETF",2,80000,"ETF",20,Direction.BUY, Direction.SELL);
 	}
 
 	@Test
@@ -36,9 +37,8 @@ class RoboTradeServiceTest {
 	}
 	@Test
 	void toBuy( ) {
-		String title="BUY";
-		String result = ts.getbuy();
-        assertEquals(title, result);
+		Direction result = ts.getbuy();
+        assertEquals(Direction.BUY, result);
 	}
 
 

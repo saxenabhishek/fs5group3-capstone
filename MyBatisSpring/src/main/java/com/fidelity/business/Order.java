@@ -13,7 +13,7 @@ public class Order {
 	
 	public Order () { }
 	
-	public Order (String instrumentId, long quantity, BigDecimal targetPrice, String direction,
+	public Order (String instrumentId, long quantity, BigDecimal targetPrice, Direction direction,
 					String clientId, String orderId, Instant timestamp) 
 	{
 		if (instrumentId == null)
@@ -42,14 +42,7 @@ public class Order {
 			throw new IllegalArgumentException ("Target price of order can't be zero or negative");	
 		this.targetPrice = targetPrice;
 		
-		if ("BUY".equals(direction)) 
-            this.direction = Direction.BUY;
-        else if ("SELL".equals(direction)) 
-            this.direction = Direction.SELL;
-        else if (direction == null)
-            throw new NullPointerException("Order direction value can't be null");
-        else
-            throw new IllegalArgumentException("Invalid order direction value! Only BUY or SELL");
+		this.direction = direction;       
 	
 		if (timestamp== null)
 			throw new NullPointerException ("Order timestamp can't be null");
