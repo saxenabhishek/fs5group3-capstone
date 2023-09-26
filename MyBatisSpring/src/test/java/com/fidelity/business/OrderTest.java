@@ -16,7 +16,7 @@ public class OrderTest {
 	
 	@BeforeEach
 	void setUp() throws Exception {
-		orderOverloaded = new Order("AAPL", 100, new BigDecimal("150.50"), "B", "Client123", "Order001", Instant.now());
+		orderOverloaded = new Order("AAPL", 100, new BigDecimal("150.50"), "BUY", "Client123", "Order001", Instant.now());
 	}
 
 	@AfterEach
@@ -31,64 +31,64 @@ public class OrderTest {
         assertEquals("Order001", orderOverloaded.getOrderId());
         assertEquals(100, orderOverloaded.getQuantity());
         assertEquals(new BigDecimal("150.50"), orderOverloaded.getTargetPrice());
-        assertEquals("B", orderOverloaded.getDirection().getStringValue());
+        assertEquals("BUY", orderOverloaded.getDirection().getStringValue());
     }
 
     @Test
     public void testOrderNullInstrumentId() {
     	assertThrows(NullPointerException.class, () -> {
-    		new Order(null, 100, new BigDecimal("150.50"), "B", "Client123", "Order001", Instant.now());
+    		new Order(null, 100, new BigDecimal("150.50"), "BUY", "Client123", "Order001", Instant.now());
     	});
     }
 
     @Test
     public void testOrderEmptyInstrumentId() {
         assertThrows(IllegalArgumentException.class, () -> { 
-        	new Order("", 100, new BigDecimal("150.50"), "B", "Client123", "Order001", Instant.now());
+        	new Order("", 100, new BigDecimal("150.50"), "BUY", "Client123", "Order001", Instant.now());
         });
     }
 
     @Test
     public void testOrderNullClientId() {
     	assertThrows(NullPointerException.class, () -> { 
-        	new Order("AAPL", 100, new BigDecimal("150.50"), "B", null, "Order001", Instant.now());
+        	new Order("AAPL", 100, new BigDecimal("150.50"), "BUY", null, "Order001", Instant.now());
         });
     }
 
     @Test
     public void testOrderEmptyClientId() {
     	assertThrows(IllegalArgumentException.class, () -> { 
-        	new Order("AAPL", 100, new BigDecimal("150.50"), "B", "", "Order001", Instant.now());
+        	new Order("AAPL", 100, new BigDecimal("150.50"), "BUY", "", "Order001", Instant.now());
         });
     }
 
     @Test
     public void testOrderNullOrderId() {
     	assertThrows(NullPointerException.class, () -> { 
-        	new Order("AAPL", 100, new BigDecimal("150.50"), "B", "Client123", null, Instant.now());
+        	new Order("AAPL", 100, new BigDecimal("150.50"), "BUY", "Client123", null, Instant.now());
         });
     }
 
     @Test
     public void testEmptyOrderId() {
     	assertThrows(IllegalArgumentException.class, () -> { 
-        	new Order("AAPL", 100, new BigDecimal("150.50"), "B", "Client123", "", Instant.now());
+        	new Order("AAPL", 100, new BigDecimal("150.50"), "BUY", "Client123", "", Instant.now());
         });
     }
 
     @Test
     public void testOrderZeroOrNegativeQuantity() {
     	assertThrows(IllegalArgumentException.class, () -> { 
-        	new Order("AAPL", 0, new BigDecimal("150.50"), "B", "Client123", "Order001", Instant.now());
-        	new Order("AAPL", -100, new BigDecimal("150.50"), "B", "Client123", "Order001", Instant.now());
+        	new Order("AAPL", 0, new BigDecimal("150.50"), "BUY", "Client123", "Order001", Instant.now());
+        	new Order("AAPL", -100, new BigDecimal("150.50"), "BUY", "Client123", "Order001", Instant.now());
         });
     }
 
     @Test
     public void testOrderZeroOrNegativeTargetPrice() {
     	assertThrows(IllegalArgumentException.class, () -> { 
-            new Order("AAPL", 100, BigDecimal.ZERO, "B", "Client123", "Order001", Instant.now());
-            new Order("AAPL", 100, new BigDecimal("-150.50"), "B", "Client123", "Order001", Instant.now());
+            new Order("AAPL", 100, BigDecimal.ZERO, "BUY", "Client123", "Order001", Instant.now());
+            new Order("AAPL", 100, new BigDecimal("-150.50"), "BUY", "Client123", "Order001", Instant.now());
         });
     }
 
@@ -109,7 +109,7 @@ public class OrderTest {
     @Test
     public void testOrderTimestamp() {
     	assertThrows(NullPointerException.class, () -> { 
-            new Order("AAPL", 100, new BigDecimal("150.50"), "B", "Client123", "Order001", null);
+            new Order("AAPL", 100, new BigDecimal("150.50"), "BUY", "Client123", "Order001", null);
         });
     }
 }

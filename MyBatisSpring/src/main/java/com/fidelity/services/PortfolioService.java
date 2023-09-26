@@ -26,15 +26,8 @@ public class PortfolioService {
 		if (o == null)
 			throw new NullPointerException ("Order can't be null");
 		
-		this.tradeHistory.add(o);	
-//		try {
-//            Thread.sleep(5000);
-//        } 
-//		catch (InterruptedException e) {
-//			Thread.currentThread().interrupt();
-//            e.printStackTrace();
-//        }
-		if (o.getDirection().getStringValue().equals("B"))
+		this.tradeHistory.add(o);
+		if (o.getDirection().getStringValue().equals("BUY"))
 			this.portfolio.add(new Trade(o, o.getTargetPrice() , "Trade00" + this.getPortfolioLength()+1, Instant.now()));
 	}
 

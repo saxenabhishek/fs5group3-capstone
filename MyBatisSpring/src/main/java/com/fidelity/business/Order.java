@@ -42,14 +42,14 @@ public class Order {
 			throw new IllegalArgumentException ("Target price of order can't be zero or negative");	
 		this.targetPrice = targetPrice;
 		
-		if ("B".equals(direction)) 
+		if ("BUY".equals(direction)) 
             this.direction = Direction.BUY;
-        else if ("S".equals(direction)) 
+        else if ("SELL".equals(direction)) 
             this.direction = Direction.SELL;
         else if (direction == null)
             throw new NullPointerException("Order direction value can't be null");
         else
-            throw new IllegalArgumentException("Invalid order direction value! Only B(for Buy) or S (for Sell)");
+            throw new IllegalArgumentException("Invalid order direction value! Only BUY or SELL");
 	
 		if (timestamp== null)
 			throw new NullPointerException ("Order timestamp can't be null");

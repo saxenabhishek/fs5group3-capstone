@@ -17,7 +17,9 @@ public class PortfolioDaoImpl {
 	private PortfolioMapper portfolioMapper;
 	
 	public List<Trade> getPortfolio(String clientId) {
-		return portfolioMapper.getPortfolio(clientId);
+		if (clientId == null)
+			throw new NullPointerException("Client Id can't be null");
 		
+		return portfolioMapper.getPortfolio(clientId);		
 	}
 }

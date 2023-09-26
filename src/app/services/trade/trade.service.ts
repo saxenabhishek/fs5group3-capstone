@@ -24,18 +24,41 @@ export class TradeService {
   processOrder(order: Order) {
     // todo: make call to backend to process an order and make a trade
     this.order_data.push(order);
-    this.trade_data.push(
-      new Trade(
-        order,
-        order.targetPrice + 12,
-        order.quantity,
-        order.direction,
-        order.targetPrice + 3,
-        order.instrumentId,
-        order.clientId,
-        this.trade_data.length + 1 + '23423'
-      )
+
+    const existingTradeIndex = this.trade_data.findIndex(
+      (trade) => trade.instrumentId === order.instrumentId
     );
+    
+    if (existingTradeIndex !== -1) {
+      // An existing trade with the same instrumentId was found
+      // Update the existing trade's data
+      if (order.direction.stringValue == "B"){        
+        this.trade_data[existingTradeIndex].cashValue= parseInt(this.trade_data[existingTradeIndex].cashValue.toString()) + (parseInt(order.targetPrice.toString()) * parseInt(order.quantity.toString()));
+        this.trade_data[existingTradeIndex].quantity = parseInt(this.trade_data[existingTradeIndex].quantity.toString()) + parseInt(order.quantity.toString());
+        console.log(typeof this.trade_data[existingTradeIndex].quantity)
+      }
+      // else if (order.direction.stringValue == "S"){        
+      //   this.trade_data[existingTradeIndex].cashValue-= order.targetPrice - 12;
+      //   this.trade_data[existingTradeIndex].quantity-= order.quantity;
+      //   this.trade_data[existingTradeIndex].executionPrice-= order.targetPrice - 3;
+      // }
+    } 
+    else {
+      // No existing trade with the same instrumentId was found, so create a new one
+      this.trade_data.push(
+        new Trade(
+          order,
+          order.targetPrice * order.quantity,
+          // order.targetPrice + 12,
+          order.quantity,
+          order.direction,
+          order.targetPrice + 3,
+          order.instrumentId,
+          order.clientId,
+          this.trade_data.length + 1 + '23423'
+        )
+      );
+    }
   }
 
   getTrades(): Observable<Trade[]> {

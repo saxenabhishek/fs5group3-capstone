@@ -41,7 +41,7 @@ class TradeServiceTest {
 
 	@Test
 	void testBuyTrade() throws Exception{
-		Order order = new Order("N234", 2, Helper.makeBigDecimal("102"), Direction.BUY.getStringValue(), "100012242", "123", Instant.now());
+		Order order = new Order("N234", 2, Helper.makeBigDecimal("102"), "BUY", "100012242", "123", Instant.now());
 		tradeService.postBuyTrade(order);
 
 	}
