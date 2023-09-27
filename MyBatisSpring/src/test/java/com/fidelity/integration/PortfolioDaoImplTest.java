@@ -2,20 +2,27 @@ package com.fidelity.integration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.jdbc.JdbcTestUtils;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fidelity.business.Trade;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations="classpath:beans.xml")
-//@Transactional
+@Transactional
 public class PortfolioDaoImplTest {	
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
 	
 	@Autowired
 	private PortfolioDaoImpl portfolioDaoImpl;
@@ -25,10 +32,44 @@ public class PortfolioDaoImplTest {
 		assertNotNull(portfolioDaoImpl);
 	}
 
+	private int countUniqueInstrumentIds(JdbcTemplate jdbcTemplate, String tableName, String condition) {
+	    String sql = "SELECT COUNT(DISTINCT instrumentid) FROM " + tableName + " WHERE " + condition;
+	    return jdbcTemplate.queryForObject(sql, Integer.class);
+	}
+	
 	@Test
-	void testGetWholePortfolioWorks() {
-		List<Trade> holdings = portfolioDaoImpl.getPortfolio("UID001");
+	void testGetWholePortfolioTrades() {
+		String clientId= "UID001";
+		List<Trade> holdings = portfolioDaoImpl.getPortfolioTrades(clientId);
 		assertNotNull(holdings);
-		assertEquals(holdings.size(), 1);
+		int rows= JdbcTestUtils.countRowsInTableWhere(jdbcTemplate, "ft_trade", "clientid= '" + clientId + "'");
+		assertEquals(holdings.size(), rows);
+	}
+	
+	@Test
+	void testGetAggregatedHoldings() {
+		String clientId= "UID001";
+		String instId= "T67880";
+		List<Trade> holdings = portfolioDaoImpl.getHoldings(clientId);
+		assertNotNull(holdings);
+		int rows= countUniqueInstrumentIds(jdbcTemplate, "ft_trade", "clientid= '" + clientId + "'");
+		assertEquals(holdings.size(), rows);
+	}
+	
+	@Test
+	void testClientNotFound() {
+		assertThrows(NullPointerException.class, () -> portfolioDaoImpl.getPortfolioTrades("UID004"));
+	}
+	
+	@Test
+	void testClientPortfolioNotFound() {
+		String clientId= "UID002";
+		int rows= JdbcTestUtils.countRowsInTableWhere(jdbcTemplate, "ft_trade", "clientid= '" + clientId + "'");
+		assertEquals(rows, portfolioDaoImpl.getPortfolioTrades(clientId).size());
+	}
+	
+	@Test
+	void testGetWholePortfolioForNullClientId() {
+		assertThrows(NullPointerException.class, () -> portfolioDaoImpl.getPortfolioTrades(null));
 	}
 }

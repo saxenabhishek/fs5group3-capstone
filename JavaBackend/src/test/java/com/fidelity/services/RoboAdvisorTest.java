@@ -13,7 +13,7 @@ class RoboTradeServiceTest {
 
 	@BeforeEach
 	void setUp() {
-		ts = new RoboTrade("ETF India","IETF",2,80000,"ETF",20,"BUY","SELL");
+		ts = new RoboTrade("ETF India","IETF",2,80000,"ETF",20,Direction.BUY,"SELL");
 	}
 
 	@Test
@@ -36,7 +36,7 @@ class RoboTradeServiceTest {
 	}
 	@Test
 	void toBuy( ) {
-		String title="BUY";
+		String title=Direction.BUY;
 		String result = ts.getbuy();
         assertEquals(title, result);
 	}

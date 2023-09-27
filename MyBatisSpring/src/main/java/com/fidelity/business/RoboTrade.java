@@ -8,11 +8,10 @@ public class RoboTrade {
 	private int tradePrice;
 	private String tradeType;
 	private int tradeFluctuation;
-	private String buy;
-	private String sell;
+	private Direction buy, sell;
 
 	
-	public RoboTrade(String securityName,String stockSymbol,int tradeId,int tradePrice,String tradeType,int tradeFluctuation,String buy,String sell){
+	public RoboTrade(String securityName,String stockSymbol,int tradeId,int tradePrice,String tradeType,int tradeFluctuation,Direction buy,Direction sell){
 		 this.securityName =securityName;
 		 this.stockSymbol =stockSymbol;
 		 this.tradeId =tradeId;
@@ -38,10 +37,10 @@ public class RoboTrade {
 	public int gettradeFluctuation() {
 		return tradeFluctuation;
 	}
-	public String getbuy() {
+	public Direction getbuy() {
 		return buy;
 	}
-	public String getsell() {
+	public Direction getsell() {
 		return sell;
 	}
 	public int gettradePrice()

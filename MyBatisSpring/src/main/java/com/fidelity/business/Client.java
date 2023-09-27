@@ -13,16 +13,15 @@ public class Client {
 
     }
 
-	public Object getPerson() {
+	public Person getPerson() {
 		
 		return person;
 	}
 
-	public Object getIdentification() {
+	public ClientIdentification getIdentification() {
 		
 		return identification;
 	}
 
-    // Getter and setter methods for person and identification
 }
 
