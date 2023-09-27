@@ -1,16 +1,16 @@
 package com.fidelity.business;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class Price {
 	public BigDecimal askPrice;
 	public BigDecimal bidPrice;
 	public String instrumentId;
-	public LocalDateTime priceTimestamp;
+	public LocalDate priceTimestamp;
 	public Instrument instrument;
 	
-	public Price(Instrument instrument, BigDecimal askPrice, String instrumentId ,BigDecimal bidPrice, LocalDateTime priceTimestamp) {
+	public Price(Instrument instrument, BigDecimal askPrice, String instrumentId ,BigDecimal bidPrice, LocalDate priceTimestamp) {
 		super();
 		this.askPrice = askPrice;
 		this.bidPrice = bidPrice;
@@ -43,11 +43,11 @@ public class Price {
 		this.instrumentId = instrumentId;
 	}
 
-	public LocalDateTime getPriceTimestamp() {
+	public LocalDate getPriceTimestamp() {
 		return priceTimestamp;
 	}
 
-	public void setPriceTimestamp(LocalDateTime priceTimestamp) {
+	public void setPriceTimestamp(LocalDate priceTimestamp) {
 		this.priceTimestamp = priceTimestamp;
 	}
 
@@ -57,5 +57,11 @@ public class Price {
 
 	public void setInstrument(Instrument instrument) {
 		this.instrument = instrument;
+	}
+
+	@Override
+	public String toString() {
+		return "Price [askPrice=" + askPrice + ", bidPrice=" + bidPrice + ", instrumentId=" + instrumentId
+				+ ", priceTimestamp=" + priceTimestamp + ", instrument=" + instrument + "]";
 	}
 }
