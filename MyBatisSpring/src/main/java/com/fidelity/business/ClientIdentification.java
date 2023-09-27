@@ -3,10 +3,13 @@ package com.fidelity.business;
 import java.util.Objects;
 
 public class ClientIdentification {
+	
+	private long id;
+	private String person_id;
     private String type;
     private String value;
 
-    public ClientIdentification(String type, String value) {
+    public ClientIdentification(long id,String person_id,String type, String value) {
         if (type == null) {
             throw new IllegalArgumentException("Identification type cannot be null.");
         }
@@ -14,23 +17,60 @@ public class ClientIdentification {
             throw new IllegalArgumentException("Identification type and value cannot be empty.");
         }
 
-        this.type = type;
-        this.value = value;
+        this.setType(type);
+        this.setValue(value);
+        this.setPerson_id(person_id);
+        this.setId(id);
     }
 
-    // Getter and setter methods for type and value
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        ClientIdentification that = (ClientIdentification) obj;
-        return Objects.equals(type, that.type) &&
-                Objects.equals(value, that.value);
-    }
+	public long getId() {
+		return id;
+	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(type, value);
-    }
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getPerson_id() {
+		return person_id;
+	}
+
+	public void setPerson_id(String person_id) {
+		this.person_id = person_id;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
+	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, person_id, type, value);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ClientIdentification other = (ClientIdentification) obj;
+		return id == other.id && Objects.equals(person_id, other.person_id) && Objects.equals(type, other.type)
+				&& Objects.equals(value, other.value);
+	}
+
 }

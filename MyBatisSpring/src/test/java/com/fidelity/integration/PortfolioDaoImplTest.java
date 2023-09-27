@@ -32,29 +32,44 @@ public class PortfolioDaoImplTest {
 		assertNotNull(portfolioDaoImpl);
 	}
 
+	private int countUniqueInstrumentIds(JdbcTemplate jdbcTemplate, String tableName, String condition) {
+	    String sql = "SELECT COUNT(DISTINCT instrumentid) FROM " + tableName + " WHERE " + condition;
+	    return jdbcTemplate.queryForObject(sql, Integer.class);
+	}
+	
 	@Test
-	void testGetWholePortfolio() {
+	void testGetWholePortfolioTrades() {
 		String clientId= "UID001";
-		List<Trade> holdings = portfolioDaoImpl.getPortfolio(clientId);
+		List<Trade> holdings = portfolioDaoImpl.getPortfolioTrades(clientId);
 		assertNotNull(holdings);
 		int rows= JdbcTestUtils.countRowsInTableWhere(jdbcTemplate, "ft_trade", "clientid= '" + clientId + "'");
 		assertEquals(holdings.size(), rows);
 	}
 	
 	@Test
+	void testGetAggregatedHoldings() {
+		String clientId= "UID001";
+		String instId= "T67880";
+		List<Trade> holdings = portfolioDaoImpl.getHoldings(clientId);
+		assertNotNull(holdings);
+		int rows= countUniqueInstrumentIds(jdbcTemplate, "ft_trade", "clientid= '" + clientId + "'");
+		assertEquals(holdings.size(), rows);
+	}
+	
+	@Test
 	void testClientNotFound() {
-		assertThrows(NullPointerException.class, () -> portfolioDaoImpl.getPortfolio("UID004"));
+		assertThrows(NullPointerException.class, () -> portfolioDaoImpl.getPortfolioTrades("UID004"));
 	}
 	
 	@Test
 	void testClientPortfolioNotFound() {
 		String clientId= "UID002";
 		int rows= JdbcTestUtils.countRowsInTableWhere(jdbcTemplate, "ft_trade", "clientid= '" + clientId + "'");
-		assertEquals(rows, portfolioDaoImpl.getPortfolio(clientId).size());
+		assertEquals(rows, portfolioDaoImpl.getPortfolioTrades(clientId).size());
 	}
 	
 	@Test
 	void testGetWholePortfolioForNullClientId() {
-		assertThrows(NullPointerException.class, () -> portfolioDaoImpl.getPortfolio(null));
+		assertThrows(NullPointerException.class, () -> portfolioDaoImpl.getPortfolioTrades(null));
 	}
 }

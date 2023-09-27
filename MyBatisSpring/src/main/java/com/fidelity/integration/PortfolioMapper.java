@@ -10,5 +10,6 @@ public interface PortfolioMapper {
 	@Select("select id from ft_client where id= #{value}")
 	String getClientExistence(String clientId);	
 	
-	List<Trade> getPortfolio(String clientId);
+	List<Trade> getPortfolioTrades(String clientId);
+	List<Trade> getHoldings(String clientId);
 }
