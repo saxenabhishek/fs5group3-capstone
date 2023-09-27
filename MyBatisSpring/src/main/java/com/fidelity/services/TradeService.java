@@ -3,6 +3,8 @@ package com.fidelity.services;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,14 +22,8 @@ import com.fidelity.shared.Helper;
 
 @Service
 public final class TradeService {
-
-
-	@Autowired
-	ClientService clientService;
-
 	@Autowired
 	PortfolioService portfolioService;
-	
 	
 	@Autowired
 	TradeDao tradeDao;
@@ -36,6 +32,19 @@ public final class TradeService {
 
 	BigDecimal tolerance = Helper.makeBigDecimal("0.05");
 	BigDecimal fee = Helper.makeBigDecimal("0.1");
+	
+	public TradeService() {
+		instrumentPrices = new ArrayList<>();
+		Instrument i1 = new Instrument("JP Morgan", "A123", 100, "N123", 1, "STOCK");
+		Price p1 = new Price(i1,  Helper.makeBigDecimal("104.00") , "N123", Helper.makeBigDecimal("104.00"), LocalDate.now());
+		instrumentPrices.add(p1);
+
+
+		Instrument i2 = new Instrument("Apple", "A234", 100, "ID1232", 1, "STOCK");
+		Price p2 =  new Price(i1,  Helper.makeBigDecimal("104.00") , "N123", Helper.makeBigDecimal("104.00"), LocalDate.now());
+		instrumentPrices.add(p2);
+
+	}
 
 	public List<Instrument> getAllInstruments(String InstrumentId) {
 		if (InstrumentId.isBlank()){
@@ -67,7 +76,7 @@ public final class TradeService {
 		BigDecimal execPrice;
 		
 		// get balance from client
-		double currentBalance = clientService.getCurrentBalance(order.getClientId());
+		double currentBalance = 1000000;
 
 
 		if (instrumentPrices == null && order.getDirection() != Direction.BUY) {
@@ -113,7 +122,7 @@ public final class TradeService {
 
 		BigDecimal execPrice = BigDecimal.ZERO.setScale(2, RoundingMode.HALF_DOWN);
 		Trade trade;
-		double currentBalance = clientService.getCurrentBalance(order.getClientId());
+		double currentBalance = 1000000;
 
 		List<Trade> portfolio = portfolioService.getPortfolio();
 

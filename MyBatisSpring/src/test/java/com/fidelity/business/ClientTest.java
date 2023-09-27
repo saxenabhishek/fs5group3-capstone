@@ -1,19 +1,18 @@
 package com.fidelity.business;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.time.LocalDate;
+
 import org.junit.jupiter.api.Test;
-
-import com.fidelity.business.Client;
-import com.fidelity.business.ClientIdentification;
-import com.fidelity.business.Person;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class ClientTest {
 
 	@Test
     void testValidClientCreation() {
-        Person person = new Person(1, "India", "12345", "01-01-2001", "testing@yahoo.com", "password");
-        ClientIdentification identification = new ClientIdentification("Passport", "AB123456");
+        Person person = new Person("UID001", "India", "12345", LocalDate.of(2000, 01, 01), "testing@yahoo.com", "password");
+        ClientIdentification identification = new ClientIdentification(2345678, "UID001", "Passport", "AB123456");
         assertDoesNotThrow(() ->
                 new Client(person, identification));
     }
@@ -21,13 +20,13 @@ public class ClientTest {
     @Test
     void testNullPerson() {
         assertThrows(IllegalArgumentException.class, () ->
-                new Client(null, new ClientIdentification("Passport", "AB123456")));
+                new Client(null, new ClientIdentification(2345678, "UID001", "Passport", "AB123456")));
     }
 
     @Test
     void testNullClientIdentification() {
         assertThrows(IllegalArgumentException.class, () ->
-                new Client(new Person(1, "US", "123", "01-01-2001", "testemail@gmail.com","password"),null));
+                new Client(new Person("UID010", "US", "123", LocalDate.of(2000, 01, 01), "testemail@gmail.com","password"), null));
     }
 
     @Test
@@ -39,16 +38,16 @@ public class ClientTest {
     @Test
     void testEmptyClientIdentification() {
         assertThrows(IllegalArgumentException.class, () ->
-                new Client(new Person(1, "US", "12345678", "01-01-2001", "testemail@gmail.com", "password"), new ClientIdentification("", "")));
+                new Client(new Person("UID010", "US", "12345678", LocalDate.of(2000, 01, 01), "testemail@gmail.com", "password"), new ClientIdentification(-1, "", "", "")));
     }
 
     void testEmptyPerson() {
         assertThrows(IllegalArgumentException.class, () ->
-                new Client(new Person(1,"","","","",""), new ClientIdentification("Passport", "ABC12345")));
+                new Client(new Person("","","",null,"",""), new ClientIdentification(3910271, "UID001", "Passport", "ABC12345")));
     }
     @Test
     void testEmptyClient() {
         assertThrows(IllegalArgumentException.class, () ->
-                new Client(new Person(1,"","","","",""), new ClientIdentification("", "")));
+                new Client(new Person("","","",null,"",""), new ClientIdentification(-1, "", "", "")));
     }    
 }
