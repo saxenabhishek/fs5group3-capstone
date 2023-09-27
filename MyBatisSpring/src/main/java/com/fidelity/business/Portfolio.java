@@ -2,6 +2,7 @@ package com.fidelity.business;
 
 import java.math.BigDecimal;
 
+@Deprecated
 public class Portfolio {
 	private String instrumentId;
 	private String instrumentDescription;

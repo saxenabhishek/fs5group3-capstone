@@ -63,5 +63,8 @@ public class ClientService {
 	public Set<Preference> getPreferences() {
 		return Collections.unmodifiableSet(preferences);
 	}
+    public double getCurrentBalance(String clientId) {
+        return 1000000.00;
+    }
 
 }
