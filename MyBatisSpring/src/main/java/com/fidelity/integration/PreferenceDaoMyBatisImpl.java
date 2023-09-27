@@ -1,6 +1,8 @@
 package com.fidelity.integration;
 
+
 import java.util.List;
+import java.util.Objects;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +27,21 @@ public class PreferenceDaoMyBatisImpl {
 
     @Transactional
 	public boolean insertPreference(Preference pref) {
+    	Objects.requireNonNull(pref);
+    	if (pref.getInvestmentPurpose()=="") {
+			throw new IllegalArgumentException("Purpose cannot be an empty string");
+		}
 		logger.debug("inserting preference " + pref);
+		
 		
 		return preferenceMapper.insertPreference(pref) == 1;
 	}
     @Transactional
 	public boolean updatePreference(Preference pref) {
+    	Objects.requireNonNull(pref);
+    	if (pref.getInvestmentPurpose()=="") {
+			throw new IllegalArgumentException("Purpose cannot be an empty string");
+		}
 		logger.debug("updating preference " + pref);
 		
 		return preferenceMapper.updatePreference(pref) == 1;

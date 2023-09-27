@@ -1,6 +1,8 @@
 package com.fidelity.integration;
 
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
@@ -95,5 +97,31 @@ class PreferenceDaoMyBatisImplTest {
 		 * length_of_investment='0-5 years' and is_checked='T' """));
 		 */
 	}
+	@Test
+	void testEmptyStringPurpose() {
+		var expectedRowCount = countRowsInTable(jdbcTemplate, "ft_preference");
+        var id1 = "UID001";
+        var id2= "UID003";
+		var updatePref = new Preference(id1,"",RiskTolerance.BELOW_AVERAGE,IncomeCategory.SixtyKToEigthyK,LengthOfInvestment.ZeroToFiveYears,"T");
+	    var insertPref=new Preference(id2,"",RiskTolerance.BELOW_AVERAGE,IncomeCategory.SixtyKToEigthyK,LengthOfInvestment.ZeroToFiveYears,"T");
+		assertEquals(0, countRowsInTableWhere(jdbcTemplate, "ft_preference",
+									"client_id= 1 and investment_purpose = 'Studies'"));
+	  
+		
+		
+		assertThrows(IllegalArgumentException.class, () ->
+		 dao.updatePreference(updatePref)
+	    );
+		assertThrows(IllegalArgumentException.class, () ->
+		 dao.insertPreference(insertPref)
+	    );
+		
+		
+		
+		assertEquals(expectedRowCount, countRowsInTable(jdbcTemplate, "ft_preference"));
+	
+		
+	}
+
 
 }
