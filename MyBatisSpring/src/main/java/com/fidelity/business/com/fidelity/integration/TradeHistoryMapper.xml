@@ -7,7 +7,7 @@
 		<result property="instrumentId"	column="INSTRUMENTID" />
 		<result property="quantity"		column="QUANTITY" />
 		<result property="targetPrice"	column="TARGETPRICE" />
-		<result property="direction"	column="DIRECTION" />
+		<result property="direction"	column="DIRECTION"  typeHandler="com.fidelity.business.DirectionTypeHandler"/>
 		<result property="clientId"		column="CLIENTID" />
 		<result property="timestamp"	column="ORDERTIMESTAMP" />
 	</resultMap>

@@ -1,24 +1,22 @@
 package com.fidelity.business;
-import java.util.Objects;
+
 import java.util.regex.Pattern;
-import java.util.regex.*;    
+import java.util.regex.*;
+import java.time.LocalDate;
 import java.util.*;  
 
 public class Person {
-	private long id;
+	private String id;
     private String country;
     private String postalCode;
-    private String dob;
+    private LocalDate dob;
     private String email;
     private String password;
 
-    public Person(long id, String country, String postalCode, String dob, String email, String password) {
-        if (id < 0) {
-            throw new IllegalArgumentException("ID cant be negative");
-        }
-        if (id == 0) {
-            throw new IllegalArgumentException("ID cannot be 0");
-        }
+    public Person(String id, String country, String postalCode, LocalDate dob, String email, String password) {
+    	 if (id == null ) {
+             throw new IllegalArgumentException("id cant be null");
+         }
         if (!isValidEmail(email)) {
             throw new IllegalArgumentException("Invalid email address.");
         }
@@ -37,9 +35,7 @@ public class Person {
         if (dob == null ) {
             throw new IllegalArgumentException("dob cannot be null");
         }
-        if (dob.isEmpty()) {
-            throw new IllegalArgumentException("dob cannot be empty.");
-        }
+       
         if (postalCode.isEmpty()) {
             throw new IllegalArgumentException("postal code cannot be empty.");
         }
@@ -82,4 +78,30 @@ public class Person {
     public int hashCode() {
         return Objects.hash(id, country, postalCode, dob, email, password);
     }
+
+	public String getId() {
+		return id;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public String getPostalCode() {
+		return postalCode;
+	}
+
+	public LocalDate getDob() {
+		return dob;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+    
+    
 }
