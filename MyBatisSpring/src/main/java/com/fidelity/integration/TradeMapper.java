@@ -1,97 +1,33 @@
 package com.fidelity.integration;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
+import java.util.List;
 
-import javax.sql.DataSource;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Select;
 
+import com.fidelity.business.Instrument;
 import com.fidelity.business.Order;
+import com.fidelity.business.Price;
 import com.fidelity.business.Trade;
 
-public class TradeMapper {
-	DataSource ds;
+public interface TradeMapper {
+	@Insert("INSERT INTO ft_trade (id, orderid, instrumentid, quantity, targetprice, direction, clientid, cashvalue, executionprice, tradetimestamp) "+
+	"VALUES (#{tradeId}, #{order.orderId}, #{instrumentId}, #{quantity}, #{order.targetPrice}, #{direction}, #{clientId}, #{cashValue}, #{executionPrice}, #{tradeTimestamp})")
+	public int addTrade(Trade t);
+	
+	@Insert("INSERT INTO ft_order (id, instrumentid, quantity, targetprice, direction, clientid, ordertimestamp) "+
+	" VALUES (#{orderId}, #{instrumentId}, #{quantity}, #{targetPrice}, #{direction}, #{clientId}, #{orderTimestamp})")
+	public int addOrder(Order o);
 
-	public TradeMapper(DataSource ds) {
-		this.ds = ds;
-		// TODO Auto-generated constructor stub
-	}
-	
-	public void addTrade(Trade t) {
-		String query = "INSERT INTO ft_trade (id, orderid, instrumentid, quantity, targetprice, direction, clientid, cashvalue, executionprice, tradetimestamp)"
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-		
-		Connection conn= null;
-		try {
-			conn = ds.getConnection();
-			PreparedStatement statement = conn.prepareStatement(query);
-			statement.setString(1, t.getTradeId());
-			statement.setString(2, t.getOrder().getOrderId());
-			statement.setString(3, t.getInstrumentId());
-			statement.setLong(4, t.getQuantity());
-			statement.setBigDecimal(5, t.getOrder().getTargetPrice());
-			statement.setString(6, t.getDirection().getStringValue());
-			statement.setString(7, t.getClientId());
-			statement.setBigDecimal(8, t.getCashValue());
-			statement.setBigDecimal(9, t.getExecutionPrice());
-			
-			LocalDateTime ldt = LocalDateTime.ofInstant( t.getTradeTimestamp(), ZoneOffset.UTC);
-			Timestamp ts = Timestamp.valueOf(ldt);
-	
-			
-			statement.setTimestamp(10, ts);
-			
-			System.out.println(statement.executeUpdate());
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		try {
-			conn.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-//	INSERT INTO ft_order (id, instrumentid, quantity, targetprice, direction, clientid, ordertimestamp) 
-//	VALUES ('OID001', 'Q123', 50, 1161.42, 'B', 'UID001', TIMESTAMP '2023-09-20 10:30:00');
-	
-	public void addOrder(Order o) {
-		String query = "INSERT INTO ft_order (id, instrumentid, quantity, targetprice, direction, clientid, ordertimestamp)"
-				+ "	VALUES (?, ?,?,?, ?,?,?)";
-		
-		Connection conn= null;
-		try {
-			conn = ds.getConnection();
-			PreparedStatement statement = conn.prepareStatement(query);
-			statement.setString(1, o.getOrderId());
-			statement.setString(2, o.getInstrumentId());
-			statement.setLong(3, o.getQuantity());
-			statement.setBigDecimal(4, o.getTargetPrice());
-			statement.setString(5, o.getDirection().getStringValue());
-			statement.setString(6, o.getClientId());
-			
-			LocalDateTime ldt = LocalDateTime.ofInstant( o.getOrderTimestamp(), ZoneOffset.UTC);
-			Timestamp ts = Timestamp.valueOf(ldt);
+	@Select("SELECT id instrumentId, externalid, categoryid, instrumentdescription description, maxquantity, minquantity FROM ft_instrument")
+    public List<Instrument> getAllInstruments();
 
-			statement.setTimestamp(7, ts);
-			
-			System.out.println(statement.executeUpdate());
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		try {
-			conn.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+	@Select("SELECT id instrumentId, externalid, categoryid, instrumentdescription description, maxquantity, minquantity FROM ft_instrument WHERE instrumentId = #{id}")
+    public List<Instrument> getInstrumentById(String id);
+
+
+	public List<Price> getAllLatestPrices();
+
+	public List<Price> getPriceById(String priceId);
 
 }
