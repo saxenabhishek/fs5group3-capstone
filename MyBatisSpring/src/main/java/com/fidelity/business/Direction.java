@@ -19,7 +19,7 @@ public enum Direction {
 			if (d.stringValue.equals(code)) 
 				return d;
 		
-		throw new IllegalArgumentException("Unknown trade direction");
+		throw new IllegalArgumentException("Unknown Trade Direction! Only BUY or SELL.");
 	}
 }
 

@@ -6,7 +6,7 @@ import org.apache.ibatis.type.MappedJdbcTypes;
 import org.apache.ibatis.type.MappedTypes;
 
 @MappedTypes(Direction.class)
-@MappedJdbcTypes(JdbcType.CHAR)
+@MappedJdbcTypes(JdbcType.VARCHAR)
 public class DirectionTypeHandler extends EnumTypeHandler<Direction> {
 	public DirectionTypeHandler(Class<Direction> type) {
         super(type);

@@ -29,7 +29,7 @@
 	</resultMap>
 
 	
-	<select id="getPortfolio" resultType="Trade" parameterType="String" resultMap="tradeResultMap">
+	<select id="getPortfolio" parameterType="String" resultMap="tradeResultMap">
 		select o.clientid, t.id as tid, o.id as oid, o.instrumentid, o.quantity, o.direction, o.targetprice, t.executionprice, t.cashvalue, o.ordertimestamp, t.tradetimestamp 
 		from ft_trade t left join ft_order o on t.clientid= o.clientid and t.orderid= o.id where t.clientid= #{value} and t.direction= 'BUY'
 	</select>

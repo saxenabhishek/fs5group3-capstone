@@ -9,8 +9,10 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.jdbc.JdbcTestUtils;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fidelity.business.Trade;
@@ -19,6 +21,8 @@ import com.fidelity.business.Trade;
 @ContextConfiguration(locations="classpath:beans.xml")
 @Transactional
 public class PortfolioDaoImplTest {	
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
 	
 	@Autowired
 	private PortfolioDaoImpl portfolioDaoImpl;
@@ -30,9 +34,23 @@ public class PortfolioDaoImplTest {
 
 	@Test
 	void testGetWholePortfolio() {
-		List<Trade> holdings = portfolioDaoImpl.getPortfolio("UID001");
+		String clientId= "UID001";
+		List<Trade> holdings = portfolioDaoImpl.getPortfolio(clientId);
 		assertNotNull(holdings);
-		assertEquals(holdings.size(), 3);
+		int rows= JdbcTestUtils.countRowsInTableWhere(jdbcTemplate, "ft_trade", "clientid= '" + clientId + "'");
+		assertEquals(holdings.size(), rows);
+	}
+	
+	@Test
+	void testClientNotFound() {
+		assertThrows(NullPointerException.class, () -> portfolioDaoImpl.getPortfolio("UID004"));
+	}
+	
+	@Test
+	void testClientPortfolioNotFound() {
+		String clientId= "UID002";
+		int rows= JdbcTestUtils.countRowsInTableWhere(jdbcTemplate, "ft_trade", "clientid= '" + clientId + "'");
+		assertEquals(rows, portfolioDaoImpl.getPortfolio(clientId).size());
 	}
 	
 	@Test

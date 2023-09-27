@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import com.fidelity.business.Direction;
 import com.fidelity.business.Instrument;
 import com.fidelity.business.Order;
 import com.fidelity.business.Price;
@@ -27,7 +28,7 @@ public class PortfolioService {
 			throw new NullPointerException ("Order can't be null");
 		
 		this.tradeHistory.add(o);
-		if (o.getDirection().getStringValue().equals("BUY"))
+		if (o.getDirection() == Direction.BUY)
 			this.portfolio.add(new Trade(o, o.getTargetPrice() , "Trade00" + this.getPortfolioLength()+1, Instant.now()));
 	}
 

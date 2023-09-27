@@ -22,7 +22,5 @@ public class Client {
 		
 		return identification;
 	}
-
-    // Getter and setter methods for person and identification
 }
 

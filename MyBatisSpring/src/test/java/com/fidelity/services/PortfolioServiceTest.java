@@ -32,7 +32,7 @@ public class PortfolioServiceTest {
         tradeTemp= new ArrayList<Trade>();
         
         for (int i = 1; i <= 110; i++) {
-            Order order = new Order("AAPL", 100, new BigDecimal("150.50"), "BUY", "Client123", "Order00" + i, Instant.now());
+            Order order = new Order("AAPL", 100, new BigDecimal("150.50"), Direction.BUY, "Client123", "Order00" + i, Instant.now());
             portfolioService.addTrade(order);
             orderTemp.add(order);
 //            System.out.println(portfolioService.getPortfolio().get(portfolioService.getPortfolioLength()-i));
@@ -50,7 +50,7 @@ public class PortfolioServiceTest {
 
     @Test
     public void testAddTrade() {
-        Order order = new Order("AAPL", 100, new BigDecimal("150.50"), "BUY", "Client123", "Order001", Instant.now());
+        Order order = new Order("AAPL", 100, new BigDecimal("150.50"), Direction.BUY, "Client123", "Order001", Instant.now());
         portfolioService.addTrade(order);
         assertEquals(111, portfolioService.getTradeHistoryLength());
         assertEquals(111, portfolioService.getPortfolioLength());
