@@ -58,8 +58,7 @@ public class TradeMapper {
 		}
 	}
 	
-//	INSERT INTO ft_order (id, instrumentid, quantity, targetprice, direction, clientid, ordertimestamp) 
-//	VALUES ('OID001', 'Q123', 50, 1161.42, 'B', 'UID001', TIMESTAMP '2023-09-20 10:30:00');
+
 	
 	public void addOrder(Order o) {
 		String query = "INSERT INTO ft_order (id, instrumentid, quantity, targetprice, direction, clientid, ordertimestamp)"
