@@ -27,7 +27,7 @@
 		<property name="dataSource" ref="datasource" />
 	</bean>
 
-	<context:component-scan base-package="com.fidelity.configuration, com.fidelity.integration" />
+	<context:component-scan base-package="com.fidelity.configuration, com.fidelity.integration, com.fidelity.services" />
 
 	<!-- Enable transaction demarcation with annotations -->
 	<tx:annotation-driven />

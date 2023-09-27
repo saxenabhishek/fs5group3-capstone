@@ -78,12 +78,18 @@ INSERT into ft_instrument (id, externalIdType, externalId, categoryId, instrumen
 INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (1.03375, 1.03390625, TO_TIMESTAMP('21-AUG-2019 10.00.02.000000000', 'DD-MON-YYYY HH.MI.SS.FF'), 'T67890');
 INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (0.998125, 0.99828125, TO_TIMESTAMP('21-AUG-2019 10.00.02.000000000', 'DD-MON-YYYY HH.MI.SS.FF'), 'T67894');
 INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (1.0, 1.00015625, TO_TIMESTAMP('21-AUG-2019 10.00.02.000000000', 'DD-MON-YYYY HH.MI.SS.FF'), 'T67895');
+INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (6.0, 1.234, TO_TIMESTAMP('22-AUG-2019 10.00.02.000000000', 'DD-MON-YYYY HH.MI.SS.FF'), 'T67895');
 INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (0.999375, 0.999375, TO_TIMESTAMP('21-AUG-2019 10.00.02.000000000', 'DD-MON-YYYY HH.MI.SS.FF'), 'T67897');
 INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (0.999375, 0.999375, TO_TIMESTAMP('21-AUG-2019 10.00.02.000000000', 'DD-MON-YYYY HH.MI.SS.FF'), 'T67899');
 INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (1.00375, 1.00375, TO_TIMESTAMP('21-AUG-2019 10.00.02.000000000', 'DD-MON-YYYY HH.MI.SS.FF'), 'T67880');
 INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (1.0596875, 1.0596875, TO_TIMESTAMP('21-AUG-2019 10.00.02.000000000', 'DD-MON-YYYY HH.MI.SS.FF'), 'T67883');
 INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (0.9853125, 0.98546875, TO_TIMESTAMP('21-AUG-2019 10.00.02.000000000', 'DD-MON-YYYY HH.MI.SS.FF'), 'T67878');
 INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (1162.42, 1161.42, TO_TIMESTAMP('21-AUG-2019 10.00.02.000000000', 'DD-MON-YYYY HH.MI.SS.FF'), 'Q123');
+INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (1172.42, 1162.42, TO_TIMESTAMP('22-AUG-2019 10.00.02.000000000', 'DD-MON-YYYY HH.MI.SS.FF'), 'Q123');
+INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (1182.42, 1175.42, TO_TIMESTAMP('23-AUG-2019 10.00.02.000000000', 'DD-MON-YYYY HH.MI.SS.FF'), 'Q123');
+
+ALTER TABLE "SCOTT"."FT_PRICE" MODIFY ("PRICETIMESTAMP" NOT NULL ENABLE);
+ALTER TABLE "SCOTT"."FT_PRICE" ADD CONSTRAINT "FT_PRICE_PK" PRIMARY KEY ("ID", "PRICETIMESTAMP");
 
 -- Create a new table for order data named ft_order with lowercase column names
 CREATE TABLE ft_order (

@@ -4,12 +4,15 @@ import java.time.Instant;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Service;
+
 import com.fidelity.business.Direction;
 import com.fidelity.business.Instrument;
 import com.fidelity.business.Order;
 import com.fidelity.business.Price;
 import com.fidelity.business.Trade;
 
+@Service
 public class PortfolioService {	
 	private List<Order> tradeHistory;
 	private List<Trade> portfolio;

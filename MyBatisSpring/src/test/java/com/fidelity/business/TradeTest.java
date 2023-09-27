@@ -37,7 +37,7 @@ public class TradeTest {
         assertEquals(100, tradeOverloaded.getQuantity());
         assertEquals(new BigDecimal("151.50"), tradeOverloaded.getExecutionPrice());
         assertEquals(new BigDecimal("15152.00"), tradeOverloaded.getCashValue());
-        assertEquals(Direction.BUY, tradeOverloaded.getDirection().getStringValue());
+        assertEquals(Direction.BUY, tradeOverloaded.getDirection());
     }
     
     @Test
