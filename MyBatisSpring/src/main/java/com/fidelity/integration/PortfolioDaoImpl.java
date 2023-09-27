@@ -15,12 +15,22 @@ public class PortfolioDaoImpl {
 	@Autowired
 	private PortfolioMapper portfolioMapper;
 	
-	public List<Trade> getPortfolio(String clientId) {
+	public List<Trade> getPortfolioTrades(String clientId) {
 		if (clientId == null)
 			throw new NullPointerException("Client Id can't be null");
 		
 		if (portfolioMapper.getClientExistence(clientId) != null)
-			return portfolioMapper.getPortfolio(clientId);		
+			return portfolioMapper.getPortfolioTrades(clientId);		
+		else 
+			throw new NullPointerException("Client doesn't exist");
+	}
+	
+	public List<Trade> getHoldings(String clientId) {
+		if (clientId == null)
+			throw new NullPointerException("Client Id can't be null");
+		
+		if (portfolioMapper.getClientExistence(clientId) != null)
+			return portfolioMapper.getHoldings(clientId);		
 		else 
 			throw new NullPointerException("Client doesn't exist");
 	}
