@@ -1,10 +1,10 @@
 package com.fidelity.business;
 
 public enum LengthOfInvestment {
-	ZeroToFiveYears(1, "0-5 years"), 
-	FiveToSevenYears(2, "5-7 years"), 
-	SevenToTenYears(3, "7-10 years"), 
-	TenToFifteenYears(4, "10-15 years");
+	ZeroToFiveYears(1, "ZeroToFiveYears"), 
+	FiveToSevenYears(2, "FiveToSevenYears"), 
+	SevenToTenYears(3, "SevenToTenYears"), 
+	TenToFifteenYears(4, "TenToFifteenYears");
 	
 	
 

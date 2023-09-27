@@ -7,9 +7,9 @@
 	<resultMap type="Preference" id="PreferenceMap">
 		<id property="id"  column="CLIENT_ID" />                     
         <result property="investmentPurpose"  column="INVESTMENT_PURPOSE" />
-		<result property="riskTolerance"		column="RISK_TOLERANCE" />
-        <result property="incomeCategory"		column="INCOME_CATEGORY" />
-        <result property="lengthOfInvestmet"		column="LENGTH_OF_INVESTMENT" />
+		<result property="riskTolerance"		column="RISK_TOLERANCE" typeHandler="com.fidelity.business.RiskToleranceHandler" />
+        <result property="incomeCategory"		column="INCOME_CATEGORY" typeHandler="com.fidelity.business.IncomeCategoryHandler"/>
+        <result property="lengthOfInvestment"		column="LENGTH_OF_INVESTMENT" typeHandler="com.fidelity.business.LengthOfInvestmentHandler"/>
         <result property="isChecked"		column="IS_CHECKED" />
     </resultMap>
 
@@ -40,7 +40,7 @@
                 #{investmentPurpose},
                 #{riskTolerance},
                 #{incomeCategory},
-                #{lengthOfInvestmet},
+                #{lengthOfInvestment},
                 #{isChecked}
             )	
 	
@@ -51,6 +51,7 @@
 		SET    investment_purpose =#{investmentPurpose},
 		       risk_tolerance =#{riskTolerance},
                income_category=#{incomeCategory},
-               length_of_investment=#{lengthOfInvestmet}
+               length_of_investment=#{lengthOfInvestment}
 		WHERE  client_id = #{id}
 	</update>
+</mapper>

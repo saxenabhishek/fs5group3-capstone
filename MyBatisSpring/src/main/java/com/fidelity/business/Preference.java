@@ -9,19 +9,19 @@ public class Preference {
     private String investmentPurpose;
 	private RiskTolerance riskTolerance;
 	private IncomeCategory incomeCategory;
-	private LengthOfInvestment lengthOfInvestmet;
+	private LengthOfInvestment lengthOfInvestment;
 	private String isChecked;
 
 	public Preference() {}
 
-	public Preference(String id, String investmentPurpose, RiskTolerance riskTolerance, IncomeCategory incomeCategory, LengthOfInvestment lengthOfInvestmet, 
+	public Preference(String id, String investmentPurpose, RiskTolerance riskTolerance, IncomeCategory incomeCategory, LengthOfInvestment lengthOfInvestment, 
 			   String isChecked) {
 		super();
 		this.setId(id);
 		this.setInvestmentPurpose(investmentPurpose);
 		this.setRiskTolerance(riskTolerance);
 		this.setIncomeCategory(incomeCategory);
-		this.setLengthOfInvestmet(lengthOfInvestmet);
+		this.setLengthOfInvestment(lengthOfInvestment);
 		this.setIsChecked(isChecked);
 	}
 
@@ -57,13 +57,7 @@ public class Preference {
 		this.incomeCategory = incomeCategory;
 	}
 
-	public LengthOfInvestment getLengthOfInvestmet() {
-		return lengthOfInvestmet;
-	}
 
-	public void setLengthOfInvestmet(LengthOfInvestment lengthOfInvestmet) {
-		this.lengthOfInvestmet = lengthOfInvestmet;
-	}
 
 	public String getIsChecked() {
 		return isChecked;
@@ -75,7 +69,7 @@ public class Preference {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, incomeCategory, investmentPurpose, isChecked, lengthOfInvestmet, riskTolerance);
+		return Objects.hash(id, incomeCategory, investmentPurpose, isChecked, lengthOfInvestment, riskTolerance);
 	}
 
 	@Override
@@ -89,8 +83,23 @@ public class Preference {
 		Preference other = (Preference) obj;
 		return Objects.equals(id, other.id) && incomeCategory == other.incomeCategory
 				&& Objects.equals(investmentPurpose, other.investmentPurpose)
-				&& Objects.equals(isChecked, other.isChecked) && lengthOfInvestmet == other.lengthOfInvestmet
+				&& Objects.equals(isChecked, other.isChecked) && lengthOfInvestment == other.lengthOfInvestment
 				&& riskTolerance == other.riskTolerance;
+	}
+
+	public LengthOfInvestment getLengthOfInvestment() {
+		return lengthOfInvestment;
+	}
+
+	public void setLengthOfInvestment(LengthOfInvestment lengthOfInvestment) {
+		this.lengthOfInvestment = lengthOfInvestment;
+	}
+
+	@Override
+	public String toString() {
+		return "Preference [id=" + id + ", investmentPurpose=" + investmentPurpose + ", riskTolerance=" + riskTolerance
+				+ ", incomeCategory=" + incomeCategory + ", lengthOfInvestment=" + lengthOfInvestment + ", isChecked="
+				+ isChecked + "]";
 	}
 
 

@@ -2,11 +2,11 @@ package com.fidelity.business;
 
 
 public enum RiskTolerance {
-	CONSERVATIVE(1, "Conservative"), 
-	BELOW_AVERAGE(2, "Below Average"), 
-	AVERAGE(3, "Average"), 
-	ABOVE_AVERAGE(4, "Above Average"),
-	AGGRESSIVE(5,"Aggressive");
+	CONSERVATIVE(1, "CONSERVATIVE"), 
+	BELOW_AVERAGE(2, "BELOW_AVERAGE"), 
+	AVERAGE(3, "AVERAGE"), 
+	ABOVE_AVERAGE(4, "ABOVE_AVERAGE"),
+	AGGRESSIVE(5,"AGGRESSIVE");
 
 	private int code;
 	private String name;

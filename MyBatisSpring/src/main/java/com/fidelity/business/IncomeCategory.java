@@ -1,13 +1,13 @@
 package com.fidelity.business;
 
 public enum IncomeCategory {
-	ZeroToTwentyK(1, "0 - 20,000"), 
-	TwentyKToFortyK(2, "20,001 - 40,000"), 
-	FortyKToSixtyK(3, "40,001 - 60,000"), 
-	SixtyKToEigthyK(4, "60,001 - 80,000"),
-	EigthyKToOneL(5,  "80,001 - 100,000"),
-	OneLToOneLFifty(6, "100,001 - 150,000"),
-	Above(7,"150,000+");
+	ZeroToTwentyK(1, "ZeroToTwentyK"), 
+	TwentyKToFortyK(2, "TwentyKToFortyK"), 
+	FortyKToSixtyK(3, "FortyKToSixtyK"), 
+	SixtyKToEigthyK(4, "SixtyKToEigthyK"),
+	EigthyKToOneL(5,  "EigthyKToOneL"),
+	OneLToOneLFifty(6, "OneLToOneLFifty"),
+	Above(7,"Above");
 	
 
 	private int code;
