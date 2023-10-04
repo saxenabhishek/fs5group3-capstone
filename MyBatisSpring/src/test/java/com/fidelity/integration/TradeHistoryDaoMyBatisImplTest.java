@@ -1,26 +1,20 @@
 package com.fidelity.integration;
 
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.math.BigDecimal;
-import java.time.Instant;
-import java.util.Arrays;
 import java.util.List;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
+
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.fidelity.business.Order;
-import com.fidelity.business.Trade;
 
-import java.text.ParseException;
-
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration("classpath:beans.xml")
+@SpringBootTest
+@Transactional
 class TradeHistoryDaoMyBatisImplTest {
 
 	@Autowired

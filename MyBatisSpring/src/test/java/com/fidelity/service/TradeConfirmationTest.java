@@ -1,4 +1,4 @@
-package com.fidelity.services;
+package com.fidelity.service;
 
 import org.junit.jupiter.api.Test;
 

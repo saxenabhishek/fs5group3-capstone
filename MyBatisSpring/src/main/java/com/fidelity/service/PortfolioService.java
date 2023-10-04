@@ -1,4 +1,4 @@
-package com.fidelity.services;
+package com.fidelity.service;
 
 import java.time.Instant;
 import java.util.*;

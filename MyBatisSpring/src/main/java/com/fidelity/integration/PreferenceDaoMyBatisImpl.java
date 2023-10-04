@@ -1,6 +1,5 @@
 package com.fidelity.integration;
 
-
 import java.util.List;
 import java.util.Objects;
 
@@ -10,13 +9,14 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fidelity.business.Preference;
+import com.fidelity.mapper.PreferenceMapper;
 
 
 @Repository("preferencesDao")
 public class PreferenceDaoMyBatisImpl {
-	@Autowired
+	@Autowired 
 	private Logger logger;
-
+	
 	@Autowired
 	private PreferenceMapper preferenceMapper;
 

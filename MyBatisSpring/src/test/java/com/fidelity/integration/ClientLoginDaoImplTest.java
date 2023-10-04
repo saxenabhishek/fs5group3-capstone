@@ -1,27 +1,16 @@
 package com.fidelity.integration;
 
-import static org.junit.jupiter.api.Assertions.*;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.jdbc.JdbcTestUtils;
-import org.springframework.transaction.TransactionManager;
 import org.springframework.transaction.annotation.Transactional;
-import com.fidelity.business.Client;
-import com.fidelity.business.Person;
 
 
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration(locations="classpath:beans.xml")
+@SpringBootTest
 @Transactional
 public class ClientLoginDaoImplTest {	
 	
@@ -29,7 +18,7 @@ public class ClientLoginDaoImplTest {
 	private JdbcTemplate jdbcTemplate;
 	
 	@Autowired
-	private ClientLoginDaoImpl ClientLoginDaoImpl;
+	private ClientLoginDao ClientLoginDaoImpl;
 
 	@Test
 	void testClientLoginDaoImplIsNotNull() {

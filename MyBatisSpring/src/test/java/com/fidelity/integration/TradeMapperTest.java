@@ -1,36 +1,29 @@
 package com.fidelity.integration;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.math.BigDecimal;
 import java.time.Instant;
-import java.util.List;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.jdbc.JdbcTestUtils;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fidelity.business.Direction;
 import com.fidelity.business.Order;
-import com.fidelity.business.Price;
 import com.fidelity.business.Trade;
 import com.fidelity.shared.Helper;
 
-
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration(locations="classpath:beans.xml")
+@SpringBootTest
 @Transactional
 class TradeMapperTest {
 
-	Logger logger = LoggerFactory.getLogger(TradeMapperTest.class);
+	@Autowired 
+	private Logger logger;
 
     @Autowired
 	TradeDao tradeDao;

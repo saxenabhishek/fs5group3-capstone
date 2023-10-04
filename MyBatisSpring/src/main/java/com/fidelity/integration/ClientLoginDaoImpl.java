@@ -1,20 +1,19 @@
 package com.fidelity.integration;
 
-import java.sql.SQLException;
-import java.util.List;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import com.fidelity.business.Trade;
+import com.fidelity.mapper.ClientMapper;
 
-@Repository("ClientLoginDao")
-public class ClientLoginDaoImpl {
-	private final Logger logger = LoggerFactory.getLogger(getClass());
-
+@Repository
+public class ClientLoginDaoImpl implements ClientLoginDao{
+	@Autowired 
+	private Logger logger;
+	
 	@Autowired
 	private ClientMapper ClientMapper;
 	
+	@Override
 	public String getEmail(String email) {
 		if (email == null || email=="")
 			throw new NullPointerException("Email Id can not be empty or null");
@@ -25,6 +24,7 @@ public class ClientLoginDaoImpl {
 			throw new NullPointerException("This email id does not exist");
 	}
 	
+	@Override
 	public String getPassword(String email, String password) {
 		if (password == null || password == "")
 			throw new NullPointerException("Password can not be empty or null");
