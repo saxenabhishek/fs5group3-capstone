@@ -5,6 +5,12 @@ import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface ClientMapper {
+	//Preference
+    List<Preference> getAllPreference();
+	Preference getPreferenceById();
+    int insertPreference(Preference preference);
+    int updatePreference(Preference preference);
+
 	@Select("select email from ft_person where email=#{value}")
 	String getEmailExistence(String email);	
 	
