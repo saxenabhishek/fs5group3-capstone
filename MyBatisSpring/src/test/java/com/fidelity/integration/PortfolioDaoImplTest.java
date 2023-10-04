@@ -7,18 +7,15 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.jdbc.JdbcTestUtils;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fidelity.business.Trade;
 
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration(locations="classpath:beans.xml")
+@SpringBootTest
 @Transactional
 public class PortfolioDaoImplTest {	
 	@Autowired

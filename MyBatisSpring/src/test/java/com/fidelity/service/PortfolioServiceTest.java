@@ -1,4 +1,4 @@
-package com.fidelity.services;
+package com.fidelity.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -17,7 +17,7 @@ import com.fidelity.business.Direction;
 import com.fidelity.business.Instrument;
 import com.fidelity.business.Order;
 import com.fidelity.business.Trade;
-import com.fidelity.services.PortfolioService;
+import com.fidelity.service.PortfolioService;
 
 
 public class PortfolioServiceTest {

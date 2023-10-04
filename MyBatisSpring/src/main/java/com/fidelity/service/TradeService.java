@@ -1,4 +1,4 @@
-package com.fidelity.services;
+package com.fidelity.service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

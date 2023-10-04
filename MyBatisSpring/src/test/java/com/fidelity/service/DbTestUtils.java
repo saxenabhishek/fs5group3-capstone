@@ -1,4 +1,4 @@
-package com.fidelity.services;
+package com.fidelity.service;
 /*
  * DbTestUtils.java - utility functions for database integration tests.
  */

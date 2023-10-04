@@ -1,8 +1,9 @@
-package com.fidelity.integration;
+package com.fidelity.mapper;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import com.fidelity.business.Instrument;
@@ -10,6 +11,7 @@ import com.fidelity.business.Order;
 import com.fidelity.business.Price;
 import com.fidelity.business.Trade;
 
+@Mapper
 public interface TradeMapper {
 	@Insert("INSERT INTO ft_trade (id, orderid, instrumentid, quantity, targetprice, direction, clientid, cashvalue, executionprice, tradetimestamp) "+
 	"VALUES (#{tradeId}, #{order.orderId}, #{instrumentId}, #{quantity}, #{order.targetPrice}, #{direction}, #{clientId}, #{cashValue}, #{executionPrice}, #{tradeTimestamp})")
