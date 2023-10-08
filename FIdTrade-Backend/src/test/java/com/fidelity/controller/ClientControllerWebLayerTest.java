@@ -27,6 +27,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fidelity.business.*;
 import com.fidelity.integration.*;
+import com.fidelity.service.ClientService;
 
 
 @WebMvcTest
@@ -129,7 +130,7 @@ public class ClientControllerWebLayerTest {
 	public void testAddPreference() throws Exception {
 		Preference preference =  new Preference("UID003","Business",RiskTolerance.AVERAGE,IncomeCategory.SixtyKToEigthyK,LengthOfInvestment.ZeroToFiveYears,"T");
 		
-		when(mockBusinessService.addPreference())
+		when(mockBusinessService.addPreference(preference))
 			.thenReturn(1);
 	
 		ObjectMapper mapper = new ObjectMapper();

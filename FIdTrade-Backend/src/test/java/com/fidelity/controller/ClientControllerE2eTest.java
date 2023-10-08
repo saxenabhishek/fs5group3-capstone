@@ -25,7 +25,7 @@ import com.fidelity.integration.*;
 
 
 @SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
-@Sql({"classpath:schema-dev.sql", "classpath:data-dev.sql"}) // change 
+@Sql({"classpath:fidtrade_db.sql"}) // change 
 public class ClientControllerE2eTest {
 
 	

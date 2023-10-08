@@ -36,7 +36,7 @@ class ClientDaoImplTest {
 	@Test
 	void testGetAllPreference() {
 
-		List<Preference> preference = dao.getAllPreference();
+		List<Preference> preference = dao.queryForAllPreference();
 
 		assertEquals(allPreferencesOnly, preference);
 	}

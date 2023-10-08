@@ -88,7 +88,7 @@ public class ClientServiceImpl implements ClientService {
 
 	private void validatePreference(Preference preference) {
 		if (preference.getInvestmentPurpose() == null || preference.getInvestmentPurpose()=="" || preference.getRiskTolerance()==null || preference.getIncomeCategory()==null || preference.getLengthOfInvestment()==null ||
-			preference.getChecked()=="F" ) {
+			preference.getIsChecked()=="F" ) {
 				throw new IllegalArgumentException("Preference is not fully populated: " + preference);
 		}
 	}

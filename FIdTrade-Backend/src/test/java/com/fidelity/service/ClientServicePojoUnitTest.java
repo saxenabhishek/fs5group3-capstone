@@ -7,6 +7,8 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.springframework.web.server.ServerErrorException;
+import org.springframework.web.server.ServerWebInputException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,13 +40,13 @@ class ClientServicePojoUnitTest {
 	@Test
 	void testFindAllPreference() {
 		
-		preferences = Arrays.asList(
+		List<Preference> preferences = Arrays.asList(
 		    new Preference("UID001","College",RiskTolerance.AVERAGE,IncomeCategory.SixtyKToEigthyK,LengthOfInvestment.ZeroToFiveYears,"T"),
 		    new Preference("UID002","Retirement",RiskTolerance.ABOVE_AVERAGE,IncomeCategory.EigthyKToOneL,LengthOfInvestment.FiveToSevenYears,"T")
 		);
 
 		
-		when(mockDao.queryForAllPreference)
+		when(mockDao.queryForAllPreference())
         	.thenReturn(preferences);
          
 		
@@ -86,7 +88,7 @@ class ClientServicePojoUnitTest {
 		when(mockDao.insertPreference(p1))
 			.thenReturn(1);
 
-		int rowsInserted = service.addPreference(preference);
+		int rowsInserted = service.addPreference(p1);
 		
 		assertEquals(1, rowsInserted);		
 	}
@@ -100,14 +102,14 @@ class ClientServicePojoUnitTest {
 		when(mockDao.insertPreference(preference))
         	.thenThrow(new DuplicateKeyException("mock DAO exception"));
 	
-       assertThrows(ServerWebInputException.class, () ->
+       assertThrows(DuplicateKeyException.class, () ->
 			service.addPreference(preference)
 		);
 	}
 	
 	@Test
 	void testAddPreference_NullPreference() {
-       assertThrows(ServerWebInputException.class, () ->
+       assertThrows(NullPointerException.class, () ->
 			service.addPreference(null)
 		);
 	}

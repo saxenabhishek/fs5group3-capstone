@@ -1,6 +1,7 @@
 package com.fidelity.service;
 
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -42,7 +43,7 @@ class ClientServiceIntegrationTest {
 		String id = "UID001";
 		Preference firstPreference = new Preference("UID001","College",RiskTolerance.AVERAGE,IncomeCategory.SixtyKToEigthyK,LengthOfInvestment.ZeroToFiveYears,"T");
 		
-		Preference preference = service.findWidgetById(id);
+		Preference preference = service.findPreferenceById(id);
 		
 		
 		assertEquals(firstPreference, preference);

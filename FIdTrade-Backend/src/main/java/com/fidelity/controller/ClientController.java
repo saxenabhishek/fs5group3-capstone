@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.service.DuplicateKeyException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
+
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +22,7 @@ import org.springframework.web.server.ServerErrorException;
 import org.springframework.web.server.ServerWebInputException;
 import com.fidelity.business.*;
 import com.fidelity.integration.*;
+import com.fidelity.service.ClientService;
 
 @RestController
 @RequestMapping("/client")
@@ -40,7 +41,7 @@ public class ClientController {
 
     //Preference
     @GetMapping("/preference/{id}")
-	public Preference queryForPreferenceById(@PathVariable int id) {
+	public Preference queryForPreferenceById(@PathVariable String id) {
 		Preference preference = null;
 		try {
 			preference = service.findPreferenceById(id);
@@ -49,11 +50,11 @@ public class ClientController {
 			throw new ServerErrorException(DB_ERROR_MSG, e);
 		}
 		
-		if (Preference == null) {
+		if (preference == null) {
 			throw new ServerWebInputException(
 					"No Preference in the warehouse with id = " + id);
 		}
-		return Preference;
+		return preference;
 	}
 
     @PostMapping("/preference/add")
