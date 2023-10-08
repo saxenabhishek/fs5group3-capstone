@@ -2,6 +2,7 @@ package com.fidelity.integration;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -30,6 +31,10 @@ public class TradeDao {
 
     public List<Instrument> getInstrumentById(String InstrumentId) {
         return tradeMapper.getInstrumentById(InstrumentId);
+    }
+
+	public  List<Price> getfulPriceTable(){
+        return tradeMapper.getfulPriceTable();
     }
 
     public List<Price> getAllPrices() {

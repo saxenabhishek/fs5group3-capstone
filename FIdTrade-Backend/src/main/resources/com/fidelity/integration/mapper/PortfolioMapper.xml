@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.fidelity.integration.PortfolioMapper">
+<mapper namespace="com.fidelity.mapper.PortfolioMapper">
 	
 	<resultMap id="orderResultMap" type="Order">
 	    <result property="orderId" column="oid"/>
@@ -37,8 +37,8 @@
 	<select id="getHoldings" parameterType="String" resultType="Trade">
 		SELECT
 	        t.instrumentid,
-	        SUM(CASE WHEN t.direction = 'BUY' THEN o.quantity ELSE -o.quantity END) AS net_quantity,
-        	SUM(CASE WHEN t.direction = 'BUY' THEN t.cashvalue ELSE -t.cashvalue END) AS net_cashvalue
+	        SUM(CASE WHEN t.direction = 'BUY' THEN o.quantity ELSE -o.quantity END) AS quantity,
+        	SUM(CASE WHEN t.direction = 'BUY' THEN t.cashvalue ELSE -t.cashvalue END) AS cashValue
 	    FROM ft_trade t LEFT JOIN ft_order o ON t.clientid = o.clientid AND t.orderid = o.id
 	    WHERE t.clientid = '${arg0}'
 	    GROUP BY t.instrumentid
