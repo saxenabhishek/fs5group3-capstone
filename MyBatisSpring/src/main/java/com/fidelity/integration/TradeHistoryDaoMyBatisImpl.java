@@ -11,8 +11,6 @@ import com.fidelity.business.Order;
 @Repository("tradeHistoryDao")
 public class TradeHistoryDaoMyBatisImpl {
 	@Autowired
-	//private final Logger logger = LoggerFactory.getLogger(getClass());
-	
 	private Logger logger;
 
 	@Autowired

@@ -10,7 +10,8 @@ import com.fidelity.business.Trade;
 
 @Repository("portfolioDao")
 public class PortfolioDaoImpl {
-	private final Logger logger = LoggerFactory.getLogger(getClass());
+	@Autowired
+	private Logger logger;
 
 	@Autowired
 	private PortfolioMapper portfolioMapper;
