@@ -1,24 +1,24 @@
 package com.fidelity.business;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.util.Objects;
 
 public class Price {
 	public BigDecimal askPrice;
 	public BigDecimal bidPrice;
-	public String instrumentId;
-	public LocalDate priceTimestamp;
+	public String priceTimestamp;
 	public Instrument instrument;
 	
-	public Price(Instrument instrument, BigDecimal askPrice, String instrumentId ,BigDecimal bidPrice, LocalDate priceTimestamp) {
+	public Price(Instrument instrument, BigDecimal askPrice, String instrumentId ,BigDecimal bidPrice, String priceTimestamp) {
 		super();
 		this.askPrice = askPrice;
 		this.bidPrice = bidPrice;
 		this.priceTimestamp = priceTimestamp;
 		this.instrument = instrument;
-		this.instrumentId = instrumentId;
-	}
+	}	
 
+	public Price() {}
+	
 	public BigDecimal getAskPrice() {
 		return askPrice;
 	}
@@ -35,19 +35,11 @@ public class Price {
 		this.bidPrice = bidPrice;
 	}
 
-	public String getInstrumentId() {
-		return instrumentId;
-	}
-
-	public void setInstrumentId(String instrumentId) {
-		this.instrumentId = instrumentId;
-	}
-
-	public LocalDate getPriceTimestamp() {
+	public String getPriceTimestamp() {
 		return priceTimestamp;
 	}
 
-	public void setPriceTimestamp(LocalDate priceTimestamp) {
+	public void setPriceTimestamp(String priceTimestamp) {
 		this.priceTimestamp = priceTimestamp;
 	}
 
@@ -58,10 +50,28 @@ public class Price {
 	public void setInstrument(Instrument instrument) {
 		this.instrument = instrument;
 	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(askPrice, bidPrice, instrument, priceTimestamp);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Price other = (Price) obj;
+		return Objects.equals(askPrice, other.askPrice) && Objects.equals(bidPrice, other.bidPrice)
+				&& Objects.equals(instrument, other.instrument) && Objects.equals(priceTimestamp, other.priceTimestamp);
+	}
 
 	@Override
 	public String toString() {
-		return "Price [askPrice=" + askPrice + ", bidPrice=" + bidPrice + ", instrumentId=" + instrumentId
-				+ ", priceTimestamp=" + priceTimestamp + ", instrument=" + instrument + "]";
-	}
+		return "Price [askPrice=" + askPrice + ", bidPrice=" + bidPrice + ", priceTimestamp=" + priceTimestamp
+				+ ", instrument=" + instrument + "]";
+	}	
 }

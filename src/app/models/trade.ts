@@ -11,5 +11,6 @@ export class Trade {
         public instrumentId: string,
         public clientId: string,
         public tradeId: string,
+        public tradeTimestamp: string
     ) { }
 }

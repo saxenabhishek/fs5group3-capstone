@@ -29,19 +29,20 @@ export class PortfolioComponent implements OnInit{
     this.calcTotalHoldings();
   }
 
-  calcTotalHoldings(){
-    this.trades.forEach(trade => 
+  async calcTotalHoldings(){
+    await this.trades.forEach(trade => 
       this.totalHoldings+= (1 + 
-        ((this.getInstrumentPrice(trade.instrumentId) - trade.executionPrice) / trade.executionPrice)) * trade.cashValue);
+        ((this.getInstrumentAskPrice(trade.instrumentId) - trade.executionPrice) / trade.executionPrice)) * trade.cashValue);
   }
 
-  calcTotalCashValue(){
-    this.trades.forEach(trade => this.totalCashValue+=  trade.cashValue);
+  async calcTotalCashValue(){
+    await this.trades.forEach(trade => this.totalCashValue+=  trade.cashValue);
+    console.log(this.trades);
   }
   
   loadAllTrades(){
-    this.tradeService.getTrades()
-          .subscribe(trades => this.trades= trades);
+    this.tradeService.getCurrentHoldings("UID001")
+          .subscribe(allTrades => this.trades= allTrades);
   }
 
   loadAllInstruments(){
@@ -50,14 +51,14 @@ export class PortfolioComponent implements OnInit{
   }
 
   loadAllPrices(){
-    this.tradeService.getPrices()
+    this.tradeService.getCurrentPrices("")
           .subscribe(prices => this.prices= prices);
   }
 
   setPortfolioChartValues(){
     this.trades.forEach(trade => this.portfolioLabels.push(this.getInstrumentName(trade.instrumentId)));
     this.trades.forEach(trade => this.portfolioData.push(((1 + 
-                                  (this.getInstrumentPrice(trade.instrumentId) - trade.executionPrice) 
+                                  (this.getInstrumentAskPrice(trade.instrumentId) - trade.executionPrice) 
                                   / trade.executionPrice) * trade.cashValue)).toFixed(2));
   }
 
@@ -69,8 +70,11 @@ export class PortfolioComponent implements OnInit{
     return this.instruments.find(ins => ins.instrumentId === id)?.categoryId;
   }
 
-  getInstrumentPrice(id: string): any{
+  getInstrumentAskPrice(id: string): any{
+    console.log(this.trades);
+
     return this.prices.find(ins => ins.instrument.instrumentId === id)?.askPrice;
+    
   }
 
   abs(num: number): number{

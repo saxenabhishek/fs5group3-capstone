@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.jdbc.JdbcTestUtils;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fidelity.business.Order;
 import com.fidelity.business.Trade;
 
 @SpringBootTest
@@ -22,7 +23,7 @@ public class PortfolioDaoImplTest {
 	private JdbcTemplate jdbcTemplate;
 	
 	@Autowired
-	private PortfolioDaoImpl portfolioDaoImpl;
+	private PortfolioDao portfolioDaoImpl;
 	
 	@Test
 	void testPortfolioDaoImplIsNotNull() {
@@ -68,5 +69,13 @@ public class PortfolioDaoImplTest {
 	@Test
 	void testGetWholePortfolioForNullClientId() {
 		assertThrows(NullPointerException.class, () -> portfolioDaoImpl.getPortfolioTrades(null));
+	}
+	
+	@Test
+	void testSizeGetTradeHistory() {
+		List<Order> orders = portfolioDaoImpl.getAllTradeHistory("UID001");
+		assertNotNull(orders);
+		assertEquals(orders.size(), 4);
+		
 	}
 }

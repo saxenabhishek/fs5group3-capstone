@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/client")
 public class ClientController {
-    
+	
     @PostMapping("/register")
     ResponseEntity<Integer> registerNewClient(){
         throw new java.lang.UnsupportedOperationException();

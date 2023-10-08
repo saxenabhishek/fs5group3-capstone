@@ -17,17 +17,17 @@ import com.fidelity.business.Direction;
 import com.fidelity.business.Instrument;
 import com.fidelity.business.Order;
 import com.fidelity.business.Trade;
-import com.fidelity.service.PortfolioService;
+import com.fidelity.service.PortfolioServiceImpl;
 
 
-public class PortfolioServiceTest {
-	private PortfolioService portfolioService;
+public class PortfolioServiceImplTest {
+	private PortfolioServiceImpl portfolioService;
 	private List<Order> orderTemp;
 	private List<Trade> tradeTemp;
 	
     @BeforeEach
     public void setUp() {
-        portfolioService = new PortfolioService();
+        portfolioService = new PortfolioServiceImpl();
         orderTemp= new ArrayList<Order>();
         tradeTemp= new ArrayList<Trade>();
         
@@ -58,13 +58,13 @@ public class PortfolioServiceTest {
 
     @Test
     public void testClientDoesNotHaveAPortfolio() {
-    	PortfolioService newPS= new PortfolioService();
+    	PortfolioServiceImpl newPS= new PortfolioServiceImpl();
     	assertEquals(newPS.getPortfolio(), new ArrayList<>());
     }
     
     @Test
     public void testClientDoesNotHaveATradeHistory() {
-    	PortfolioService newPS= new PortfolioService();
+    	PortfolioServiceImpl newPS= new PortfolioServiceImpl();
     	assertEquals(newPS.getTradeHistory(), new ArrayList<>());
     }
 

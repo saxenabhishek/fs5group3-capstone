@@ -47,7 +47,7 @@
             <span
               >{{
                 ((1 +
-                  (getInstrumentPrice(trade.instrumentId) - trade.executionPrice) /
+                  (getInstrumentAskPrice(trade.instrumentId) - trade.executionPrice) /
                     trade.executionPrice) *
                   trade.cashValue *
                   100) /
@@ -57,20 +57,20 @@
             >
           </td>
           <td>
-            &dollar;{{ trade.executionPrice | number : "1.2-2" }}
+            &dollar;{{ getInstrumentAskPrice(trade.instrumentId) | number : "1.2-4" }}
             <br />
             <span
               [ngStyle]="{
                 color:
-                  trade.executionPrice < getInstrumentPrice(trade.instrumentId)
+                  trade.executionPrice < getInstrumentAskPrice(trade.instrumentId)
                     ? 'green'
-                    : trade.executionPrice > getInstrumentPrice(trade.instrumentId)
+                    : trade.executionPrice > getInstrumentAskPrice(trade.instrumentId)
                     ? 'red'
                     : 'gray'
               }"
             >
               {{
-                ((getInstrumentPrice(trade.instrumentId) - trade.executionPrice) * 100) /
+                ((getInstrumentAskPrice(trade.instrumentId) - trade.executionPrice) * 100) /
                   trade.executionPrice | number : "1.2-2"
               }}
               &percnt;
@@ -79,7 +79,7 @@
           <td>
             {{
               (1 +
-                (getInstrumentPrice(trade.instrumentId) - trade.executionPrice) / trade.executionPrice) *
+                (getInstrumentAskPrice(trade.instrumentId) - trade.executionPrice) / trade.executionPrice) *
                 trade.cashValue | number : "1.2-2"
             }}
             <br />
@@ -88,14 +88,14 @@
                 color:
                   trade.cashValue -
                     (1 +
-                      (getInstrumentPrice(trade.instrumentId) - trade.executionPrice) /
+                      (getInstrumentAskPrice(trade.instrumentId) - trade.executionPrice) /
                         trade.executionPrice) *
                       trade.cashValue <
                   0
                     ? 'green'
                     : trade.cashValue -
                         (1 +
-                          (getInstrumentPrice(trade.instrumentId) - trade.executionPrice) /
+                          (getInstrumentAskPrice(trade.instrumentId) - trade.executionPrice) /
                             trade.executionPrice) *
                           trade.cashValue >
                       0
@@ -108,7 +108,7 @@
                 abs(
                   trade.cashValue -
                     (1 +
-                      (getInstrumentPrice(trade.instrumentId) - trade.executionPrice) /
+                      (getInstrumentAskPrice(trade.instrumentId) - trade.executionPrice) /
                         trade.executionPrice) *
                       trade.cashValue
                 ) | number : "1.2-2"
