@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fidelity.integration.PortfolioMapper">
+	
+	<resultMap id="orderResultMap" type="Order">
+	    <result property="orderId" column="oid"/>
+	    <result property="clientId" column="clientid"/>
+	    <result property="instrumentId" column="instrumentid"/>
+	    <result property="quantity" column="quantity"/>
+	    <result property="targetPrice" column="targetprice"/>
+	    <result property="direction" column="direction" typeHandler="com.fidelity.business.DirectionTypeHandler"/>
+	    <result property="orderTimestamp" column="ordertimestamp"/>
+	</resultMap>
+
+	<resultMap id="tradeResultMap" type="Trade">
+	    <result property="clientId" column="clientid"/>
+	    <result property="tradeId" column="tid"/>
+	    <result property="instrumentId" column="instrumentid"/>
+	    <result property="quantity" column="quantity"/>
+	    <result property="direction" column="direction" typeHandler="com.fidelity.business.DirectionTypeHandler"/>
+	    <result property="executionPrice" column="executionprice"/>
+	    <result property="cashValue" column="cashvalue"/>
+	    <result property="tradeTimestamp" column="tradetimestamp"/>
+	
+	    <!-- Include a nested resultMap for the Order class -->
+	    <association property="order" resultMap="orderResultMap"/>
+	</resultMap>
+
+	
+	<select id="getPortfolioTrades" parameterType="String" resultMap="tradeResultMap">
+		select o.clientid, t.id as tid, o.id as oid, o.instrumentid, o.quantity, o.direction, o.targetprice, t.executionprice, t.cashvalue, o.ordertimestamp, t.tradetimestamp 
+		from ft_trade t left join ft_order o on t.clientid= o.clientid and t.orderid= o.id where t.clientid= #{arg0}
+	</select>
+	
+	<select id="getHoldings" parameterType="String" resultType="Trade">
+		SELECT
+	        t.instrumentid,
+	        SUM(CASE WHEN t.direction = 'BUY' THEN o.quantity ELSE -o.quantity END) AS net_quantity,
+        	SUM(CASE WHEN t.direction = 'BUY' THEN t.cashvalue ELSE -t.cashvalue END) AS net_cashvalue
+	    FROM ft_trade t LEFT JOIN ft_order o ON t.clientid = o.clientid AND t.orderid = o.id
+	    WHERE t.clientid = '${arg0}'
+	    GROUP BY t.instrumentid
+	</select>
+</mapper>
