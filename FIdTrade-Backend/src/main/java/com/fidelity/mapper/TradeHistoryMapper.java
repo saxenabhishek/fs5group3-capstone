@@ -8,5 +8,6 @@ import com.fidelity.business.Order;
 @Mapper
 public interface TradeHistoryMapper {
 	List<Order> getAllTradeHistory();
+	List<Order> getReportActivity();
 }
 

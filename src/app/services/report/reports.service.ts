@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { MockReport } from '../../models/mock-report';
 import { Observable, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Order } from 'src/app/models/order';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReportsService {
+  private apiUrl = 'http://localhost:8080/client';
   reports:MockReport[]= [{
     tradePrice: 12309,
     tradeType: 'Mutual Fund',
@@ -31,11 +34,16 @@ export class ReportsService {
 }
 
 ];
-getReport(): Observable<MockReport[]>
-{
-return of(this.reports);
+// getReport(): Observable<MockReport[]>
+// {
+// return of(this.reports);
+// }
+getReport(): Observable<Order[]> {
+  return this.http.get<Order[]>(`${this.apiUrl}/activityReport`);
 }
 
-  constructor() { }
+// /api/reports/generate
+  constructor(private http: HttpClient) { }
+
 }
 

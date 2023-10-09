@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ReportsService } from '../services/report/reports.service';
 import { MockReport } from '../models/mock-report';
+import { Order } from '../models/order';
 
 @Component({
   selector: 'app-report-page',
@@ -8,7 +9,7 @@ import { MockReport } from '../models/mock-report';
   styleUrls: ['./report-page.component.css']
 })
 export class ReportPageComponent {
-  reports: MockReport[] = [];
+  reports: Order[] = [];
   // availableReports:string[]=[
   //   'Trade Confirmation',
   //   'Account Statements',
@@ -18,9 +19,12 @@ export class ReportPageComponent {
   // ];
   selectedReport: string = "";
   constructor(private reportsService: ReportsService) { }
-  
+ 
 
+  // loadReport() {
+  //   this.reportsService.getReport().subscribe(data => this.reports = data);
+  // }
   loadReport() {
-    this.reportsService.getReport().subscribe(data => this.reports = data);
+    this.reportsService.getReport().subscribe(response => this.reports = response);
   }
 }
