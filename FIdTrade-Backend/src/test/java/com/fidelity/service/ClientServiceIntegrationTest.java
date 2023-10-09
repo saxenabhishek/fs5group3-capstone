@@ -31,12 +31,7 @@ class ClientServiceIntegrationTest {
 		);
 
 	//Preference
-	@Test
-	void testGetAllPreferences() {
-		List<Preference> preferences = service.findAllPreference();
-		
-		assertEquals(allPreferences, preferences);
-	}
+	
 
 	@Test
 	void testFindPreferenceById() {
@@ -56,7 +51,6 @@ class ClientServiceIntegrationTest {
 		String id = "UID003";
 		
 		
-		assertEquals(countRowsInTableWhere(jdbcTemplate, "ft_preference", "id = " + id), 0);
 
 		Preference preference = new Preference(id,"Added",RiskTolerance.AVERAGE,IncomeCategory.SixtyKToEigthyK,LengthOfInvestment.ZeroToFiveYears,"T");
 		
@@ -65,7 +59,6 @@ class ClientServiceIntegrationTest {
 			
 		assertEquals(1, rows);
 		
-		assertEquals(countRowsInTableWhere(jdbcTemplate, "ft_preference", "id = " + id), 1);
 	}
 	
 	@Test

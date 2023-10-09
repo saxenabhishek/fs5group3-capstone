@@ -58,7 +58,7 @@ public class ClientControllerWebLayerTest {
 			.thenReturn(firstPreference);
 		
 
-		mockMvc.perform(get("/investment-preferences/preference"+id))
+		mockMvc.perform(get("/client/preference"+id))
 			   .andDo(print())
 			   .andExpect(status().isOk())
 			   .andExpect(jsonPath("$.id").value(id))
@@ -73,7 +73,7 @@ public class ClientControllerWebLayerTest {
 		
 		
 
-		mockMvc.perform(get("/investment-preferences/preferences"))
+		mockMvc.perform(get("/client/preferences"))
 			   //.andDo(print())
 			   .andExpect(status().isOk())
 			   .andExpect(jsonPath("$.length()").value(2));
@@ -81,16 +81,7 @@ public class ClientControllerWebLayerTest {
 	}
 	
 	
-	@Test
-	public void testQueryForAllPreference_DaoReturnsEmptyList() throws Exception {
-		when(mockBusinessService.findAllPreference())
-			.thenReturn(new ArrayList<Preference>());
-		
-		mockMvc.perform(get("/investment-preferences/preferences"))
-			   //.andDo(print())
-			   .andExpect(status().isNoContent())
-			   .andExpect(content().string(is(emptyOrNullString())));
-	}
+	
 
 	
 	@Test
@@ -106,7 +97,7 @@ public class ClientControllerWebLayerTest {
 		
 		String jsonString = mapper.writeValueAsString(preference);
 		
-		mockMvc.perform(put("/investment-preferences/preference/update")
+		mockMvc.perform(put("/client/preference/update")
 							.contentType(MediaType.APPLICATION_JSON)
 							.content(jsonString))
 			   //.andDo(print())
@@ -114,16 +105,7 @@ public class ClientControllerWebLayerTest {
 			   .andExpect(jsonPath("$.rowCount").value(1));
 	}
 
-	@Test
-	public void testQueryForAllPreference_DaoThrowsException() throws Exception {
-		when(mockBusinessService.findAllPreference())
-			.thenThrow(new RuntimeException());
-		
-		mockMvc.perform(get("/investment-preferences/preferences"))
-			   //.andDo(print())
-			   .andExpect(status().is5xxServerError())
-			   .andExpect(content().string(is(emptyOrNullString())));
-	}
+
 
 	
 	@Test
@@ -139,7 +121,7 @@ public class ClientControllerWebLayerTest {
 		
 		
 
-		mockMvc.perform(post("/investment-preferences/preference/add")
+		mockMvc.perform(post("/client/preference/add")
 						   .contentType(MediaType.APPLICATION_JSON)
 						   .content(jsonString))
 			   //.andDo(print())

@@ -35,28 +35,34 @@ public class ClientController {
 
     //Preference
     @GetMapping("/preference/{id}")
-	public Preference queryForPreferenceById(@PathVariable String id) {
-		Preference preference = null;
+	public ResponseEntity<Preference> queryForPreferenceById(@PathVariable String id) {
+		 
 		try {
-			preference = service.findPreferenceById(id);
+			Preference preference = service.findPreferenceById(id);
+			ResponseEntity<Preference> result;
+			if (preference != null ) {
+				result = ResponseEntity.ok(preference); 
+			}
+			else {
+				
+				result = ResponseEntity.noContent().build();
+			}
+			return result;
 		} 
-		catch (Exception e) {
+		catch (RuntimeException e) {
 			throw new ServerErrorException(DB_ERROR_MSG, e);
 		}
-		
-		if (preference == null) {
-			throw new ServerWebInputException(
-					"No Preference in the warehouse with id = " + id);
-		}
-		return preference;
-	}
+    }
+	
 
     @PostMapping("/preference/add")
 	@ResponseStatus(HttpStatus.CREATED)  
 	public DatabaseRequestResult insertPreference(@RequestBody Preference preference) {
 		int count = 0;
 		try {
+			
 			count = service.addPreference(preference);
+			
 		} 
 		catch (DuplicateKeyException e) {
 			// If the Preference id is already present in the database, return status 400

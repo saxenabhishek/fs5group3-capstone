@@ -2,15 +2,17 @@ package com.fidelity.integration.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import com.fidelity.business.*;
+import org.apache.ibatis.annotations.Param;
+
+import com.fidelity.business.Preference;
 
 @Mapper
 public interface ClientMapper {
 	//Preference
     List<Preference> getAllPreference();
-	Preference getPreferenceById();
+	Preference getPreferenceById(@Param("id") String id);
     int insertPreference(Preference preference);
     int updatePreference(Preference preference);
 

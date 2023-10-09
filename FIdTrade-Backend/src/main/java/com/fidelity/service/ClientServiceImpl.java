@@ -1,6 +1,7 @@
 package com.fidelity.service;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,16 +38,17 @@ public class ClientServiceImpl implements ClientService {
 	public  Preference findPreferenceById(String id) {
 		
 
-		Preference preference = null;
+		
 		try {
-			preference = dao.queryForPreferenceById(id);
+			Preference preference = dao.queryForPreferenceById(id);
+			return preference;
 		} 
 		catch (Exception e) {
 			String msg = String.format("Error querying For Preference with id in the database" + id);
 			throw new PreferenceDatabaseException(msg, e);
 		}
 		
-		return preference;
+		
 	}
 
 	@Override
@@ -55,7 +57,9 @@ public class ClientServiceImpl implements ClientService {
 
 		int count = 0;
 		try {
+			
 			count = dao.insertPreference(preference);
+			
 		} 
 		catch (DuplicateKeyException e) {
 			throw e; 
@@ -87,7 +91,7 @@ public class ClientServiceImpl implements ClientService {
 	
 
 	private void validatePreference(Preference preference) {
-		if (preference.getInvestmentPurpose() == null || preference.getInvestmentPurpose()=="" || preference.getRiskTolerance()==null || preference.getIncomeCategory()==null || preference.getLengthOfInvestment()==null ||
+		if (preference.getInvestmentPurpose() == null || preference.getInvestmentPurpose()=="" || preference.getRiskTolerance()==null || preference.getIncomeCategory()==null|| preference.getLengthOfInvestment()==null ||
 			preference.getIsChecked()=="F" ) {
 				throw new IllegalArgumentException("Preference is not fully populated: " + preference);
 		}

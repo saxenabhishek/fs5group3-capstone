@@ -23,7 +23,7 @@ public class ClientDaoImpl implements ClientDao {
     
 
 
-    @Transactional
+//    @Transactional
     @Override
 	public int insertPreference(Preference pref) {
 		logger.debug("inserting preference " + pref);
@@ -48,7 +48,7 @@ public class ClientDaoImpl implements ClientDao {
 	@Override
 	public Preference queryForPreferenceById(String id) {
 		logger.debug("enter");
-		return mapper.getPreferenceById();
+		return mapper.getPreferenceById(id);
 	}
 
 

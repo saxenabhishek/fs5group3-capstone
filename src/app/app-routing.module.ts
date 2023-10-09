@@ -42,7 +42,7 @@ const routes: Routes = [
     
   },
   {
-    path: 'preferences/update',
+    path: 'preferences/update/:id',
     component: InvestmentPreferUpdateComponent,
   },
   {

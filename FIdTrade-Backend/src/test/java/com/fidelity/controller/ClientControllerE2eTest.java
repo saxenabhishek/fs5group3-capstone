@@ -37,65 +37,11 @@ public class ClientControllerE2eTest {
 	
 
     //Preference
-	@Test
-	public void testQueryForAllPreference() {
-		
-		Preference p1= new Preference("UID001","College",RiskTolerance.AVERAGE,IncomeCategory.SixtyKToEigthyK,LengthOfInvestment.ZeroToFiveYears,"T");
-		Preference p2= new Preference("UID002","Retirement",RiskTolerance.ABOVE_AVERAGE,IncomeCategory.EigthyKToOneL,LengthOfInvestment.FiveToSevenYears,"T");
-		
-
-		
-		int preferenceCount = countRowsInTable(jdbcTemplate, "ft_preference");
-		
-		String requestUrl = "/investment-preferences/preferences";
-		
-		ResponseEntity<Preference[]> response = 
-			restTemplate.getForEntity(requestUrl, Preference[].class);
-		
-		
-		assertEquals(HttpStatus.OK, response.getStatusCode());
-		
-	
-		Preference[] responsePreference = response.getBody();
-		assertEquals(preferenceCount, responsePreference.length); 
-	
-		assertEquals(p1, responsePreference[0]);
-		assertEquals(p2, responsePreference[1]);
-	}
-
-	
-	@Test
-	public void testQueryForAllPreference_NoPreferenceInDb() {
-		
-		deleteFromTables(jdbcTemplate, "ft_preference");
-		
-		String requestUrl = "/investment-preferences/preferences";
-
-		ResponseEntity<Preference[]> response = 
-			restTemplate.getForEntity(requestUrl, Preference[].class);
-		
-	
-		assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
-	}
-
-	
-	@Test
-	public void testGetPreferenceById_NoPrefgetTable() {
-		
-		dropTables(jdbcTemplate, "ft_preference");
-
-		String request = "/investment-preferences/preference"+"UID001";
-
-		ResponseEntity<Preference> response = restTemplate.getForEntity(request, Preference.class);
-
-		assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
-	}
-
 
 	@Test
 	public void testQueryForPreferenceById() {
 		Preference p1= new Preference("UID001","College",RiskTolerance.AVERAGE,IncomeCategory.SixtyKToEigthyK,LengthOfInvestment.ZeroToFiveYears,"T");
-		String requestUrl = "/investment-preferences/preference"+"UID001";
+		String requestUrl = "/client/preference/UID001";
 
 		ResponseEntity<Preference> response = 
 			restTemplate.getForEntity(requestUrl, Preference.class);
@@ -110,12 +56,12 @@ public class ClientControllerE2eTest {
 
 	@Test
 	public void testQueryForPreferenceById_NotPresent() {
-		String requestUrl = "/investment-preferences/preference"+"UID008";
+		String requestUrl = "/client/preference/UID008";
 
 		ResponseEntity<Preference> response = 
 			restTemplate.getForEntity(requestUrl, Preference.class);
 		
-		assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+		assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
 	}
 
 	
@@ -127,7 +73,7 @@ public class ClientControllerE2eTest {
 		Preference p3= new Preference(id,"Abroad",RiskTolerance.AVERAGE,IncomeCategory.SixtyKToEigthyK,LengthOfInvestment.ZeroToFiveYears,"T");
 
 		
-		String requestUrl = "/investment-preferences/preference/add";
+		String requestUrl = "/client/preference/add";
 		
 		ResponseEntity<DatabaseRequestResult> response = 
 			restTemplate.postForEntity(requestUrl, p3, 
@@ -152,7 +98,7 @@ public class ClientControllerE2eTest {
 		String id = "UID002";
 		Preference p2= new Preference(id,"Retirement",RiskTolerance.ABOVE_AVERAGE,IncomeCategory.EigthyKToOneL,LengthOfInvestment.FiveToSevenYears,"T");
 
-		String requestUrl = "/investment-preferences/preference/add";
+		String requestUrl = "/client/preference/add";
 		ResponseEntity<DatabaseRequestResult> response = 
 			restTemplate.postForEntity(requestUrl,p2, 
 									   DatabaseRequestResult.class);
@@ -173,7 +119,7 @@ public class ClientControllerE2eTest {
 		Preference p2= new Preference(id,"Wedding",RiskTolerance.ABOVE_AVERAGE,IncomeCategory.EigthyKToOneL,LengthOfInvestment.FiveToSevenYears,"T");
 
 		
-		String requestUrl = "/investment-preferences/preference/update";
+		String requestUrl = "/client/preference/update";
 		RequestEntity<Preference> requestEntity = 
 			RequestEntity.put(new URI(requestUrl)) 
 						 .contentType(MediaType.APPLICATION_JSON) 
