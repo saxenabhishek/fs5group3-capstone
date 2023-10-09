@@ -1,4 +1,5 @@
 package com.fidelity.integration;
+
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -10,26 +11,14 @@ import com.fidelity.mapper.TradeHistoryMapper;
 
 @Repository("tradeHistoryDao")
 public class TradeHistoryDaoMyBatisImpl {
-	@Autowired 
+	@Autowired
 	private Logger logger;
-	
+
 	@Autowired
 	private TradeHistoryMapper mapper;
 
-
 	public List<Order> getAllTradeHistory() {
 		logger.debug("enter");
-        return mapper.getAllTradeHistory();
+		return mapper.getAllTradeHistory();
 	}
-
- 
-
-	
-
- 
-
 }
-	
-
- 
-
