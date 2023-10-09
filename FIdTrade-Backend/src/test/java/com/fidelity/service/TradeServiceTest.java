@@ -53,7 +53,7 @@ class TradeServiceTest {
 	void testBuyTrade() throws Exception {
 		Order order = new Order("T67880", 2, Helper.makeBigDecimal("1.00"), Direction.BUY, USERID, "123",
 				Instant.now());
-		tradeService.postBuyTrade(order);
+		tradeService.processOrder(order);
 
 	}
 
@@ -61,9 +61,9 @@ class TradeServiceTest {
 	void testSellTrade() throws Exception {
 		Order buyOrder = new Order("T67880", 2, Helper.makeBigDecimal("1.00"), Direction.BUY, USERID, "123",
 				Instant.now());
-		tradeService.postBuyTrade(buyOrder);
-		Order sellOrder = new Order("T67880", 2, Helper.makeBigDecimal("1.02"), Direction.SELL, USERID, "123",
+		tradeService.processOrder(buyOrder);
+		Order sellOrder = new Order("T67880", 2, Helper.makeBigDecimal("1.02"), Direction.SELL, USERID, "124",
 				Instant.now());
-		tradeService.postSellTrade(sellOrder);
+		tradeService.processOrder(sellOrder);
 	}
 }

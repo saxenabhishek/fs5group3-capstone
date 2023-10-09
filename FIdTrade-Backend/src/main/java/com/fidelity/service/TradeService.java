@@ -8,6 +8,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,19 +23,29 @@ import com.fidelity.business.RiskTolerance;
 import com.fidelity.business.RoboTrade;
 import com.fidelity.business.Trade;
 import com.fidelity.integration.PreferenceDaoMyBatisImpl;
+import com.fidelity.integration.PortfolioDaoImpl;
 import com.fidelity.integration.TradeDao;
 import com.fidelity.shared.Helper;
 
 @Service
 public final class TradeService {
+
 	@Autowired
-	PortfolioService portfolioService;
-	
+	Logger logger;
+
 	@Autowired
 	TradeDao tradeDao;
-    @Autowired
-    PreferenceDaoMyBatisImpl prefDao;
-	List<Price> instrumentPrices = new ArrayList<>();
+
+	@Autowired
+	PortfolioDaoImpl portfolioDaoImpl;
+
+	@Autowired
+	PortfolioService portfolioService;
+
+	@Autowired
+	PreferenceDaoMyBatisImpl prefDao;
+
+	List<Price> instrumentPrices;
 
 	BigDecimal tolerance = Helper.makeBigDecimal("0.05");
 	BigDecimal fee = Helper.makeBigDecimal("0.1");

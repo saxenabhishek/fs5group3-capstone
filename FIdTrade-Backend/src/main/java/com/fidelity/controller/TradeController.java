@@ -15,13 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fidelity.business.IncomeCategory;
+import com.fidelity.business.Instrument;
 import com.fidelity.business.LengthOfInvestment;
+import com.fidelity.business.Order;
 import com.fidelity.business.Preference;
 import com.fidelity.business.RiskTolerance;
-import com.fidelity.business.Trade;
-
-import com.fidelity.business.Instrument;
-import com.fidelity.business.Order;
 import com.fidelity.business.Trade;
 import com.fidelity.service.TradeService;
 
@@ -29,23 +27,21 @@ import com.fidelity.service.TradeService;
 @RequestMapping("/trade")
 @CrossOrigin(origins = "http://localhost:4200")
 public class TradeController {
-	// @GetMapping(value="/ping")
-	// public String ping() {
-	// 	return "Hello";
-	// }
 
     @Autowired
     Logger logger;
 
     @Autowired
     TradeService service;
+
+    @Autowired
+    private com.fidelity.service.TradeService tradeService;
     
     @PostMapping("/register")
     ResponseEntity<Integer> registerNewClient(){
         throw new java.lang.UnsupportedOperationException();
     }
-    @Autowired
-    private com.fidelity.service.TradeService tradeService;
+    
 
     @PostMapping("/top-trades")
     public List<Trade> roboAdvisor(@RequestBody Preference preferences) {

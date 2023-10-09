@@ -23,4 +23,8 @@ public class Instrument {
     public void setExternalId(String externalId) {
         this.externalId = externalId;
     }
+
+    public String getInstrumentId(){
+        return instrumentId;
+    }
 }
