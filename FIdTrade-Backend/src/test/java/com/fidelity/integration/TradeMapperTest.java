@@ -1,16 +1,16 @@
 package com.fidelity.integration;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.lang.System.Logger;
+
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -65,14 +65,12 @@ class TradeMapperTest {
 		assertTrue(prices.size() > 5);
 		assertEquals("Q123", prices.get(0).getInstrumentId());
 		assertNotNull(prices.get(0).getPriceTimestamp());
-		logger.debug(prices.get(0).toString());
 
 	}
 
 	@Test 
 	void getAllLatestPrices(){
 		List<Price> prices =  tradeDao.getAllPrices();
-		logger.debug(prices.get(0).toString());
 		System.out.println(prices.get(0));
 	}
 

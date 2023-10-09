@@ -3,7 +3,6 @@ package com.fidelity.service;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -15,6 +14,7 @@ import com.fidelity.business.Instrument;
 import com.fidelity.business.Order;
 import com.fidelity.business.Price;
 import com.fidelity.business.Trade;
+import com.fidelity.integration.PortfolioDaoImpl;
 import com.fidelity.integration.TradeDao;
 import com.fidelity.shared.Helper;
 
@@ -26,6 +26,9 @@ public final class TradeService {
 
 	@Autowired
 	TradeDao tradeDao;
+
+	@Autowired
+	PortfolioDaoImpl portfolioDaoImpl;
 
 	List<Price> instrumentPrices;
 
@@ -57,12 +60,10 @@ public final class TradeService {
 				return p;
 			}
 		}
-		throw new NullPointerException("Invalid Instrument ID");
+		throw new RuntimeException("Invalid Instrument ID");
 	}
 
-	public Trade postBuyTrade(Order order) throws Exception {
-		// Trade trade = new Trade(order, order.getTargetPrice(), "", Instant.now());
-
+	public Trade postBuyTrade(Order order) {
 		BigDecimal execPrice;
 		
 		// get balance from client
@@ -70,10 +71,11 @@ public final class TradeService {
 
 		instrumentPrices = getAllPrices("");
 		if (instrumentPrices == null && order.getDirection() != Direction.BUY) {
-			throw new NullPointerException("Bad instrument Prices");
+			throw new RuntimeException("Bad instrument Prices");
 		}
 
 		// Most recent price of instrument
+		// todo: directly query this from the db
 		Price instrPrice = getPriceByInstrumentId(order.getInstrumentId());
 
 		BigDecimal targetPrice = order.getTargetPrice();
@@ -83,7 +85,7 @@ public final class TradeService {
 		BigDecimal upperBound = askPrice.multiply(BigDecimal.ONE.add(tolerance));
 
 		if (targetPrice.compareTo(lowerBound) < 0 || targetPrice.compareTo(upperBound) > 0) {
-			throw new IllegalArgumentException("Buy couldn't get executed, Invalid ask price");
+			throw new RuntimeException("Buy couldn't get executed, Invalid ask price");
 		}
 
 		// will be true in most cases
@@ -93,29 +95,28 @@ public final class TradeService {
 		BigDecimal cashValue = new BigDecimal(order.getQuantity()).multiply(execPrice).multiply(BigDecimal.ONE.add(fee));
 
 		if (cashValue.compareTo(new BigDecimal(currentBalance)) > 0) {
-			throw new Exception("Can't execute trade, not enough balance");
+			throw new RuntimeException("Can't execute trade, not enough balance");
 		}
 
 		// Reduce currentBalance and update clientBalance
 
 		Trade trade = new Trade(order, cashValue, "123", Instant.now());
-		
-		// portfolio.add(new Portfolio(order.getInstrumentId(), instrPrice.instrument.getDescription(), execPrice, trade.getQuantity() , trade.getClientId()));
 
+		
+		tradeDao.addTrade(trade);
+		
 		return trade;
 
 	}
 
-	public Trade postSellTrade(Order order) throws Exception {
+	public Trade postSellTrade(Order order){
 
 		// accept list of portfolio objects of current client
 
 		BigDecimal execPrice = BigDecimal.ZERO.setScale(2, RoundingMode.HALF_DOWN);
 		Trade trade;
-		double currentBalance = 1000000;
 
-		List<Trade> portfolio =  new ArrayList<>();
-
+		List<Trade> portfolio =  portfolioDaoImpl.getHoldings(order.getClientId());
 
 		if (portfolio != null) {
 			for (Trade p : portfolio) {
@@ -134,7 +135,7 @@ public final class TradeService {
 
 
 					if (targetPrice.compareTo(lowerBound) < 0 || targetPrice.compareTo(upperBound) > 0) {
-						throw new Exception("Sell couldn't get executed, Invalid bid price");
+						throw new RuntimeException("Sell couldn't get executed, Invalid bid price");
 					}
 
 					execPrice = currentPrice.getBidPrice();
@@ -153,32 +154,28 @@ public final class TradeService {
 						"123",
 						Instant.now());
 
-				// trade = new Trade(order, cashValue, order.getQuantity(), "S",
-				// order.getInstrumentId(), order.getClientId(), "XYZ", execPrice );
-				// c.setBalance(currentBalance + cashValue.doubleValue());
-				// to update portfolio
-				// for (Trade inst : portfolio) {
-				// 	if (inst.getInstrumentId().equals(order.getInstrumentId())) {
-				// 		if(inst.getQuantity() < order.getQuantity()) {
-				// 			throw new Exception("Can not sell more that owned amount");
-				// 		}
-				// 		else if(inst.getQuantity() == order.getQuantity()) {
-				// 			portfolio.remove(inst);
-				// 		}
-				// 		else {
-				// 			inst.setQuantity(inst.getQuantity() - order.getQuantity());
-				// 		}
-				// 	}
-				// }
+				tradeDao.addTrade(trade);
+
+				// update user balance
 
 				return trade;
 
 			} else {
-				throw new Exception("Sell couldn't get executed, Invalid bid price");
+				throw new RuntimeException("Sell couldn't get executed, Invalid bid price");
 			}
 		} else {
 			throw new NullPointerException("Bad portfolio list");
 		}
 
+	}
+
+	public Trade processOrder(Order order) {
+		tradeDao.addOrder(order);
+		if (order.getDirection() == Direction.BUY){
+			return postBuyTrade(order);
+		}
+		else{
+			return postSellTrade(order);
+		}
 	}
 }
