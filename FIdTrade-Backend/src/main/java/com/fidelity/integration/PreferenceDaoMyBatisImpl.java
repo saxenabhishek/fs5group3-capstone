@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fidelity.business.Preference;
-import com.fidelity.mapper.PreferenceMapper;
+import com.fidelity.integration.mapper.PreferenceMapper;
 
 
 @Repository("preferencesDao")

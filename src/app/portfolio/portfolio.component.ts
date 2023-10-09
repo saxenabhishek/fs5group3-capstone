@@ -24,24 +24,27 @@ export class PortfolioComponent implements OnInit{
     this.loadAllInstruments();
     this.loadAllPrices();
     this.loadAllTrades();
-    this.calcTotalCashValue();
-    this.setPortfolioChartValues();
-    this.calcTotalHoldings();
   }
 
   calcTotalHoldings(){
     this.trades.forEach(trade => 
       this.totalHoldings+= (1 + 
-        ((this.getInstrumentPrice(trade.instrumentId) - trade.executionPrice) / trade.executionPrice)) * trade.cashValue);
+        ((this.getInstrumentAskPrice(trade.instrumentId) - trade.executionPrice) / trade.executionPrice)) * trade.cashValue);
   }
 
   calcTotalCashValue(){
     this.trades.forEach(trade => this.totalCashValue+=  trade.cashValue);
+    console.log(this.trades);
   }
   
   loadAllTrades(){
-    this.tradeService.getTrades()
-          .subscribe(trades => this.trades= trades);
+    this.tradeService.getCurrentHoldings("UID001")
+          .subscribe(allTrades => {
+            this.trades= allTrades
+            this.calcTotalCashValue();
+            this.calcTotalHoldings();
+            this.setPortfolioChartValues();
+          });
   }
 
   loadAllInstruments(){
@@ -50,14 +53,14 @@ export class PortfolioComponent implements OnInit{
   }
 
   loadAllPrices(){
-    this.tradeService.getPrices()
+    this.tradeService.getCurrentPrices("")
           .subscribe(prices => this.prices= prices);
   }
 
   setPortfolioChartValues(){
     this.trades.forEach(trade => this.portfolioLabels.push(this.getInstrumentName(trade.instrumentId)));
     this.trades.forEach(trade => this.portfolioData.push(((1 + 
-                                  (this.getInstrumentPrice(trade.instrumentId) - trade.executionPrice) 
+                                  (this.getInstrumentAskPrice(trade.instrumentId) - trade.executionPrice) 
                                   / trade.executionPrice) * trade.cashValue)).toFixed(2));
   }
 
@@ -69,8 +72,8 @@ export class PortfolioComponent implements OnInit{
     return this.instruments.find(ins => ins.instrumentId === id)?.categoryId;
   }
 
-  getInstrumentPrice(id: string): any{
-    return this.prices.find(ins => ins.instrument.instrumentId === id)?.askPrice;
+  getInstrumentAskPrice(id: string): any{
+    return this.prices.find(ins => ins.instrument.instrumentId === id)?.askPrice;    
   }
 
   abs(num: number): number{

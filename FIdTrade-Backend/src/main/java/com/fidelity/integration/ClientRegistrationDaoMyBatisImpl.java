@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.fidelity.business.Client;
 import com.fidelity.business.ClientIdentification;
 import com.fidelity.business.Person;
-import com.fidelity.mapper.ClientRegistrationMapper;
+import com.fidelity.integration.mapper.ClientRegistrationMapper;
 
 @Repository("clientRegDao")
 public class ClientRegistrationDaoMyBatisImpl {

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.fidelity.mapper.PortfolioMapper">
+<mapper namespace="com.fidelity.integration.mapper.PortfolioMapper">
 	
 	<resultMap id="orderResultMap" type="Order">
 	    <result property="orderId" column="oid"/>
@@ -31,16 +31,69 @@
 	
 	<select id="getPortfolioTrades" parameterType="String" resultMap="tradeResultMap">
 		select o.clientid, t.id as tid, o.id as oid, o.instrumentid, o.quantity, o.direction, o.targetprice, t.executionprice, t.cashvalue, o.ordertimestamp, t.tradetimestamp 
-		from ft_trade t left join ft_order o on t.clientid= o.clientid and t.orderid= o.id where t.clientid= #{arg0}
+		from ft_trade t left join ft_order o on t.clientid= o.clientid and t.orderid= o.id where t.clientid= #{clientId}
 	</select>
 	
 	<select id="getHoldings" parameterType="String" resultType="Trade">
-		SELECT
+		<!-- SELECT
 	        t.instrumentid,
 	        SUM(CASE WHEN t.direction = 'BUY' THEN o.quantity ELSE -o.quantity END) AS quantity,
         	SUM(CASE WHEN t.direction = 'BUY' THEN t.cashvalue ELSE -t.cashvalue END) AS cashValue
 	    FROM ft_trade t LEFT JOIN ft_order o ON t.clientid = o.clientid AND t.orderid = o.id
-	    WHERE t.clientid = '${arg0}'
-	    GROUP BY t.instrumentid
+	    WHERE t.clientid = #{clientId}
+	    GROUP BY t.instrumentid-->
+	    WITH AggregatedData AS (
+		    SELECT
+		        t.instrumentid,
+		        SUM(CASE WHEN t.direction = 'BUY' THEN o.quantity ELSE -o.quantity END) AS quantity,
+		        SUM(CASE WHEN t.direction = 'BUY' THEN t.cashvalue ELSE -t.cashvalue END) AS cashValue
+		    FROM
+		        ft_trade t
+		    LEFT JOIN
+		        ft_order o
+		    ON
+		        t.clientid = o.clientid
+		        AND t.orderid = o.id
+		    WHERE
+		        t.clientid = #{clientId}
+		    GROUP BY
+		        t.instrumentid
+		)
+		SELECT
+		    DISTINCT t.instrumentid,
+		    t.executionprice,
+		    ad.quantity,
+		    ad.cashValue
+		FROM
+		    ft_trade t
+		LEFT JOIN
+		    ft_order o
+		ON
+		    t.clientid = o.clientid
+		    AND t.orderid = o.id
+		JOIN
+		    AggregatedData ad
+		ON
+		    t.instrumentid = ad.instrumentid
+		WHERE
+		    t.clientid = #{clientId}
+
 	</select>
+
+    <select id="getAllTradeHistory" parameterType="String" resultMap="orderResultMap">
+        SELECT
+            ID as oid,
+            CLIENTID,            
+            INSTRUMENTID,
+            QUANTITY,
+            TARGETPRICE,
+            DIRECTION,
+            ORDERTIMESTAMP 
+        FROM FT_ORDER WHERE CLIENTID= #{clientId}     
+    </select>
+    
+    <select id="getClientExistence" parameterType="String" resultType="String">
+		SELECT ID FROM FT_CLIENT WHERE ID= #{clientId}
+	</select>
+    
 </mapper>

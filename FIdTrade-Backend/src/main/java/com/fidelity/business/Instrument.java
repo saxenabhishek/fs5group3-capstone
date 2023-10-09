@@ -1,5 +1,6 @@
 package com.fidelity.business;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,6 +10,7 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @ToString
+@AllArgsConstructor
 public class Instrument {
     String instrumentId;
     String externalId;
