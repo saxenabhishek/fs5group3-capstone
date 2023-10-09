@@ -1,8 +1,17 @@
 package com.fidelity.business;
 
 import java.math.BigDecimal;
-import java.util.Objects;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter @Setter
+@ToString
+@EqualsAndHashCode
+@NoArgsConstructor
 public class Price {
 	public BigDecimal askPrice;
 	public BigDecimal bidPrice;
@@ -16,8 +25,6 @@ public class Price {
 		this.priceTimestamp = priceTimestamp;
 		this.instrument = instrument;
 	}	
-
-	public Price() {}
 	
 	public BigDecimal getAskPrice() {
 		return askPrice;
@@ -50,28 +57,4 @@ public class Price {
 	public void setInstrument(Instrument instrument) {
 		this.instrument = instrument;
 	}
-	
-	@Override
-	public int hashCode() {
-		return Objects.hash(askPrice, bidPrice, instrument, priceTimestamp);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Price other = (Price) obj;
-		return Objects.equals(askPrice, other.askPrice) && Objects.equals(bidPrice, other.bidPrice)
-				&& Objects.equals(instrument, other.instrument) && Objects.equals(priceTimestamp, other.priceTimestamp);
-	}
-
-	@Override
-	public String toString() {
-		return "Price [askPrice=" + askPrice + ", bidPrice=" + bidPrice + ", priceTimestamp=" + priceTimestamp
-				+ ", instrument=" + instrument + "]";
-	}	
 }
