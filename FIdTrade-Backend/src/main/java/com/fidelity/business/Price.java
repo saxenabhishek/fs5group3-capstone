@@ -8,24 +8,30 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter @Setter
 @ToString
 @EqualsAndHashCode
-@NoArgsConstructor
+@Getter
+@Setter
 public class Price {
 	public BigDecimal askPrice;
 	public BigDecimal bidPrice;
 	public String priceTimestamp;
+	String instrumentId;
 	public Instrument instrument;
-	
-	public Price(Instrument instrument, BigDecimal askPrice, String instrumentId ,BigDecimal bidPrice, String priceTimestamp) {
+
+	public Price() {
+	}
+
+	public Price(Instrument instrument, BigDecimal askPrice, String instrumentId, BigDecimal bidPrice,
+			String priceTimestamp) {
 		super();
 		this.askPrice = askPrice;
 		this.bidPrice = bidPrice;
 		this.priceTimestamp = priceTimestamp;
+		this.instrumentId = instrumentId;
 		this.instrument = instrument;
-	}	
-	
+	}
+
 	public BigDecimal getAskPrice() {
 		return askPrice;
 	}
