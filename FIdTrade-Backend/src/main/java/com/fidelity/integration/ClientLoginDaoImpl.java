@@ -4,11 +4,6 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-// @Repository("ClientLoginDao")
-// public class ClientLoginDaoImpl {
-	
-// 	@Autowired
-// 	private Logger logger;
 import com.fidelity.mapper.ClientMapper;
 
 @Repository

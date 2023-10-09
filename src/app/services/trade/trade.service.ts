@@ -15,7 +15,7 @@ import { Trade } from 'src/app/models/trade';
 })
 export class TradeService {
   trades: Trade[] = [];
-  url = 'http://localhost:3000/fmts/trades/instruments';
+  url = 'http://localhost:8080/trade';
   order_data = ORDER_DATA;
   trade_data = TRADE_DATA;
 
@@ -66,8 +66,7 @@ export class TradeService {
   }
 
   getInstruments(): Observable<Instruments[]> {
-    // return this.http.get<Instruments[]>(this.url)
-    return of(INSTRUMENT_DATA);
+    return this.http.get<Instruments[]>(this.url + "/instruments")
   }
 
   getPrices(): Observable<Prices[]> {
