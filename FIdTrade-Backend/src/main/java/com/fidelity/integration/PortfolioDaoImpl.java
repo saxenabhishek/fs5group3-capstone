@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.fidelity.business.Trade;
-import com.fidelity.mapper.PortfolioMapper;
+import com.fidelity.integration.mapper.PortfolioMapper;
 
 @Repository("portfolioDao")
 public class PortfolioDaoImpl {

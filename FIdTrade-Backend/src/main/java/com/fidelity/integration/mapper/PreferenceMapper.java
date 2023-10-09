@@ -1,4 +1,4 @@
-package com.fidelity.mapper;
+package com.fidelity.integration.mapper;
 
 import java.util.List;
 
@@ -9,6 +9,7 @@ import com.fidelity.business.*;
 @Mapper
 public interface PreferenceMapper {
 	List<Preference> getAllPreference();
+	Preference getPreferenceById();
     int insertPreference(Preference preference);
     int updatePreference(Preference preference);
 	

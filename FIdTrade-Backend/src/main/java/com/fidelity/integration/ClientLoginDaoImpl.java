@@ -3,7 +3,7 @@ package com.fidelity.integration;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import com.fidelity.mapper.ClientMapper;
+import com.fidelity.integration.mapper.ClientMapper;
 
 @Repository
 public class ClientLoginDaoImpl implements ClientLoginDao{

@@ -1,4 +1,4 @@
-package com.fidelity.mapper;
+package com.fidelity.integration.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;

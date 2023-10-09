@@ -9,8 +9,8 @@ import com.fidelity.business.Instrument;
 import com.fidelity.business.Order;
 import com.fidelity.business.Price;
 import com.fidelity.business.Trade;
-import com.fidelity.mapper.PortfolioMapper;
-import com.fidelity.mapper.TradeMapper;
+import com.fidelity.integration.mapper.PortfolioMapper;
+import com.fidelity.integration.mapper.TradeMapper;
 
 @Repository("tradeDao")
 public class TradeDao {

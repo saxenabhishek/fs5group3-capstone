@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.fidelity.business.Order;
-import com.fidelity.mapper.TradeHistoryMapper;
+import com.fidelity.integration.mapper.TradeHistoryMapper;
 @Repository("reportActivityDao")
 public class ReportActivityDao {
 	@Autowired 
