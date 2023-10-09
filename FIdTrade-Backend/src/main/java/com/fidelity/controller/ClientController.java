@@ -19,6 +19,7 @@ import com.fidelity.integration.ReportActivityDao;
 public class ClientController {
 	@Autowired
 	private ReportActivityDao dao;
+    
     @PostMapping("/register")
     ResponseEntity<Integer> registerNewClient(){
         throw new java.lang.UnsupportedOperationException();

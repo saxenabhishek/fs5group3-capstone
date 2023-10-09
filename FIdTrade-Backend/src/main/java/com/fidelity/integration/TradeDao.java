@@ -35,6 +35,10 @@ public class TradeDao {
         return tradeMapper.getInstrumentById(InstrumentId);
     }
 
+	public  List<Price> getfulPriceTable(){
+        return tradeMapper.getfulPriceTable();
+    }
+
     public List<Price> getAllPrices() {
         return tradeMapper.getAllLatestPrices();
     }

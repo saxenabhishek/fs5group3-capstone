@@ -3,8 +3,13 @@ package com.fidelity.business;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.Instant;
-import java.util.Objects;
 
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
+
+@EqualsAndHashCode
+@ToString
 public class Trade {
 	private Order order;
 	private BigDecimal cashValue, executionPrice;
@@ -78,26 +83,4 @@ public class Trade {
 	public Instant getTradeTimestamp() {
 		return this.tradeTimestamp;
 	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(cashValue, clientId, direction, executionPrice, instrumentId, order, quantity, tradeTimestamp,
-				tradeId);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Trade other = (Trade) obj;
-		return Objects.equals(cashValue, other.cashValue) && Objects.equals(clientId, other.clientId)
-				&& direction == other.direction && Objects.equals(executionPrice, other.executionPrice)
-				&& Objects.equals(instrumentId, other.instrumentId) && Objects.equals(order, other.order)
-				&& quantity == other.quantity && Objects.equals(tradeTimestamp, other.tradeTimestamp)
-				&& Objects.equals(tradeId, other.tradeId);
-	}	
 }

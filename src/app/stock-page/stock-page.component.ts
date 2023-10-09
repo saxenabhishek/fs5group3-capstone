@@ -96,6 +96,7 @@ export class StockPageComponent {
   submitTrade() {
     alert('Trade Executed');
     let newOrder = new Order(
+      '',
       this.instrumentId,
       this.buyForm.get('quantity')?.value,
       this.buyForm.get('price')?.value,

@@ -1,24 +1,31 @@
 package com.fidelity.business;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter @Setter
+@ToString
+@EqualsAndHashCode
+@NoArgsConstructor
 public class Price {
 	public BigDecimal askPrice;
 	public BigDecimal bidPrice;
-	public String instrumentId;
-	public LocalDate priceTimestamp;
+	public String priceTimestamp;
 	public Instrument instrument;
 	
-	public Price(Instrument instrument, BigDecimal askPrice, String instrumentId ,BigDecimal bidPrice, LocalDate priceTimestamp) {
+	public Price(Instrument instrument, BigDecimal askPrice, String instrumentId ,BigDecimal bidPrice, String priceTimestamp) {
 		super();
 		this.askPrice = askPrice;
 		this.bidPrice = bidPrice;
 		this.priceTimestamp = priceTimestamp;
 		this.instrument = instrument;
-		this.instrumentId = instrumentId;
-	}
-
+	}	
+	
 	public BigDecimal getAskPrice() {
 		return askPrice;
 	}
@@ -35,19 +42,11 @@ public class Price {
 		this.bidPrice = bidPrice;
 	}
 
-	public String getInstrumentId() {
-		return instrumentId;
-	}
-
-	public void setInstrumentId(String instrumentId) {
-		this.instrumentId = instrumentId;
-	}
-
-	public LocalDate getPriceTimestamp() {
+	public String getPriceTimestamp() {
 		return priceTimestamp;
 	}
 
-	public void setPriceTimestamp(LocalDate priceTimestamp) {
+	public void setPriceTimestamp(String priceTimestamp) {
 		this.priceTimestamp = priceTimestamp;
 	}
 
@@ -55,13 +54,11 @@ public class Price {
 		return instrument;
 	}
 
-	public void setInstrument(Instrument instrument) {
-		this.instrument = instrument;
+	public String getInstrumentId() {
+		return instrument.instrumentId;
 	}
 
-	@Override
-	public String toString() {
-		return "Price [askPrice=" + askPrice + ", bidPrice=" + bidPrice + ", instrumentId=" + instrumentId
-				+ ", priceTimestamp=" + priceTimestamp + ", instrument=" + instrument + "]";
+	public void setInstrument(Instrument instrument) {
+		this.instrument = instrument;
 	}
 }
