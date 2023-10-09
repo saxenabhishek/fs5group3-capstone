@@ -9,7 +9,7 @@ import com.fidelity.business.Instrument;
 import com.fidelity.business.Order;
 import com.fidelity.business.Price;
 import com.fidelity.business.Trade;
-import com.fidelity.mapper.TradeMapper;
+import com.fidelity.integration.mapper.TradeMapper;
 
 @Repository("tradeDao")
 public class TradeDao {
@@ -30,6 +30,10 @@ public class TradeDao {
 
     public List<Instrument> getInstrumentById(String InstrumentId) {
         return tradeMapper.getInstrumentById(InstrumentId);
+    }
+
+	public  List<Price> getfulPriceTable(){
+        return tradeMapper.getfulPriceTable();
     }
 
     public List<Price> getAllPrices() {

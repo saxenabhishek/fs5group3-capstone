@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.fidelity.integration.ClientRegistrationMapper">
+<mapper namespace="com.fidelity.integration.mapper.ClientRegistrationMapper">
 		<resultMap type="Person" id="PersonTable">
 			<id property="id"				    column="ID" />
 			<result property="country"			column="COUNTRY" />
@@ -30,5 +30,3 @@
 		    VALUES (#{clientId}, #{identificationId})
 	  	</insert>
 </mapper>
-
-

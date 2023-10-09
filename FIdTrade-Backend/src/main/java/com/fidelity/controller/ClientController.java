@@ -27,13 +27,7 @@ import com.fidelity.service.ClientService;
 @RestController
 @RequestMapping("/client")
 public class ClientController {
-    private static final String DB_ERROR_MSG = 
-			"Error communicating with the  database";
-
-    @Autowired
-	private ClientService service;
-
-    
+	
     @PostMapping("/register")
     ResponseEntity<Integer> registerNewClient(){
         throw new java.lang.UnsupportedOperationException();

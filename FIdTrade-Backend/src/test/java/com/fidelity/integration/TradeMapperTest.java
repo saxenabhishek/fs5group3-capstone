@@ -1,9 +1,13 @@
 package com.fidelity.integration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -15,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fidelity.business.Direction;
 import com.fidelity.business.Order;
+import com.fidelity.business.Price;
 import com.fidelity.business.Trade;
 import com.fidelity.shared.Helper;
 
@@ -30,6 +35,7 @@ class TradeMapperTest {
 	
 	@Autowired
 	JdbcTemplate jdbcTemplate;
+
 
 	@Test
 	void testAddTrade() {
@@ -52,26 +58,21 @@ class TradeMapperTest {
 		assertEquals(lengthOfTbl + 1, JdbcTestUtils.countRowsInTable(jdbcTemplate, "ft_order"));
 	}
 
-	@Test
-	void testGetAllInstruments(){
+
+	@Test 
+	void testGetALlPrices(){
+		List<Price> prices =  tradeDao.getfulPriceTable();
+		assertTrue(prices.size() > 5);
+		assertEquals("Q123", prices.get(0).getInstrumentId());
+		assertNotNull(prices.get(0).getPriceTimestamp());
+
+	}
+
+	@Test 
+	void getAllLatestPrices(){
+		List<Price> prices =  tradeDao.getAllPrices();
+		System.out.println(prices.get(0));
+	}
+
 	
-	}
-
-	@Test
-	void testGetAllInstrumentbyId(){
-		
-	}
-
-
-	@Test
-	void testGetAllPrices(){
-		// List<Price> prices = tradeDao.getAllPrices();
-		// logger.debug(prices.toString());
-	}
-
-	@Test
-	void testGetPricesById(){
-
-	}
-
 }

@@ -7,22 +7,29 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.jdbc.JdbcTestUtils;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fidelity.business.Order;
 import com.fidelity.business.Trade;
+import com.fidelity.shared.Helper;
 
 @SpringBootTest
 @Transactional
 public class PortfolioDaoImplTest {	
+
+	@Autowired
+	Logger logger;
+
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
 	@Autowired
-	private PortfolioDaoImpl portfolioDaoImpl;
+	private PortfolioDao portfolioDaoImpl;
 	
 	@Test
 	void testPortfolioDaoImplIsNotNull() {
@@ -49,6 +56,9 @@ public class PortfolioDaoImplTest {
 		String instId= "T67880";
 		List<Trade> holdings = portfolioDaoImpl.getHoldings(clientId);
 		assertNotNull(holdings);
+		assertEquals(50, holdings.get(0).getQuantity());	
+		assertEquals(Helper.makeBigDecimal("58071"), holdings.get(0).getCashValue());
+
 		int rows= countUniqueInstrumentIds(jdbcTemplate, "ft_trade", "clientid= '" + clientId + "'");
 		assertEquals(holdings.size(), rows);
 	}
@@ -68,5 +78,13 @@ public class PortfolioDaoImplTest {
 	@Test
 	void testGetWholePortfolioForNullClientId() {
 		assertThrows(NullPointerException.class, () -> portfolioDaoImpl.getPortfolioTrades(null));
+	}
+	
+	@Test
+	void testSizeGetTradeHistory() {
+		List<Order> orders = portfolioDaoImpl.getAllTradeHistory("UID001");
+		assertNotNull(orders);
+		assertEquals(orders.size(), 4);
+		
 	}
 }

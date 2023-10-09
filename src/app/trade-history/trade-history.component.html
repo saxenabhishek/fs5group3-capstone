@@ -1,27 +1,27 @@
 <app-navbar></app-navbar>
 <div class="card-table" >    
-    <h3>Order History</h3>
+    <h3>trade History</h3>
     <hr>
-    <table *ngIf="orders.length" cellspacing="0">
+    <table *ngIf="trades.length" cellspacing="0">
         <thead>
             <th>Stock</th>
-            <th>Order Date/Time</th>            
+            <th>trade Date/Time</th>            
             <th>Type</th>
             <th>Shares</th>
             <th>Price</th>
         </thead>
         <tbody>
-            <tr *ngFor="let order of orders">
-                <td>{{order.instrumentId}}</td>
+            <tr *ngFor="let trade of trades">
+                <td>{{trade.instrumentId}}</td>
                 <td>{{date}}</td>
-                <td [ngStyle]="{'color' : (order.direction.stringValue == 'B') ? '#2F4858' : '#336699'}">
-                    {{order.direction.stringValue === "B" ? Direction.BUY : "SELL"}}
+                <td [ngStyle]="{'color' : (trade.direction.stringValue == 'BUY') ? '#2F4858' : '#336699'}">
+                    {{trade.direction.stringValue }}
                 </td>
-                <td>{{order.quantity}}</td>
-                <td>&dollar;{{order.targetPrice}}</td>
+                <td>{{trade.quantity}}</td>
+                <td>&dollar;{{trade.targetPrice}}</td>
             </tr>
         </tbody>
     </table>
     
-    <div id="noorders" *ngIf="!orders.length">No trading history available !</div>
+    <div id="notrades" *ngIf="!trades.length">No trading history available !</div>
 </div>
