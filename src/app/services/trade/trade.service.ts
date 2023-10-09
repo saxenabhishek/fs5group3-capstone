@@ -2,9 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, of, throwError } from 'rxjs';
 import { INSTRUMENT_DATA } from 'src/app/const/instrument';
-import { ORDER_DATA } from 'src/app/const/order';
 import { PRICES } from 'src/app/const/prices';
-import { TRADE_DATA } from 'src/app/const/trade';
 import { Instruments } from 'src/app/models/instruments';
 import { Order } from 'src/app/models/order';
 import { Prices } from 'src/app/models/prices';
@@ -17,8 +15,6 @@ export class TradeService {
   trades: Trade[] = [];
   url = 'http://localhost:3000/fmts/trades/instruments';
   portfolioUrl= 'http://localhost:8080/portfolio';
-  order_data = ORDER_DATA;
-  trade_data = TRADE_DATA;
 
   constructor(private http: HttpClient) {}
 

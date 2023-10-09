@@ -24,25 +24,27 @@ export class PortfolioComponent implements OnInit{
     this.loadAllInstruments();
     this.loadAllPrices();
     this.loadAllTrades();
-    this.calcTotalCashValue();
-    this.setPortfolioChartValues();
-    this.calcTotalHoldings();
   }
 
-  async calcTotalHoldings(){
-    await this.trades.forEach(trade => 
+  calcTotalHoldings(){
+    this.trades.forEach(trade => 
       this.totalHoldings+= (1 + 
         ((this.getInstrumentAskPrice(trade.instrumentId) - trade.executionPrice) / trade.executionPrice)) * trade.cashValue);
   }
 
-  async calcTotalCashValue(){
-    await this.trades.forEach(trade => this.totalCashValue+=  trade.cashValue);
+  calcTotalCashValue(){
+    this.trades.forEach(trade => this.totalCashValue+=  trade.cashValue);
     console.log(this.trades);
   }
   
   loadAllTrades(){
     this.tradeService.getCurrentHoldings("UID001")
-          .subscribe(allTrades => this.trades= allTrades);
+          .subscribe(allTrades => {
+            this.trades= allTrades
+            this.calcTotalCashValue();
+            this.calcTotalHoldings();
+            this.setPortfolioChartValues();
+          });
   }
 
   loadAllInstruments(){
@@ -71,10 +73,7 @@ export class PortfolioComponent implements OnInit{
   }
 
   getInstrumentAskPrice(id: string): any{
-    console.log(this.trades);
-
-    return this.prices.find(ins => ins.instrument.instrumentId === id)?.askPrice;
-    
+    return this.prices.find(ins => ins.instrument.instrumentId === id)?.askPrice;    
   }
 
   abs(num: number): number{
