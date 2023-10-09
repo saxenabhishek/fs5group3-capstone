@@ -37,13 +37,14 @@ INSERT INTO FT_CLIENT_IDENTIFICATION (id, person_id, identification_type, identi
 CREATE TABLE FT_CLIENT ( 
     	id VARCHAR(255) PRIMARY KEY, 
   	    identification_id NUMBER(6),  
+        wallet NUMBER(10, 3),
     	FOREIGN KEY (id) REFERENCES FT_PERSON(id), 
     	FOREIGN KEY (identification_id) REFERENCES FT_CLIENT_IDENTIFICATION(id) 
  );
  
-INSERT INTO FT_CLIENT (id, identification_id) VALUES ('UID001', 794280);
-INSERT INTO FT_CLIENT (id, identification_id) VALUES  ('UID002', 456788);
-INSERT INTO FT_CLIENT (id, identification_id) VALUES  ('UID003', 259708);
+INSERT INTO FT_CLIENT (id, identification_id, wallet) VALUES ('UID001', 794280, 933944.87);
+INSERT INTO FT_CLIENT (id, identification_id, wallet) VALUES  ('UID002', 456788, 1000000);
+INSERT INTO FT_CLIENT (id, identification_id, wallet) VALUES  ('UID003', 259708, 1000000);
 
 CREATE TABLE ft_instrument (
     id VARCHAR2(10) PRIMARY KEY,
@@ -206,4 +207,6 @@ INSERT INTO ft_preference (client_id, investment_purpose, risk_tolerance, income
 VALUES ('UID001','College','AVERAGE','SixtyKToEigthyK','ZeroToFiveYears','T');
 INSERT INTO ft_preference (client_id, investment_purpose, risk_tolerance, income_category, length_of_investment, is_checked)
 VALUES ('UID002','Retirement','ABOVE_AVERAGE','EigthyKToOneL','FiveToSevenYears','T');
+
+COMMIT;
 
