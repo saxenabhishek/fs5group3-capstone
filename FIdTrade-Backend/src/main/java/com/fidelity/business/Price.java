@@ -54,6 +54,10 @@ public class Price {
 		return instrument;
 	}
 
+	public String getInstrumentId() {
+		return instrument.instrumentId;
+	}
+
 	public void setInstrument(Instrument instrument) {
 		this.instrument = instrument;
 	}

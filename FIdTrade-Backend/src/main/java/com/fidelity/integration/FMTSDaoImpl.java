@@ -42,7 +42,7 @@ public class FMTSDaoImpl implements FMTSDao {
         ResponseEntity<byte[]> responseEntity = restTemplate.execute(url, HttpMethod.GET, requestCallback, responseExtractor);
         List<Price> prices= null;
         
-        if (responseEntity.getStatusCode().is2xxSuccessful()) 
+        if (responseEntity != null && responseEntity.getStatusCode().is2xxSuccessful()) 
         {
             byte[] responseBody = responseEntity.getBody();
 	        ObjectMapper objectMapper = new ObjectMapper();

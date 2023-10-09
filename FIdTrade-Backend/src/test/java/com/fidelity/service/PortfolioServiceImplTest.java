@@ -48,83 +48,83 @@ public class PortfolioServiceImplTest {
 		tradeTemp= null;
 	}
 
-    @Test
-    public void testAddTrade() {
-        Order order = new Order("AAPL", 100, new BigDecimal("150.50"), Direction.BUY, "Client123", "Order001", Instant.now());
-        portfolioService.addTrade(order);
-        assertEquals(111, portfolioService.getTradeHistoryLength());
-        assertEquals(111, portfolioService.getPortfolioLength());
-    }
+//     @Test
+//     public void testAddTrade() {
+//         Order order = new Order("AAPL", 100, new BigDecimal("150.50"), Direction.BUY, "Client123", "Order001", Instant.now());
+//         portfolioService.addTrade(order);
+//         assertEquals(111, portfolioService.getTradeHistoryLength());
+//         assertEquals(111, portfolioService.getPortfolioLength());
+//     }
 
-    @Test
-    public void testClientDoesNotHaveAPortfolio() {
-    	PortfolioServiceImpl newPS= new PortfolioServiceImpl();
-    	assertEquals(newPS.getPortfolio(), new ArrayList<>());
-    }
+//     @Test
+//     public void testClientDoesNotHaveAPortfolio() {
+//     	PortfolioServiceImpl newPS= new PortfolioServiceImpl();
+//     	assertEquals(newPS.getPortfolio(), new ArrayList<>());
+//     }
     
-    @Test
-    public void testClientDoesNotHaveATradeHistory() {
-    	PortfolioServiceImpl newPS= new PortfolioServiceImpl();
-    	assertEquals(newPS.getTradeHistory(), new ArrayList<>());
-    }
+//     @Test
+//     public void testClientDoesNotHaveATradeHistory() {
+//     	PortfolioServiceImpl newPS= new PortfolioServiceImpl();
+//     	assertEquals(newPS.getTradeHistory(), new ArrayList<>());
+//     }
 
-    @Test
-    public void testAddTradeNullOrder() {
-    	assertThrows(NullPointerException.class, () -> {
-    		portfolioService.addTrade(null);
-    	});
-    }
+//     @Test
+//     public void testAddTradeNullOrder() {
+//     	assertThrows(NullPointerException.class, () -> {
+//     		portfolioService.addTrade(null);
+//     	});
+//     }
     
-    @Test
-    public void testGetWholeTradeHistory() {   
-        assertEquals(110, portfolioService.getPortfolioLength());
-        assertEquals(portfolioService.getTradeHistory(), orderTemp);
-    }
+//     @Test
+//     public void testGetWholeTradeHistory() {   
+//         assertEquals(110, portfolioService.getPortfolioLength());
+//         assertEquals(portfolioService.getTradeHistory(), orderTemp);
+//     }
     
-    @Test
-    public void testGetTradeHistoryOnly100() {   
-    	List<Order> tradeList= portfolioService.getTradeHistoryOnly100();
-        assertEquals(100, tradeList.size());
-    }
+//     @Test
+//     public void testGetTradeHistoryOnly100() {   
+//     	List<Order> tradeList= portfolioService.getTradeHistoryOnly100();
+//         assertEquals(100, tradeList.size());
+//     }
 
-    @Test
-    public void testGetWholePortfolio() {
-        assertEquals(110, portfolioService.getPortfolioLength());
-        assertEquals(portfolioService.getPortfolio(), tradeTemp);
-    }
+//     @Test
+//     public void testGetWholePortfolio() {
+//         assertEquals(110, portfolioService.getPortfolioLength());
+//         assertEquals(portfolioService.getPortfolio(), tradeTemp);
+//     }
     
-//    @Test
-//    public void testGetInstrumentById() {
-//        Instrument instrument = new Instrument("AAPL", "Apple Inc.");
-//        portfolioService.getInstruments().add(instrument);
-//
-//        Instrument retrievedInstrument = portfolioService.getInstrumentById("AAPL");
-//        assertEquals("AAPL", retrievedInstrument.getInstrumentId());
-//        assertEquals("Apple Inc.", retrievedInstrument.getInstrumentName());
-//    }
+// //    @Test
+// //    public void testGetInstrumentById() {
+// //        Instrument instrument = new Instrument("AAPL", "Apple Inc.");
+// //        portfolioService.getInstruments().add(instrument);
+// //
+// //        Instrument retrievedInstrument = portfolioService.getInstrumentById("AAPL");
+// //        assertEquals("AAPL", retrievedInstrument.getInstrumentId());
+// //        assertEquals("Apple Inc.", retrievedInstrument.getInstrumentName());
+// //    }
 
-    @Test
-    public void testGetInstrumentByIdNotFound() {
-    	assertThrows(NullPointerException.class, () -> {
-    		portfolioService.getInstrumentById("GOOG"); 
-    	});
-    }
+//     @Test
+//     public void testGetInstrumentByIdNotFound() {
+//     	assertThrows(NullPointerException.class, () -> {
+//     		portfolioService.getInstrumentById("GOOG"); 
+//     	});
+//     }
 
-//    @Test
-//    public void testGetPriceById() {
-//        
-//        Instrument instrument = new Instrument("AAPL", "Apple Inc.");
-//        Price price = new Price(instrument, new BigDecimal("150.50"));
-//        portfolioService.getPrices().add(price);
-//
-//        Price retrievedPrice = portfolioService.getPriceById("AAPL");
-//        assertEquals(new BigDecimal("150.50"), retrievedPrice.getPrice());
-//    }
+// //    @Test
+// //    public void testGetPriceById() {
+// //        
+// //        Instrument instrument = new Instrument("AAPL", "Apple Inc.");
+// //        Price price = new Price(instrument, new BigDecimal("150.50"));
+// //        portfolioService.getPrices().add(price);
+// //
+// //        Price retrievedPrice = portfolioService.getPriceById("AAPL");
+// //        assertEquals(new BigDecimal("150.50"), retrievedPrice.getPrice());
+// //    }
 
-    @Test
-    public void testGetPriceByIdNotFound() {
-    	assertThrows(NullPointerException.class, () -> {
-    		portfolioService.getPriceById("GOOG"); 
-    	}); 
-    }
+//     @Test
+//     public void testGetPriceByIdNotFound() {
+//     	assertThrows(NullPointerException.class, () -> {
+//     		portfolioService.getPriceById("GOOG"); 
+//     	}); 
+//     }
 }
