@@ -18,6 +18,8 @@ public class Price {
 	public String priceTimestamp;
 	public Instrument instrument;
 	
+	public Price() {}
+	
 	public Price(Instrument instrument, BigDecimal askPrice, String instrumentId ,BigDecimal bidPrice, String priceTimestamp) {
 		super();
 		this.askPrice = askPrice;
