@@ -56,7 +56,10 @@ export class StockPageComponent {
   ngOnInit() {
     this.instrumentId = this.route.snapshot.params['id'];
     this.buyForm = this.formBuilder.group({
-      price: ['', Validators.compose([Validators.required, Validators.min(3)])],
+      price: [
+        '',
+        Validators.compose([Validators.required, Validators.minLength(3)]),
+      ],
       quantity: ['1', Validators.required],
     });
     this.chartOptions = {
@@ -79,6 +82,15 @@ export class StockPageComponent {
       this.prices = data;
       this.instrument = data.instrument;
       this.buyForm.get('price')?.setValue(this.prices.askPrice);
+      this.buyForm
+        .get('quantity')
+        ?.setValue(this.prices.instrument.minQuantity);
+      this.buyForm
+        .get('quantity')
+        ?.addValidators(
+          Validators.min(this.prices.instrument.minQuantity.valueOf())
+        );
+      console.debug(this.buyForm);
       this.chartOptions.series = [
         {
           // data: [10, 41, 35, 51, 49, 62, 69, 91, 148].map((e, i) => {
@@ -94,16 +106,69 @@ export class StockPageComponent {
   }
 
   submitTrade() {
-    alert('Trade Executed');
+    console.debug('submitTrade()');
+
     let newOrder = new Order(
-      '',
+      'OID' + this.generateRandomString(3),
       this.instrumentId,
       this.buyForm.get('quantity')?.value,
       this.buyForm.get('price')?.value,
-      new Direction('B'),
-      this.clientService.getClientId(),
-      ''
+      new Direction('BUY'),
+      'UID001',
+      this.getTimeString()
     );
-    this.tradeService.processOrder(newOrder);
+    let processEdOrder = {
+      orderId: newOrder.orderId,
+      instrumentId: newOrder.instrumentId,
+      quantity: newOrder.quantity,
+      targetPrice: newOrder.targetPrice,
+      direction: newOrder.direction.stringValue,
+      clientId: newOrder.clientId,
+      orderTimestamp: newOrder.orderTimestamp,
+    };
+    console.debug(newOrder);
+    this.tradeService.processOrder(processEdOrder).subscribe({
+      next: (data) => {
+        console.log(data);
+        alert('trade executed');
+      },
+      error: () => {
+        alert('trade could not be executed');
+      },
+    });
+  }
+
+  isFormValid(): boolean {
+    console.debug(this.buyForm.valid);
+    return this.buyForm.valid;
+  }
+
+  generateRandomString(length: number): string {
+    const characters = '0123456789';
+    let result = '';
+
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      result += characters.charAt(randomIndex);
+    }
+
+    return result;
+  }
+
+  getTimeString() {
+    const now = new Date();
+
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0'); // Zero-padded month (01-12)
+    const date = String(now.getDate()).padStart(2, '0'); // Zero-padded day (01-31)
+    const hours = String(now.getHours()).padStart(2, '0'); // Zero-padded hours (00-23)
+    const minutes = String(now.getMinutes()).padStart(2, '0'); // Zero-padded minutes (00-59)
+    const seconds = String(now.getSeconds()).padStart(2, '0'); // Zero-padded seconds (00-59);
+    const milliseconds = String(now.getMilliseconds()).padStart(3, '0'); // Milliseconds (000-999)
+    
+    const formattedDateTime = `${year}-${month}-${date}T${hours}:${minutes}:${seconds}.${milliseconds}Z`;
+    
+
+    return formattedDateTime;
   }
 }

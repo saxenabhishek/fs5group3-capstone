@@ -38,7 +38,7 @@
         <input type="text" id="author" formControlName="quantity" />
       </span>
       <span class="subm">
-        <button type="submit" [disabled]="!buyForm.valid">Buy</button>
+        <button type="submit" [disabled]="!isFormValid()">Buy</button>
       </span>
     </form>
   </aside>

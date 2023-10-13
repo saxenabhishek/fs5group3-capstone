@@ -27,9 +27,11 @@
       </td>
       <td>{{ instrument.instrumentDescription }}</td>
       <td>
-        <a [routerLink]="['/instrument', instrument.instrumentId]">
-          <button>Buy</button>
-        </a>
+        <button [disabled]="ifLoggedIn()" (click)="clickedBuyButton(instrument.instrumentId)">
+          Buy
+          <!-- <a [routerLink]="['/instrument', instrument.instrumentId]"> 
+           </a> -->
+        </button>
       </td>
     </tr>
   </table>
