@@ -41,7 +41,6 @@ export class LoginPageComponent {
 
   onSubmit() {
     this.submitted = true;
-    console.log(this.loginForm.invalid)
     if (!this.loginForm.invalid) {
       this.clientService.verifyClientInfo(
         this.loginForm.get('email')?.value || '',
@@ -57,6 +56,7 @@ export class LoginPageComponent {
       .subscribe(() => {
           this.showSuccessDiv = true;
           this.showErrorDiv = false;
+          
           setTimeout(() => {
             this.showSuccessDiv = false;
             this.submitted= false;

@@ -33,14 +33,11 @@ export class RegisterPageComponent {
   });
 
   clients: Client[]= [];
-  // ? do email unique and user registered do the same thing
-  // emailUnique: number= 0;
   userRegistered: boolean= false;
   showSuccessDiv: boolean= false;
   showErrorDiv: boolean= false;
   submitted: boolean= false;
   currentDate: string= "";
-
 
   constructor(
     private fb: FormBuilder, 
@@ -112,7 +109,6 @@ export class RegisterPageComponent {
               this.showSuccessDiv= true;
     
               // Makes success msg div disappear after 3 seconds
-              // setTimeout(() => this.showSuccessDiv = false, 3000);
               setTimeout(() => {
                 this.showSuccessDiv = false;
                 this.router.navigate(['/login']);
@@ -126,26 +122,6 @@ export class RegisterPageComponent {
             setTimeout(() => this.showErrorDiv = false, 2000);
           }          
         });
-      // console.log(this.emailUnique)
-      // if (this.emailUnique == 0){
-      //   if(this.clientService.registerNewClient(newClient)){
-      //     this.userRegistered= true;
-      //     this.showSuccessDiv= true;
-      //     this.registrationForm.reset();
-
-      //     // Makes success msg div disappear after 3 seconds
-      //     setTimeout(() => this.showSuccessDiv = false, 3000);
-      //     setTimeout(() => {
-      //       this.showSuccessDiv = false;
-      //       this.router.navigate(['/login']);
-      //     }, 3000);
-      //   }
-      // }
-      // else{
-      //   console.log("User Exists");
-      //   this.showErrorDiv = true;
-      //   setTimeout(() => this.showErrorDiv = false, 3000);
-      // }
     }
   }
 }
