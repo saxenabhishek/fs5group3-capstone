@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.fidelity.business.Order;
+import com.fidelity.business.Person;
 import com.fidelity.business.Trade;
 
 @Mapper
