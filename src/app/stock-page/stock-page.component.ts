@@ -76,9 +76,9 @@ export class StockPageComponent {
         text: 'Loading...',
       },
     };
-    this.tradeService.getPriceById(this.instrumentId).subscribe((data) => {
-      this.prices = data;
-      this.instrument = data.instrument;
+    this.tradeService.getCurrentPrices(this.instrumentId).subscribe((data) => {
+      this.prices = data[0];
+      this.instrument = data[0].instrument;
       this.buyForm.get('price')?.setValue(this.prices.askPrice);
       this.chartOptions.series = [
         {
