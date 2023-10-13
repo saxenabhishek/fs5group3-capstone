@@ -41,6 +41,7 @@ public final class TradeService {
 
 	public List<Instrument> getAllInstruments(String InstrumentId) {
 		if (InstrumentId.isBlank()){
+			
 			return tradeDao.getAllInstruments();
 		}
 		return tradeDao.getInstrumentById(InstrumentId);
@@ -100,7 +101,7 @@ public final class TradeService {
 
 		// Reduce currentBalance and update clientBalance
 
-		Trade trade = new Trade(order, cashValue, "123", Instant.now());
+		Trade trade = new Trade(order, cashValue, "TID" + Helper.generateRandomNumericString(3), Instant.now());
 
 		
 		tradeDao.addTrade(trade);
@@ -151,7 +152,7 @@ public final class TradeService {
 				trade = new Trade(
 						order,
 						cashValue,
-						"123",
+						"TID" + Helper.generateRandomNumericString(3),
 						Instant.now());
 
 				tradeDao.addTrade(trade);
