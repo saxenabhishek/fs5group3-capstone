@@ -59,7 +59,7 @@ export class TradeService {
     // }
   }
 
-  getCurrentHoldings(clientId: string ): Observable<Trade[]> {
+  getCurrentHoldings(clientId: string): Observable<Trade[]> {
     return this.http.get<Trade[]>(this.portfolioUrl + '/holdings?clientId=' + clientId)
                     .pipe(
                       catchError((error) => {
@@ -70,6 +70,7 @@ export class TradeService {
 
   getInstruments(): Observable<Instruments[]> {
     return this.http.get<Instruments[]>(this.url + "/instruments")
+    // return of(INSTRUMENT_DATA)
   }
 
   getCurrentPrices(instrumentId: string): Observable<Prices[]> {
@@ -87,7 +88,7 @@ export class TradeService {
                       }));
   }
 
-  getTradeHistory(clientId: string): Observable<any[]> {
+  getTradeHistory(clientId: string): Observable<any[]> {    
     return this.http.get<any[]>(this.portfolioUrl + '/trade-history?clientId=' + clientId)
                     .pipe(
                       catchError((error) => {

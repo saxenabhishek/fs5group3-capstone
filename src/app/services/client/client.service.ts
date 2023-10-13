@@ -1,55 +1,97 @@
 import { Injectable } from '@angular/core';
 import { Client } from '../../models/client.model';
-import { Observable, of } from 'rxjs';
+import { Observable, catchError, of, switchMap, throwError } from 'rxjs';
 import { testClients } from '../../const/clients';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ClientFMTS } from 'src/app/models/client-fmts';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ClientService {
   clients = testClients;
-  currentClient?: Client = undefined;
+  registerClient: ClientFMTS = new ClientFMTS("", "");
+  verifyClient: ClientFMTS = new ClientFMTS("", "");
+  clientUrl= "http://localhost:8080/client/";
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    }),
+  };
 
-  registerNewClient(newClient: Client): boolean {
-    // todo: put logic to check if a user with same email exists and if the ID is also the same.
-    // rn only checks if client with same email does not exist
-    if (
-      this.clients.findIndex(
-        (e: Client) => e.person.email == newClient.person.email
-      ) == -1
-    ) {
-      this.addNewClient(newClient);
-      return true;
-    }
-    return false;
-  }
-  private login: boolean = false;
+  constructor(private http: HttpClient) {}
 
-  getClients(): Observable<Client[]> {
-    return of(this.clients);
-  }
+  registerNewClient(newClient: Client): Observable<Boolean> {
+    console.log("REGISTERnew: ", newClient)
+    this.http
+        .post<ClientFMTS>(this.clientUrl + "register", newClient, this.httpOptions)
+        // .pipe(
+        //   switchMap((data: ClientFMTS) => {
+        //     this.registerClient = data;
+        //     console.log("REGISTER CLIENT: ", this.registerClient)
+        //     return of(this.getIfSuccessfullyRegistered());
+        //   }))
+        .pipe(
+          catchError((error) => {
+            console.error('API error for Register New Client (POST Request):', error);
+            return throwError(() => error);
+          }))
+          .subscribe(data => this.registerClient= data);
 
-  addNewClient(client: Client): void {
-    this.clients.push(client);
-  }
-
-  verifyClientInfo(email?: string, password?: string): Boolean {
-    this.currentClient = this.clients.find(
-      (client: Client) =>
-        client.person.email === email && client.person.password == password
-    );
-    return this.getIfLoggedIn()
+          return of(this.getIfSuccessfullyRegistered())
   }
 
-  getIfLoggedIn() {
-    return this.currentClient != undefined;
+  // getClients(): Observable<Client[]> {
+  //   return of(this.clients);
+  // }
+
+  // addNewClient(client: Client): void {
+  //   this.clients.push(client);
+  // }
+
+  verifyClientInfo(email?: string, password?: string): Observable<boolean> {
+    return this.http
+        .post<ClientFMTS>(this.clientUrl + "login", { email: email, password: password }, this.httpOptions)
+        .pipe(
+          switchMap((data: ClientFMTS) => {
+            this.verifyClient = data;
+            return of(this.getIfLoggedIn());
+          }))
+        .pipe(
+          catchError((error: any) => {
+            console.error('API error for Login (POST Request):', error);
+            return throwError(() => error);
+          }))                            
+        // .subscribe(data => {
+        //   this.verifyClient= data;
+        //   return this.getIfLoggedIn();
+        // });                     
+    // return of(this.getIfLoggedIn());
   }
 
-  getClientId(){
-    if(this.currentClient){
-      return this.currentClient.person.id
-    }
+  getIfLoggedIn(): boolean {    
+    return this.verifyClient.clientId !== "" && this.verifyClient.token !== "";
+  }
+
+  getIfSuccessfullyRegistered(): boolean{
+    return this.registerClient.clientId !== "" && this.registerClient.token !== "";
+  }
+
+  getClientId(): Observable<string>{
+    if(this.verifyClient)
+      return of(this.verifyClient.clientId);
+    
     throw new Error("Illegal state, no client is logged in")
 
+  }
+
+  verifyEmailAddress(email: string): Observable<number> {
+    return this.http
+        .get<number>(this.clientUrl + "verify-email/" + email)
+        .pipe(
+          catchError((error) => {
+            console.error('API error for Login (POST Request):', error);
+            return throwError(() => error);
+          }));
   }
 }
