@@ -46,6 +46,7 @@ export class StockPageComponent {
   instrument?: Instruments;
   prices?: Prices;
   buyForm: FormGroup = new FormGroup({});
+  clientId: string= '';
 
   constructor(
     private route: ActivatedRoute,
@@ -95,13 +96,14 @@ export class StockPageComponent {
 
   submitTrade() {
     alert('Trade Executed');
+    this.clientService.getClientId().subscribe(id => this.clientId= id);
     let newOrder = new Order(
       '',
       this.instrumentId,
       this.buyForm.get('quantity')?.value,
       this.buyForm.get('price')?.value,
       new Direction('B'),
-      this.clientService.getClientId(),
+      this.clientId,
       ''
     );
     this.tradeService.processOrder(newOrder);
