@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Client } from '../../models/client.model';
 import { Observable, catchError, of, switchMap, throwError } from 'rxjs';
-import { testClients } from '../../const/clients';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ClientFMTS } from 'src/app/models/client-fmts';
 
@@ -9,7 +8,6 @@ import { ClientFMTS } from 'src/app/models/client-fmts';
   providedIn: 'root',
 })
 export class ClientService {
-  clients = testClients;
   registerClient: ClientFMTS = new ClientFMTS("", "");
   verifyClient: ClientFMTS = new ClientFMTS("", "");
   clientUrl= "http://localhost:8080/client/";
@@ -41,14 +39,6 @@ export class ClientService {
           return of(this.getIfSuccessfullyRegistered())
   }
 
-  // getClients(): Observable<Client[]> {
-  //   return of(this.clients);
-  // }
-
-  // addNewClient(client: Client): void {
-  //   this.clients.push(client);
-  // }
-
   verifyClientInfo(email?: string, password?: string): Observable<boolean> {
     return this.http
         .post<ClientFMTS>(this.clientUrl + "login", { email: email, password: password }, this.httpOptions)
@@ -61,12 +51,7 @@ export class ClientService {
           catchError((error: any) => {
             console.error('API error for Login (POST Request):', error);
             return throwError(() => error);
-          }))                            
-        // .subscribe(data => {
-        //   this.verifyClient= data;
-        //   return this.getIfLoggedIn();
-        // });                     
-    // return of(this.getIfLoggedIn());
+          }));                     
   }
 
   getIfLoggedIn(): boolean {    
