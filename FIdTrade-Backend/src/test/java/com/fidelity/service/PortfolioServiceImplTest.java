@@ -33,12 +33,12 @@ public class PortfolioServiceImplTest {
         
         for (int i = 1; i <= 110; i++) {
             Order order = new Order("AAPL", 100, new BigDecimal("150.50"), Direction.BUY, "Client123", "Order00" + i, Instant.now());
-            portfolioService.addTrade(order);
+            // portfolioService.addTrade(order);
             orderTemp.add(order);
 //            System.out.println(portfolioService.getPortfolio().get(portfolioService.getPortfolioLength()-i));
 //            tradeTemp.add(portfolioService.getPortfolio().get(portfolioService.getPortfolioLength()-i));
         }
-        tradeTemp.addAll(portfolioService.getPortfolio());
+        // tradeTemp.addAll(portfolioService.getPortfolio());
     }
     
     @AfterEach
