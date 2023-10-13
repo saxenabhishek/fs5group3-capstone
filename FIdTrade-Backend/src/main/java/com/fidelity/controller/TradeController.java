@@ -29,11 +29,6 @@ public class TradeController {
     @Autowired
     TradeService service;
     
-    @PostMapping("/register")
-    ResponseEntity<Integer> registerNewClient(){
-        throw new java.lang.UnsupportedOperationException();
-    }
-
     @GetMapping("")
     String ping(){
         logger.debug("ping()");
