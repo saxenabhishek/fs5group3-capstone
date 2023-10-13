@@ -12,39 +12,36 @@ CREATE TABLE FT_PERSON (
     id VARCHAR(255) PRIMARY KEY,
     country VARCHAR(255) NOT NULL,
     postalCode VARCHAR(255) NOT NULL,
-    dob DATE NOT NULL,
+    dob VARCHAR(8) NOT NULL,
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL
 );
 -- Inserting values into FT_PERSON with matching date format
-INSERT INTO FT_PERSON (id, country, postalCode, dob, email, password) VALUES ('UID001', 'United States', '12345', TO_DATE('1990-01-01', 'YYYY-MM-DD'), 'john@example.com', 'securepassword');
-INSERT INTO FT_PERSON (id, country, postalCode, dob, email, password) VALUES ('UID002', 'Canada', 'A1A 1A1', TO_DATE('1985-03-15', 'YYYY-MM-DD'), 'jane@example.com', 'strongpass123');
-INSERT INTO FT_PERSON (id, country, postalCode, dob, email, password) VALUES ('UID003', 'United Kingdom', 'SW1A 1AA', TO_DATE('1995-07-20', 'YYYY-MM-DD'), 'william@example.com', 'mypassword123');
+INSERT INTO FT_PERSON (id, country, postalCode, dob, email, password) VALUES ('UID001', 'United States', '12345', '19900101', 'john@example.com', 'securepassword');
+INSERT INTO FT_PERSON (id, country, postalCode, dob, email, password) VALUES ('UID002', 'Canada', 'A1A 1A1', '19850315', 'jane@example.com', 'strongpass123');
+INSERT INTO FT_PERSON (id, country, postalCode, dob, email, password) VALUES ('UID003', 'United Kingdom', 'SW1A 1AA', '19950720', 'william@example.com', 'mypassword123');
 
 
 CREATE TABLE FT_CLIENT_IDENTIFICATION (
-    id NUMBER(6) PRIMARY KEY,
-    person_id VARCHAR(255),
+    person_id VARCHAR(255) PRIMARY KEY,
     identification_type VARCHAR(255) NOT NULL,
     identification_value VARCHAR(255) NOT NULL,
     FOREIGN KEY (person_id) REFERENCES FT_PERSON(id)
 );
 
-INSERT INTO FT_CLIENT_IDENTIFICATION (id, person_id, identification_type, identification_value) VALUES (456788, 'UID002', 'Passport', 'AB123456');
-INSERT INTO FT_CLIENT_IDENTIFICATION (id, person_id, identification_type, identification_value) VALUES (259708, 'UID003', 'Passport', 'CD456789');
-INSERT INTO FT_CLIENT_IDENTIFICATION (id, person_id, identification_type, identification_value) VALUES (794280, 'UID001', 'SSN', '123456789');
+INSERT INTO FT_CLIENT_IDENTIFICATION (person_id, identification_type, identification_value) VALUES ('UID002', 'Passport', 'AB123456');
+INSERT INTO FT_CLIENT_IDENTIFICATION (person_id, identification_type, identification_value) VALUES ('UID003', 'Passport', 'CD456789');
+INSERT INTO FT_CLIENT_IDENTIFICATION (person_id, identification_type, identification_value) VALUES ('UID001', 'SSN', '123456789');
 
 CREATE TABLE FT_CLIENT ( 
-    	id VARCHAR(255) PRIMARY KEY, 
-  	    identification_id NUMBER(6),  
-        wallet NUMBER(10, 3),
-    	FOREIGN KEY (id) REFERENCES FT_PERSON(id), 
-    	FOREIGN KEY (identification_id) REFERENCES FT_CLIENT_IDENTIFICATION(id) 
+    	id VARCHAR(255) PRIMARY KEY,
+        wallet_bal NUMBER(15, 3),
+    	FOREIGN KEY (id) REFERENCES FT_PERSON(id)
  );
  
-INSERT INTO FT_CLIENT (id, identification_id, wallet) VALUES ('UID001', 794280, 933944.87);
-INSERT INTO FT_CLIENT (id, identification_id, wallet) VALUES  ('UID002', 456788, 1000000);
-INSERT INTO FT_CLIENT (id, identification_id, wallet) VALUES  ('UID003', 259708, 1000000);
+INSERT INTO FT_CLIENT (id, wallet_bal) VALUES  ('UID001', 933944.87);
+INSERT INTO FT_CLIENT (id, wallet_bal) VALUES  ('UID002', 1000000);
+INSERT INTO FT_CLIENT (id, wallet_bal) VALUES  ('UID003', 1000000);
 
 CREATE TABLE ft_instrument (
     id VARCHAR2(10) PRIMARY KEY,
@@ -209,4 +206,3 @@ INSERT INTO ft_preference (client_id, investment_purpose, risk_tolerance, income
 VALUES ('UID002','Retirement','ABOVE_AVERAGE','EigthyKToOneL','FiveToSevenYears','T');
 
 COMMIT;
-
