@@ -1,8 +1,7 @@
 package com.fidelity.controller;
 
 
-import java.util.ArrayList;
-import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -21,18 +20,20 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ServerErrorException;
 import org.springframework.web.server.ServerWebInputException;
 import com.fidelity.business.*;
-import com.fidelity.integration.*;
+
 import com.fidelity.service.ClientService;
 
 @RestController
 @RequestMapping("/client")
 public class ClientController {
+	private static final String DB_ERROR_MSG = 
+			"Error communicating with the  database";
 	
-    @PostMapping("/register")
-    ResponseEntity<Integer> registerNewClient(){
-        throw new java.lang.UnsupportedOperationException();
-    }
 
+	@Autowired
+	private ClientService service;
+	
+    
     //Preference
     @GetMapping("/preference/{id}")
 	public ResponseEntity<Preference> queryForPreferenceById(@PathVariable String id) {
