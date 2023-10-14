@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ClientService } from '../services/client/client.service';
+import { ClientFMTS } from '../models/client-fmts';
 
 @Component({
   selector: 'app-landing-page',
@@ -33,4 +34,12 @@ export class LandingPageComponent {
     }
   ];
 
+  isLoggedIn(){
+    return this.clientService.getIfLoggedIn();
+  }
+
+  LogOut(){
+    if(this.isLoggedIn())
+      setTimeout(() => this.clientService.verifyClient= new ClientFMTS("", ""), 1000);
+  }
 }

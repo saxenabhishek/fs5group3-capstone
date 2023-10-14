@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fidelity.integration.mapper.ClientMapper">
+	<resultMap type="Person" id="personMap">
+		<id 	property="id"				column="ID" />
+		<result property="country"			column="COUNTRY" />
+		<result property="postalCode"		column="POSTALCODE" />
+		<result property="dob"		        column="DOB" />
+		<result property="email"		    column="EMAIL" />
+		<result property="password"		    column="PASSWORD" />
+	</resultMap>
+	
+	<resultMap id="clientIdentificationMap" type="ClientIdentification">
+		<result property="type" 	column="IDENTIFICATION_TYPE" />
+		<result property="value" 	column="IDENTIFICATION_VALUE" />
+	</resultMap>
+	
+	<resultMap id="ClientResultMap" type="Client">
+		<result property="walletBalance" 	column="WALLET_BAL" />
+		<association property="person" resultMap="personMap" />
+		<collection property="identification" resultMap="clientIdentificationMap" />
+	</resultMap> 
+		  	
+
+	<select id="getClientsByID" resultMap="ClientResultMap">
+		SELECT p.id, p.country, p.postalcode, p.dob, p.email, p.password,
+		c.identification_type, c.identification_value, cl.wallet_bal
+		FROM ft_person p
+		LEFT JOIN ft_client_identification c
+		ON p.id = c.person_id
+		LEFT JOIN ft_client cl
+		ON p.id = cl.id
+		WHERE p.id = #{id}
+	</select> 
+
+	<select id="getClientsByEmail" resultMap="ClientResultMap">
+		SELECT p.id, p.country, p.postalcode, p.dob, p.email, p.password,
+		c.identification_type, c.identification_value, cl.wallet_bal
+		FROM ft_person p
+		LEFT JOIN ft_client_identification c
+		ON p.id = c.person_id
+		LEFT JOIN ft_client cl
+		ON p.id = cl.id
+		WHERE p.email = #{email}
+	</select>
+
+	<select id="doesEmailAlreadyExist" resultType="int">
+		SELECT Count(*) FROM ft_person WHERE email = #{email}
+	</select> 
+
+	<insert id="insertPerson" parameterType="Person">
+		INSERT INTO ft_person (id, country, postalcode, dob, email, password)
+		VALUES (#{id}, #{country}, #{postalCode}, #{dob}, #{email}, #{password})
+	</insert> 
+
+	<insert
+		id="insertClientIdentification" parameterType="ClientIdentification">
+		INSERT INTO ft_client_identification (person_id, identification_type, identification_value)
+		VALUES (#{clientId}, #{clientIdentification.type}, #{clientIdentification.value})
+	</insert>
+	
+	<insert id="insertBalance">
+		INSERT INTO ft_client(id, wallet_bal)
+		VALUES (#{clientId}, #{balance})
+	</insert> 
+
+	<select id="doesClientIdentificationAlreadyExist" resultType="int">
+		SELECT Count(*) FROM ft_client_identification
+		WHERE identification_value = #{clientIdentification.value} 
+	</select>
+
+	<select id="getIdFromEmail" resultType="java.lang.String">
+		SELECT
+		id
+		FROM
+		ft_person
+		where email = #{email}
+	</select>
+</mapper>

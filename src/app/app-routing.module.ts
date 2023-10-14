@@ -12,6 +12,7 @@ import { RoboadvisorPageComponent } from './roboadvisor-page/roboadvisor-page.co
 import { ClientService } from './services/client/client.service';
 import { StockPageComponent } from './stock-page/stock-page.component';
 import { TradeHistoryComponent } from './trade-history/trade-history.component';
+import { PricesResolver } from './prices-resolver';
 
 
 const routeGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state:RouterStateSnapshot) => {
@@ -34,7 +35,10 @@ const routes: Routes = [
   {
     path: 'portfolio',
     component: PortfolioComponent,
-    canActivate:[routeGuard]
+    canActivate:[routeGuard],
+    resolve: {
+      prices: PricesResolver,
+    }
   },
   {
     path: 'preferences/add',

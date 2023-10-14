@@ -1,4 +1,5 @@
 <section style="background-color: #2f4858;">
+  <app-navbar></app-navbar>
     <div class="container py-5">
       <div class="row d-flex justify-content-center align-items-center">
         <div class="col">
@@ -32,16 +33,8 @@
                         formControlName="email"
                         required/>
                         <span class="text-danger" *ngIf="(loginData.email.touched || submitted) && loginData.email.errors?.['required']">
-                            emailAddress is required    
-                         </span>
-                         <span class="text-danger" *ngIf="loginData.email.touched && loginData.email.errors?.['email']">
-                            Enter a valid email address. It should be in the format (test@example.com)
+                            Email address is required    
                         </span>
-                      
-                      <!-- <div *ngIf="email.invalid && (email.dirty||email.touched)">
-                        <div *ngIf="email.errors?.required">Email is required</div>
-                        <div *ngIf="email.errors?.email">Email is invalid</div>
-                      </div>  -->
                     </div>
   
                     <div class="form-outline mb-4">
@@ -50,7 +43,6 @@
                       >
                       <input
                         class="form-control form-control-md"
-                        [class.is-invalid]
                         type="password"
                         name="password"
                         id="password"
@@ -58,19 +50,23 @@
                         required
                       />
                       
-                      <span class="text-danger" *ngIf="(submitted && loginData.password.hasError('required')) || loginData.password.touched && loginData.password.errors?.['invalidpassword']">
-                        password cannot be empty and it should have minimum 8 characters, at least 1 uppercase letter, 1 lowercase
-                        letter and 1 number
-                      </span>
-                      <!-- <div *ngIf="email.invalid && (email.dirty||email.touched)">
-                        <div *ngIf="email.errors?.required">Email is required</div>
-                        <div *ngIf="email.errors?.email">Email is invalid</div>
-                      </div>  -->
-                    </div>                  
+                      <span class="text-danger" *ngIf="(loginData.password.touched || submitted) && loginData.password.hasError('required')">
+                        Password cannot be empty
+                      </span>                    
+                    </div>     
+                                 
                     <div class="d-flex justify-content-end pt-3">
                       <button type="submit" class="btn btn-lg ms-2">
                         Login
                       </button>                    
+                    </div>
+
+                    <br/>
+                    <div *ngIf="showErrorDiv" class="alert alert-danger" role="alert">                        
+                      Email ID or password is wrong !
+                    </div>
+                    <div *ngIf="showSuccessDiv" class="alert alert-success" role="alert">
+                      Login Successful !
                     </div>
                   </form>                 
                   <br/>                 

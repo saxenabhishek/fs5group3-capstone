@@ -24,7 +24,6 @@
 	    <result property="cashValue" column="cashvalue"/>
 	    <result property="tradeTimestamp" column="tradetimestamp"/>
 	
-	    <!-- Include a nested resultMap for the Order class -->
 	    <association property="order" resultMap="orderResultMap"/>
 	</resultMap>
 
@@ -35,13 +34,6 @@
 	</select>
 	
 	<select id="getHoldings" parameterType="String" resultType="Trade">
-		<!-- SELECT
-	        t.instrumentid,
-	        SUM(CASE WHEN t.direction = 'BUY' THEN o.quantity ELSE -o.quantity END) AS quantity,
-        	SUM(CASE WHEN t.direction = 'BUY' THEN t.cashvalue ELSE -t.cashvalue END) AS cashValue
-	    FROM ft_trade t LEFT JOIN ft_order o ON t.clientid = o.clientid AND t.orderid = o.id
-	    WHERE t.clientid = #{clientId}
-	    GROUP BY t.instrumentid-->
 	    WITH AggregatedData AS (
 		    SELECT
 		        t.instrumentid,
@@ -95,5 +87,4 @@
     <select id="getClientExistence" parameterType="String" resultType="String">
 		SELECT ID FROM FT_CLIENT WHERE ID= #{clientId}
 	</select>
-    
 </mapper>

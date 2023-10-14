@@ -13,10 +13,21 @@
         <p>Trade stocks, cryptocurrencies, and more with ease.</p>
         <div class="cta-buttons">
           <a 
+            *ngIf="!isLoggedIn()"
             routerLink="/login" 
             class="btn btn-primary" 
-            >Login</a>
-          <a routerLink="/register" class="btn btn-secondary">Sign Up</a>
+            >Sign In</a>
+          <a
+            *ngIf="!isLoggedIn()" 
+            routerLink="/register" 
+            class="btn btn-secondary"
+          >Sign Up</a>
+          <a
+            *ngIf="isLoggedIn()" 
+            routerLink="/" 
+            class="btn btn-secondary"
+            (click)="LogOut()"
+          >Log Out</a>
         </div>
       </div>
     </section>

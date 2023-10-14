@@ -1,18 +1,17 @@
 package com.fidelity.business;
 
 import java.util.regex.Pattern;
-import java.time.LocalDate;
 import java.util.*;  
 
 public class Person {
 	private String id;
     private String country;
     private String postalCode;
-    private LocalDate dob;
+    private String dob;
     private String email;
     private String password;
 
-    public Person(String id, String country, String postalCode, LocalDate dob, String email, String password) {
+    public Person(String id, String country, String postalCode, String dob, String email, String password) {
     	 if (id == null ) {
              throw new IllegalArgumentException("id cant be null");
          }
@@ -90,7 +89,7 @@ public class Person {
 		return postalCode;
 	}
 
-	public LocalDate getDob() {
+	public String getDob() {
 		return dob;
 	}
 
@@ -100,6 +99,10 @@ public class Person {
 
 	public String getPassword() {
 		return password;
+	}
+
+	public void setId(String clientId) {
+		this.id= clientId;
 	}
     
     

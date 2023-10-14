@@ -1,11 +1,11 @@
 <app-navbar></app-navbar>
 <div class="card-table" >    
-    <h3>trade History</h3>
+    <h3>Trade History</h3>
     <hr>
     <table *ngIf="trades.length" cellspacing="0">
         <thead>
             <th>Stock</th>
-            <th>trade Date/Time</th>            
+            <th>Trade Date/Time</th>            
             <th>Type</th>
             <th>Shares</th>
             <th>Price</th>
@@ -13,7 +13,7 @@
         <tbody>
             <tr *ngFor="let trade of trades">
                 <td>{{trade.instrumentId}}</td>
-                <td>{{date}}</td>
+                <td>{{trade.orderTimestamp}}</td>
                 <td [ngStyle]="{'color' : (trade.direction.stringValue == 'BUY') ? '#2F4858' : '#336699'}">
                     {{trade.direction.stringValue }}
                 </td>
