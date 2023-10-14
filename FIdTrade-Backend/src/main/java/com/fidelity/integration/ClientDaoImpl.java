@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fidelity.business.Preference;
-import com.fidelity.mapper.ClientMapper;
+import com.fidelity.integration.mapper.ClientMapper;
 
 
 @Repository("clientDao")
@@ -23,7 +23,7 @@ public class ClientDaoImpl implements ClientDao {
     
 
 
-//    @Transactional
+    @Transactional
     @Override
 	public int insertPreference(Preference pref) {
 		logger.debug("inserting preference " + pref);
