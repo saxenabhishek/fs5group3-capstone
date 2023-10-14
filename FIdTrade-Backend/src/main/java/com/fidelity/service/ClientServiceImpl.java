@@ -1,67 +1,23 @@
 package com.fidelity.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.stereotype.Service;
+
 import java.math.BigDecimal;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.List;
 
 import org.slf4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.fidelity.business.Client;
 import com.fidelity.business.ClientFMTS;
 import com.fidelity.business.ClientIdentification;
 import com.fidelity.integration.ClientDaoImpl;
 import com.fidelity.integration.FMTSDao;
+import com.fidelity.business.Preference;
 
-/*
- * package com.fidelity.services; import java.util.Collections; import
- * java.util.HashSet; import java.util.Set;
- * 
- * import com.fidelity.business.Preference;
- * 
- * public class ClientService { private Set<Preference> preferences ;
- * 
- * 
- * public ClientService() {
- * 
- * this.preferences = new HashSet<>();
- * 
- * 
- * } public void addPreference(Preference pre) { if(pre==null) { throw new
- * NullPointerException("Preference can't be null "); } if(pre.isAccept()) {
- * preferences.add(pre); }
- * 
- * }
- * 
- * public void updatePreference(String purpose,String risk,String
- * category,String length) { if (purpose==null || risk==null || category==null
- * || length==null) { throw new NullPointerException("All fields are required");
- * } for (Preference pre:preferences) { pre.setAccept(true);
- * if(!pre.getInvestmentPurpose().equals(purpose)) { if(purpose.length()>1) {
- * pre.setInvestmentPurpose(purpose); }
- * 
- * }
- * 
- * if(!pre.getRiskTolerance().equals(risk)) { if(risk.length()>1) {
- * pre.setRiskTolerance(risk); }
- * 
- * } if(!pre.getIncomeCategory().equals(category)) { if(category.length()>1) {
- * pre.setIncomeCategory(category); }
- * 
- * } if(!pre.getLengthOfInvestmet().equals(length)) { if(length.length()>1) {
- * pre.setLengthOfInvestmet(length); }
- * 
- * }
- * 
- * } }
- * 
- * public Set<Preference> getPreferences() { return
- * Collections.unmodifiableSet(preferences); }
- * 
- * }
- */
 
 @Service
 public class ClientServiceImpl implements ClientService{
@@ -127,5 +83,67 @@ public class ClientServiceImpl implements ClientService{
 			throw new IllegalArgumentException("Email is not in the correct format");
 
 		return clientDao.doesEmailAlreadyExist(email);
+	}
+
+	@Override
+	public List<Preference> findAllPreference() {
+		List<Preference> preferences;		
+		try {
+			preferences = clientDao.queryForAllPreference();
+		} 
+		catch (Exception e) {
+			String msg = "Error querying all Preference in the  database.";
+			throw new PreferenceDatabaseException(msg, e);
+		}		
+		return preferences;
+	}
+
+	@Override
+	public  Preference findPreferenceById(String id) {	
+		try {
+			Preference preference = clientDao.queryForPreferenceById(id);
+			return preference;
+		} 
+		catch (Exception e) {
+			String msg = String.format("Error querying For Preference with id in the database" + id);
+			throw new PreferenceDatabaseException(msg, e);
+		}	
+	}
+
+	@Override
+	public int addPreference(Preference preference) {
+		int count = 0;
+		try {			
+			count = clientDao.insertPreference(preference);		
+		} 
+		catch (DuplicateKeyException e) {
+			throw e; 
+		}
+		catch (Exception e) {
+			String msg = "Error inserting Preference into the  database.";
+			throw new PreferenceDatabaseException(msg, e);
+		}
+		return count;
+	}
+
+	@Override
+	public int modifyPreference(Preference preference) {
+		validatePreference(preference);
+		int count = 0;
+		try {
+			count = clientDao.updatePreference(preference);
+		} 
+		catch (Exception e) {
+			String msg = "Error updating Preference in the  database.";
+			throw new PreferenceDatabaseException(msg, e);
+		}
+		return count;
+	}	
+
+	private void validatePreference(Preference preference) {
+		if (preference.getInvestmentPurpose() == null || preference.getInvestmentPurpose() == "" 
+			|| preference.getRiskTolerance() == null || preference.getIncomeCategory() == null 
+				|| preference.getLengthOfInvestment() == null) 
+			throw new IllegalArgumentException("Preference is not fully populated: " + preference);
 	}
 }
