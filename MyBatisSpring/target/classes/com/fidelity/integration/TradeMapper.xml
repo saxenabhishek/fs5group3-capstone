@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fidelity.integration.TradeMapper">
+	
+	<resultMap id="priceResultMap" type="Price">
+		<result property = "askPrice" column = "askprice"/>
+		<result property = "bidPrice" column = "bidprice"/>
+		<result property = "instrumentId" column = "instrumentid"/>
+		<result property = "priceTimestamp" column = "pricetimestamp"/>
+		<association property="instrument" resultMap="instrumentResultMap"/>
+	</resultMap>
+
+	<resultMap id="instrumentResultMap" type="Instrument">
+		<result property = "description" column="instrumentdescription"/>
+		<result property = "externalId" column="externalid"/>
+		<result property = "maxQuantity" column="maxquantity"/>
+		<result property = "instrumentId" column="instrumentid"/>
+		<result property = "minQuantity" column="minquantity"/>
+		<result property = "categoryId" column="categoryid"/>
+	</resultMap>
+
+
+	<select id="getAllLatestPrices" resultMap="priceResultMap">
+		SELECT ft_price.id, ft_price.askprice, ft_price.bidprice, ft_price.pricetimestamp, ft_price.instrumentid, ins.externalid, ins.categoryid, ins.instrumentdescription, ins.maxquantity, ins.minquantity
+		FROM (
+    		SELECT instrumentid,  max(pricetimestamp) time from ft_price group by instrumentid
+		) sub, ft_price
+		JOIN ft_instrument ins on ins.id = ft_price.instrumentid 
+		WHERE sub.instrumentid = ft_price.instrumentid and sub.time = ft_price.pricetimestamp
+	</select>
+
+
+	<select id="getPriceById" parameterType="String" resultMap="priceResultMap">
+		SELECT ft_price.id, ft_price.askprice, ft_price.bidprice, ft_price.pricetimestamp, ft_price.instrumentid, ins.externalid, ins.categoryid, ins.instrumentdescription, ins.maxquantity, ins.minquantity
+		FROM ft_price JOIN ft_instrument ins on ins.id = ft_price.instrumentid
+		WHERE ft_price.instrumentid = #{insId} and
+		ft_price.pricetimestamp = (
+			select max(pricetimestamp) time from ft_price where ft_price.instrumentid = #{insId}
+		)
+	</select>
+</mapper>
