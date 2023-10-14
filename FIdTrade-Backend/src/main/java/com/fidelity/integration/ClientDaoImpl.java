@@ -28,7 +28,6 @@ public class ClientDaoImpl implements ClientDao {
 	public int insertPreference(Preference pref) {
 		logger.debug("inserting preference " + pref);
 		int count=mapper.insertPreference(pref);
-		
 		return count ;
 	}
     @Transactional

@@ -53,12 +53,13 @@ public class ClientServiceImpl implements ClientService {
 
 	@Override
 	public int addPreference(Preference preference) {
-		validatePreference(preference);
+		
 
 		int count = 0;
 		try {
 			
 			count = dao.insertPreference(preference);
+			
 			
 		} 
 		catch (DuplicateKeyException e) {
@@ -91,8 +92,8 @@ public class ClientServiceImpl implements ClientService {
 	
 
 	private void validatePreference(Preference preference) {
-		if (preference.getInvestmentPurpose() == null || preference.getInvestmentPurpose()=="" || preference.getRiskTolerance()==null || preference.getIncomeCategory()==null|| preference.getLengthOfInvestment()==null ||
-			preference.getIsChecked()=="F" ) {
+		if (preference.getInvestmentPurpose() == null || preference.getInvestmentPurpose()=="" || preference.getRiskTolerance()==null || preference.getIncomeCategory()==null|| preference.getLengthOfInvestment()==null 
+			 ) {
 				throw new IllegalArgumentException("Preference is not fully populated: " + preference);
 		}
 	}

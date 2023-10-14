@@ -20,7 +20,7 @@ export class InvestmentPreferUpdateComponent implements OnInit{
     lengthOfInvestment:any=['0-5 years','5-7 years','7-10 years','10-15 years' ]
 ngOnInit(): void {
   //console.log( this.router.snapshot.params.id );
-  this.preferenceService.getPreferenceById( this.router.snapshot.params['id'] ).subscribe( ( result: any ) => {
+  this.preferenceService.getPreferenceById( "UID001" ).subscribe( ( result: any ) => {
     //console.log( result );
     this.updateForm = this.fb.group({
       purpose:['',[Validators.required,Validators.minLength(5)]],
@@ -33,7 +33,7 @@ ngOnInit(): void {
 }
 update() {
 
-  this.preferenceService.updatePreference( this.router.snapshot.params['id'], this.updateForm.value ).subscribe( ( result ) => {
+  this.preferenceService.updatePreference( this.updateForm.value ).subscribe( ( result ) => {
     //console.log( result );
   
   } )
