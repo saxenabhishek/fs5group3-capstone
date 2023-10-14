@@ -27,4 +27,7 @@ export class ReportPageComponent {
   loadReport() {
     this.reportsService.getReport().subscribe(response => this.reports = response);
   }
+  loadSellReport() {
+    this.reportsService.getReport().subscribe(response => this.reports = response);
+  }
 }

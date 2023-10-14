@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fidelity.business.Preference;
+import com.fidelity.business.Price;
 import com.fidelity.integration.mapper.PreferenceMapper;
 
 
@@ -24,7 +25,9 @@ public class PreferenceDaoMyBatisImpl {
 		logger.debug("enter");
 		return preferenceMapper.getAllPreference();
 	}
-
+	public Preference getPreferenceById(String clientID) {
+		return preferenceMapper.getPreferenceById(clientID);
+	}
     @Transactional
 	public boolean insertPreference(Preference pref) {
     	Objects.requireNonNull(pref);

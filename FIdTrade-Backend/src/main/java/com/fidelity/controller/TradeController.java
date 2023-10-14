@@ -42,15 +42,6 @@ public class TradeController {
         throw new java.lang.UnsupportedOperationException();
     }
     
-
-    @PostMapping("/top-trades")
-    public List<Trade> roboAdvisor(@RequestBody Preference preferences) {
-    	Preference p = new Preference("client1", "Personal", RiskTolerance.ABOVE_AVERAGE, IncomeCategory.ZeroToTwentyK, LengthOfInvestment.ZeroToFiveYears, "T");
-       	String clientId = "client12";
-		List<Trade> topTrades = tradeService.getTopBuyTrades(clientId);
-        return topTrades;
-    }
-    
     @GetMapping("/robo-advisor/{clientID}")
     public List<Trade> getRoboAdvisor(@PathVariable String clientID){
     	List<Trade> result = tradeService.getTopBuyTrades(clientID);

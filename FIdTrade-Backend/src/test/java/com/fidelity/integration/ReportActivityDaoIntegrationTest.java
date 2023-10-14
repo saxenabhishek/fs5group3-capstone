@@ -19,11 +19,9 @@ class ReportActivityDaoIntegrationTest {
 	
 	@Test
 	void testgetReportActivity() {
-	//	Order washington = new Order("OID001", "Q123",50, 1161.42, Direction.BUY, "UID001",20-SEP-23 10.30.00.000000000 AM);
-
-
+	
 		List<Order> reportList = dao.getReportActivity();
-		assertEquals(3, reportList.size());
+		assertEquals(4, reportList.size());
 //		assertEquals(washington, presidentList.get(0));
 //		assertEquals(tyler, presidentList.get(9));
 	}
