@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fidelity.integration.TradeHistoryMapper">
+<resultMap type="Order" id="TradeHistoryId">
+		<id property="orderId"		     column="ID" />
+		<result property="instrumentId"	column="INSTRUMENTID" />
+		<result property="quantity"		column="QUANTITY" />
+		<result property="targetPrice"	column="TARGETPRICE" />
+		<result property="direction"	column="DIRECTION"  typeHandler="com.fidelity.business.DirectionTypeHandler"/>
+		<result property="clientId"		column="CLIENTID" />
+		<result property="timestamp"	column="ORDERTIMESTAMP" />
+	</resultMap>
+
+    <select id="getAllTradeHistory" resultMap="TradeHistoryId">
+        SELECT
+            ID,
+            INSTRUMENTID,
+            QUANTITY,
+            TARGETPRICE,
+            DIRECTION,
+            CLIENTID,
+            ORDERTIMESTAMP AS timestamp
+        FROM FT_ORDER
+      
+    </select>
+</mapper>
