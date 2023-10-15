@@ -4,7 +4,7 @@
     <hr>
     <table *ngIf="trades.length" cellspacing="0">
         <thead>
-            <th>Stock</th>
+            <th>Instrument</th>
             <th>Trade Date/Time</th>            
             <th>Type</th>
             <th>Shares</th>
@@ -12,13 +12,13 @@
         </thead>
         <tbody>
             <tr *ngFor="let trade of trades">
-                <td>{{trade.instrumentId}}</td>
+                <td>{{ getInstrumentName(trade.instrumentId)}}</td>
                 <td>{{trade.orderTimestamp}}</td>
                 <td [ngStyle]="{'color' : (trade.direction.stringValue == 'BUY') ? '#2F4858' : '#336699'}">
                     {{trade.direction.stringValue }}
                 </td>
                 <td>{{trade.quantity}}</td>
-                <td>&dollar;{{trade.targetPrice}}</td>
+                <td>&dollar;{{ getInstrumentAskPrice(trade.instrumentId)}}</td>
             </tr>
         </tbody>
     </table>
