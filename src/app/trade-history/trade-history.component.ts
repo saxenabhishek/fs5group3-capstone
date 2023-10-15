@@ -11,7 +11,6 @@ import { ClientService } from '../services/client/client.service';
 })
 export class TradeHistoryComponent implements OnInit{
   trades: Order[]= [];
-  date: string= `${new Date().toLocaleDateString('en-GB')}, ${new Date().toLocaleTimeString()} IST`
 
   constructor(private tradeService: TradeService, private clientService: ClientService) { }
 
@@ -20,7 +19,6 @@ export class TradeHistoryComponent implements OnInit{
   }
 
   loadWholeTradeHistory(){
-    // let clientId= "UID001";
     this.tradeService.getTradeHistory(this.clientService.verifyClient.clientId)
     .subscribe(allTrades => {
       if(allTrades != null){
