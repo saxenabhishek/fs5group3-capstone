@@ -10,17 +10,21 @@
         FidTrade</a
       >
     </div>
+
     <ul class="nav-links">
       <div *ngIf="isLoggedIn()">
-        <!-- todo: Make sure they aae in the same order as before -->
-
-      <a routerLink="/portfolio">Portfolio</a>
-      <a routerLink="/trade-history">Trade History</a>
-      <a routerLink="/explore">Explore</a>      
-      <a routerLink="/preferences/update">Preferences</a>
-      <a routerLink="/roboadvisor">Robo Advisor</a>
-      <a routerLink="/report">Reports</a>
+        <a routerLink="/">Home</a>
+        <a routerLink="/portfolio">Portfolio</a>
+        <a routerLink="/trade-history">Trade History</a>
+        <a routerLink="/explore">Explore</a>      
+        <a *ngIf="newUser; else updatePref" routerLink="/preferences/add">Preferences</a>
+        <ng-template #updatePref >        
+          <a routerLink="/preferences/update">Preferences</a>
+        </ng-template>
+        <a routerLink="/roboadvisor">Robo Advisor</a>
+        <a routerLink="/report">Reports</a>
       </div>
+
       <div *ngIf="!isLoggedIn()">
         <a routerLink="/">Home</a>
         <a routerLink="/explore">Explore</a>

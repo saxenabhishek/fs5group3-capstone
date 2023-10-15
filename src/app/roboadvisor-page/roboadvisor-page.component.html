@@ -8,25 +8,21 @@
     <thead>
         <tr>
             
-            <th>SecurityName</th>
-            <th>SecuritySymbol</th>
+            <th>ClientID</th>
+            <th>ExecutionPrice</th>
             <th>TradeID</th>
-            <th>TradePrice</th>
-            <th>TradeType</th>
-            <th>Trade Fluctuation</th>
+            <th>CashValue</th>
             <th>Execute Trade</th>
           
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let r of roboadvisor">
-            <td>{{r.securityName}}</td>
-            <td>{{r.stockSymbol}}</td>
+            <td>{{r.clientId}}</td>
+            <td>{{r.executionPrice}}</td>
             <td>{{r.tradeId}}</td>
-            <td>{{r.tradePrice}}</td>
-            <td>{{r.tradeType}}</td>
-            <td>{{r.tradeFluctuation}}</td>          
-            <td col-span="2"><button class=".button3">{{r.buy}}</button>
+            <td>{{r.cashValue}}</td>      
+            <td col-span="2"><button class=".button3">{{r.direction}}</button>
                 
             </td>
             

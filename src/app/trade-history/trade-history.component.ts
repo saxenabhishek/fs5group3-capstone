@@ -3,6 +3,8 @@ import { TradeService } from '../services/trade/trade.service';
 import { Order } from '../models/order';
 import { Direction } from '../models/direction';
 import { ClientService } from '../services/client/client.service';
+import { ActivatedRoute } from '@angular/router';
+import { Prices } from '../models/prices';
 
 @Component({
   selector: 'app-trade-history',
@@ -11,16 +13,20 @@ import { ClientService } from '../services/client/client.service';
 })
 export class TradeHistoryComponent implements OnInit{
   trades: Order[]= [];
-  date: string= `${new Date().toLocaleDateString('en-GB')}, ${new Date().toLocaleTimeString()} IST`
+  prices: Prices[]= [];
 
-  constructor(private tradeService: TradeService, private clientService: ClientService) { }
+  constructor(private tradeService: TradeService, private clientService: ClientService,
+                private route: ActivatedRoute) { 
+    const resolvedData = this.route.snapshot.data['prices'];
+    if (resolvedData) 
+      this.prices = resolvedData;
+  }
 
   ngOnInit() {
     this.loadWholeTradeHistory();
   }
 
   loadWholeTradeHistory(){
-    // let clientId= "UID001";
     this.tradeService.getTradeHistory(this.clientService.verifyClient.clientId)
     .subscribe(allTrades => {
       if(allTrades != null){
@@ -30,5 +36,20 @@ export class TradeHistoryComponent implements OnInit{
         }))
       }
     });
+  }
+
+  getInstrumentName(id: string): any{
+    if (this.prices != null && this.prices.length > 0)
+      return this.prices.find(ins => ins.instrument.instrumentId === id)?.instrument.instrumentDescription;
+  }
+
+  getInstrumentCategory(id: string): any{
+    if (this.prices != null && this.prices.length > 0)
+      return this.prices.find(ins => ins.instrument.instrumentId === id)?.instrument.categoryId;
+  }
+
+  getInstrumentAskPrice(id: string): any{
+    if (this.prices != null && this.prices.length > 0)
+      return this.prices.find(ins => ins.instrument.instrumentId === id)?.askPrice;    
   }
 }

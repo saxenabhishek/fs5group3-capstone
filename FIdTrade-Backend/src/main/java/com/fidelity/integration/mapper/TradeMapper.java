@@ -34,4 +34,6 @@ public interface TradeMapper {
 
 	public List<Price> getPriceById(String priceId);
 
+	List<Order> getReportActivity();
+
 }

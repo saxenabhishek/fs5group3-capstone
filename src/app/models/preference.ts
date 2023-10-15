@@ -1,9 +1,10 @@
 export class Preference {
     constructor(
-        public clientId: string,
-        public purpose : string, 
-        public risk: string, 
-        public income:  string,
-        public length: string
-        ) { }
+        public id: string,
+        public investmentPurpose : string, 
+        public riskTolerance: string, 
+        public incomeCategory:  string,
+        public lengthOfInvestment: string,
+        public isChecked: string
+    ) { }
 }

@@ -23,9 +23,9 @@
   <div class="card-table">
     <h3>Your Portfolio</h3>
     <hr />
-    <table *ngIf="trades.length" cellspacing="0">
+    <table *ngIf="trades != null && trades.length" cellspacing="0">
       <thead>
-        <th>Stock</th>
+        <th>Instrument</th>
         <th>Shares <br /><span>Category</span></th>
         <th>Type <br /><span>&percnt; Holdings</span></th>
         <th>Price <br /><span>&percnt; Change</span></th>
@@ -119,7 +119,7 @@
       </tbody>
     </table>
 
-    <div id="notrades" *ngIf="!trades.length">
+    <div id="notrades" *ngIf="trades == null || !trades.length">
       No active investments available !
     </div>
   </div>

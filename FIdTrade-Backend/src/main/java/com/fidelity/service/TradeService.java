@@ -3,7 +3,9 @@ package com.fidelity.service;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.Instant;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +14,11 @@ import org.springframework.stereotype.Service;
 import com.fidelity.business.Direction;
 import com.fidelity.business.Instrument;
 import com.fidelity.business.Order;
+import com.fidelity.business.Preference;
 import com.fidelity.business.Price;
+import com.fidelity.business.RiskTolerance;
 import com.fidelity.business.Trade;
+import com.fidelity.integration.ClientDao;
 import com.fidelity.integration.PortfolioDaoImpl;
 import com.fidelity.integration.TradeDao;
 import com.fidelity.shared.Helper;
@@ -30,6 +35,15 @@ public final class TradeService {
 	@Autowired
 	PortfolioDaoImpl portfolioDaoImpl;
 
+	@Autowired
+	PortfolioService portfolioService;
+
+//	@Autowired
+//	PreferenceDaoMyBatisImpl prefDao;
+
+	@Autowired
+	ClientDao clientDao;
+	
 	List<Price> instrumentPrices;
 
 	BigDecimal tolerance = Helper.makeBigDecimal("0.05");
@@ -117,7 +131,7 @@ public final class TradeService {
 		BigDecimal execPrice = BigDecimal.ZERO.setScale(2, RoundingMode.HALF_DOWN);
 		Trade trade;
 
-		List<Trade> portfolio =  portfolioDaoImpl.getHoldings(order.getClientId());
+		List<Trade> portfolio =  portfolioService.retrieveCurrentHoldings(order.getClientId());
 
 		if (portfolio != null) {
 			for (Trade p : portfolio) {
@@ -179,4 +193,77 @@ public final class TradeService {
 			return postSellTrade(order);
 		}
 	}
+
+	   public List<Trade> getTopBuyTrades(String clientId) {
+	        Preference clientPreference = clientDao.queryForPreferenceById(clientId);
+	        List<Trade> availableTrades = tradeDao.getRoboSuggestion(clientId);
+
+	        List<Trade> filteredTrades = filterTradesByPreference(clientPreference, availableTrades);
+	        List<Trade> sortedBuyTrades = rankBuyTrades(filteredTrades);
+
+	        return sortedBuyTrades.stream()
+	                .limit(5)
+	                .collect(Collectors.toList());
+	    }
+	   public List<Trade> getTopSellTrades(String clientId) {
+		   	Preference clientPreference = clientDao.queryForPreferenceById(clientId);
+	        List<Trade> availableTrades = tradeDao.getRoboSuggestion(clientId);
+	        List<Trade> filteredTrades = filterTradesByPreference(clientPreference, availableTrades);
+	        List<Trade> sortedSellTrades = rankSellTrades(filteredTrades);
+                    return sortedSellTrades.stream()
+
+	                .limit(5)
+
+	                .collect(Collectors.toList());
+
+	    }
+
+	    private List<Trade> filterTradesByPreference(Preference clientPreference, List<Trade> availableTrades) {
+	        List<Trade> filteredTrades = availableTrades.stream()
+	                .filter(trade -> {
+	                    if (clientPreference.getRiskTolerance() == RiskTolerance.AGGRESSIVE || ( clientPreference).getRiskTolerance() == RiskTolerance.ABOVE_AVERAGE) {
+	                        return isHighRiskTrade(trade);
+	                    } else if (clientPreference.getRiskTolerance() == RiskTolerance.AVERAGE || ((Preference) clientPreference).getRiskTolerance() == RiskTolerance.CONSERVATIVE) {
+	                        return isModerateOrHighRiskTrade(trade);
+	                    } else if (clientPreference.getRiskTolerance() == RiskTolerance.BELOW_AVERAGE) {
+	                        return true;
+	                    }
+	                    return false;
+	                })
+	                .collect(Collectors.toList());
+
+	        return filteredTrades;
+	    }
+
+	    private boolean isModerateOrHighRiskTrade(Trade trade) {
+	        BigDecimal comparisonValue = new BigDecimal("500.0");
+	        return trade.getCashValue().compareTo(comparisonValue) > 0;
+	    }
+
+	    private boolean isHighRiskTrade(Trade trade) {
+	        BigDecimal comparisonValue = new BigDecimal("1000.0");
+	        return trade.getCashValue().compareTo(comparisonValue) > 0;
+	    }
+
+	    private List<Trade> rankBuyTrades(List<Trade> trades) {
+	        return trades.stream()
+	                .filter(trade -> trade.getDirection() == Direction.BUY)
+	                .sorted(Comparator.comparing(Trade::getCashValue, Comparator.reverseOrder()))
+	                .collect(Collectors.toList());
+	    }
+	    private List<Trade> rankSellTrades(List<Trade> trades) {
+	        return trades.stream()
+	                .filter(trade -> trade.getDirection() == Direction.SELL)
+	                .sorted(Comparator.comparing(Trade::getCashValue, Comparator.reverseOrder()))
+	                .collect(Collectors.toList());
+	    }
+	    
+
+
 }
+	
+	
+	
+
+
+	

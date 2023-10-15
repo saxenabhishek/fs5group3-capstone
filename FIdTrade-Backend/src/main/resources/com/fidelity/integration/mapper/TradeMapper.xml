@@ -21,6 +21,16 @@
 		<result property = "categoryId" column="categoryid"/>
 	</resultMap>
 
+	<resultMap type="Order" id="TradeHistoryId">
+		<id property="orderId"		     column="ID" />
+		<result property="instrumentId"	column="INSTRUMENTID" />
+		<result property="quantity"		column="QUANTITY" />
+		<result property="targetPrice"	column="TARGETPRICE" />
+		<result property="direction"	column="DIRECTION"  typeHandler="com.fidelity.business.DirectionTypeHandler"/>
+		<result property="clientId"		column="CLIENTID" />
+		<result property="orderTimestamp"	column="ORDERTIMESTAMP" />
+	</resultMap>
+
 
 	<select id="getAllLatestPrices" resultMap="priceResultMap">
 		SELECT ft_price.id, ft_price.askprice, ft_price.bidprice, ft_price.pricetimestamp, ft_price.instrumentid, ins.externalid, ins.categoryid, ins.instrumentdescription, ins.maxquantity, ins.minquantity
@@ -40,4 +50,16 @@
 			select max(pricetimestamp) time from ft_price where ft_price.instrumentid = #{insId}
 		)
 	</select>
+
+	
+    <select id="getReportActivity" resultMap="TradeHistoryId">
+        SELECT
+            ID,
+            INSTRUMENTID,
+            QUANTITY,
+            TARGETPRICE,
+            DIRECTION,
+            CLIENTID
+            FROM FT_ORDER
+    </select>
 </mapper>

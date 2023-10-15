@@ -3,6 +3,7 @@ import { Client } from '../../models/client.model';
 import { Observable, catchError, of, switchMap, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ClientFMTS } from 'src/app/models/client-fmts';
+import { IntegerDTO } from 'src/app/models/integer-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -23,12 +24,6 @@ export class ClientService {
     console.log("REGISTERnew: ", newClient)
     this.http
         .post<ClientFMTS>(this.clientUrl + "register", newClient, this.httpOptions)
-        // .pipe(
-        //   switchMap((data: ClientFMTS) => {
-        //     this.registerClient = data;
-        //     console.log("REGISTER CLIENT: ", this.registerClient)
-        //     return of(this.getIfSuccessfullyRegistered());
-        //   }))
         .pipe(
           catchError((error) => {
             console.error('API error for Register New Client (POST Request):', error);
@@ -72,7 +67,9 @@ export class ClientService {
 
   verifyEmailAddress(email: string): Observable<number> {
     return this.http
-        .get<number>(this.clientUrl + "verify-email/" + email)
+        .get<IntegerDTO>(this.clientUrl + "verify-email/" + email)
+        .pipe(
+          switchMap((data: IntegerDTO) => of(data.rowCount)))
         .pipe(
           catchError((error) => {
             console.error('API error for Login (POST Request):', error);
