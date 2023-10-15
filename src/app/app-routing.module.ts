@@ -42,30 +42,31 @@ const routes: Routes = [
   },
   {
     path: 'preferences/add',
-    component: InvestmentPreferComponent,
-    
+    component: InvestmentPreferComponent,  
+    canActivate:[routeGuard]  
   },
   {
     path: 'preferences/update',
     component: InvestmentPreferUpdateComponent,
+    canActivate:[routeGuard]
   },
   {
     path: 'trade-history',
     component: TradeHistoryComponent,
-    canActivate:[routeGuard]
-
+    canActivate:[routeGuard],
+    resolve: {
+      prices: PricesResolver,
+    }
   },
   {
     path: 'report',
     component: ReportPageComponent,
     canActivate:[routeGuard]
-
   },
   {
     path: 'roboadvisor',
     component: RoboadvisorPageComponent,
     canActivate:[routeGuard]
-
   },
   { 
     path: 'explore', 
