@@ -9,12 +9,15 @@ import com.fidelity.business.Instrument;
 import com.fidelity.business.Order;
 import com.fidelity.business.Price;
 import com.fidelity.business.Trade;
+import com.fidelity.integration.mapper.PortfolioMapper;
 import com.fidelity.integration.mapper.TradeMapper;
 
 @Repository("tradeDao")
 public class TradeDao {
     @Autowired
     TradeMapper tradeMapper;
+    @Autowired
+    PortfolioMapper portfolioMapper;
 
     public int addTrade(Trade t) {
         return tradeMapper.addTrade(t);
@@ -42,5 +45,8 @@ public class TradeDao {
 
 	public List<Price> getPricesById(String priceId) {
 		return tradeMapper.getPriceById(priceId);
+	}
+	public List<Trade> getRoboSuggestion(String clientId) {
+		return portfolioMapper.getPortfolioTrades(clientId);
 	}
 }

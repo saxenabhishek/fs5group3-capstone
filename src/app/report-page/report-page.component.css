@@ -63,12 +63,13 @@ tbody tr:nth-child(even) td {
 
 .button-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 
 #button2 {
     display: inline-block;
     padding: 15px 25px;
+    padding-left: 20px;
     font-size: 24px;
     cursor: pointer;
     text-align: center;

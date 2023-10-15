@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fidelity.business.Instrument;
@@ -28,23 +28,26 @@ public class TradeController {
 
     @Autowired
     TradeService service;
+
+    @Autowired
+    private com.fidelity.service.TradeService tradeService;
     
     @PostMapping("/register")
     ResponseEntity<Integer> registerNewClient(){
         throw new java.lang.UnsupportedOperationException();
     }
-
-    @GetMapping("")
-    String ping(){
-        logger.debug("ping()");
-        return "trade is up and running";
+    
+    @GetMapping("/robo-advisor/{clientID}")
+    public List<Trade> getRoboAdvisor(@PathVariable String clientID){
+    	List<Trade> result = tradeService.getTopBuyTrades(clientID);
+    	return result;
     }
 
-    @GetMapping("/echo")
-    String echo(@RequestParam(defaultValue = " ") String param ){
-        logger.debug("echo({})", param);
-        return param;
-    }
+    // @GetMapping("/echo")
+    // String echo(@RequestParam(defaultValue = " ") String param ){
+    //     logger.debug("echo({})", param);
+    //     return param;
+    // }
 
     @PostMapping("/make-trade")
     ResponseEntity<Trade> makeTrade(@RequestBody Order order){

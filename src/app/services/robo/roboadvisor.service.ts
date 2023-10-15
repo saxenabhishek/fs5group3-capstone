@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
 import { MockRoboadvisor } from '../../models/mock-roboadvisor';
 import { Observable, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Trade } from 'src/app/models/trade';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RoboadvisorService {
+private apiUrl="http://localhost:8080/trade";
+
   roboadvisor:MockRoboadvisor[]= [{
     securityName:'FidelityMF',
     stockSymbol:'FMF',
@@ -57,10 +61,12 @@ export class RoboadvisorService {
 }
 
 ];
-getData(): Observable<MockRoboadvisor[]>
-{
-return of(this.roboadvisor);
+// getData(): Observable<MockRoboadvisor[]>
+// {
+// return of(this.roboadvisor);
+// }
+getData(): Observable<Trade[]> {
+  return this.http.get<Trade[]>(`${this.apiUrl}/robo-advisor/UID001`);
 }
-
-  constructor() { }
+constructor(private http: HttpClient) { }
 }

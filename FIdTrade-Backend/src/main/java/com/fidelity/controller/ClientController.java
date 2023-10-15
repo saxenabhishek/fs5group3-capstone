@@ -1,16 +1,19 @@
 package com.fidelity.controller;
 
+import java.util.List;
+
+import java.sql.SQLException;
+import org.slf4j.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import java.sql.SQLException;
-import org.slf4j.Logger;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -23,10 +26,16 @@ import com.fidelity.service.ClientService;
 import com.fidelity.business.Client;
 import com.fidelity.business.ClientFMTS;
 
+import com.fidelity.business.Order;
+import com.fidelity.integration.ReportActivityDao;
+
 @RestController
 @RequestMapping("/client")
 @CrossOrigin(origins = "http://localhost:4200")
 public class ClientController {
+	@Autowired
+	private ReportActivityDao activityDao;
+
 	private static final String DB_ERROR_MSG = 
 			"Error communicating with the  database";
 
@@ -162,5 +171,19 @@ public class ClientController {
 		}
 		return response;
 	}
+	
+    @GetMapping("/activityReport")
+    public ResponseEntity<List<Order>> getActivityReport() {
+        // Call a service method to retrieve the list of orders
+        List<Order> orders = activityDao.getReportActivity();
 
+        // Check if orders are empty or null
+        if (orders == null || orders.isEmpty()) {
+            // If there are no orders, return a 404 Not Found response
+            return ResponseEntity.notFound().build();
+        } else {
+            // If orders are found, return a 200 OK response with the list of orders
+            return ResponseEntity.ok(orders);
+        }
+    }
 }

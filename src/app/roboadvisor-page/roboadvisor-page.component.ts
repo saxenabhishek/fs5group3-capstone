@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MockRoboadvisor } from '../models/mock-roboadvisor';
 import { RoboadvisorService } from '../services/robo/roboadvisor.service';
+import { Trade } from '../models/trade';
 
 @Component({
   selector: 'app-roboadvisor-page',
@@ -8,7 +9,7 @@ import { RoboadvisorService } from '../services/robo/roboadvisor.service';
   styleUrls: ['./roboadvisor-page.component.css']
 })
 export class RoboadvisorPageComponent {
-roboadvisor:MockRoboadvisor[]=[];
+roboadvisor:Trade[]=[];
 constructor(private roboadvisorService : RoboadvisorService) { }
 ngOnInit() {
   this.loadData();
