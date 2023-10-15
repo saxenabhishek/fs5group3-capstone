@@ -1,5 +1,8 @@
-import { Component, Injectable } from '@angular/core';
+import { Component, Injectable} from '@angular/core';
 import { ClientService } from '../services/client/client.service';
+import { PreferencesService } from '../services/pref/preferences.service';
+import { Preference } from '../models/preference';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -10,16 +13,18 @@ import { ClientService } from '../services/client/client.service';
   providedIn: 'root'
 })
 export class NavbarComponent {
-  login: boolean= false;
+  // login: boolean= false;
+  newUser: boolean= false;
 
-  constructor(private clientService: ClientService) {}
+  constructor(private clientService: ClientService, private prefService: PreferencesService) {}
 
   isLoggedIn(){
-    return this.clientService.getIfLoggedIn()
+    this.newUser= this.prefService.newUser;
+    return this.clientService.getIfLoggedIn();
   }
 
-  changeLogin(flag: boolean){
-    this.login= flag;
-    console.debug(this.login)
-  }
+  // changeLogin(flag: boolean){
+  //   this.login= flag;
+  //   console.debug(this.login)
+  // }
 }
