@@ -3,13 +3,11 @@ package com.fidelity.business;
 import java.util.Objects;
 
 public class ClientIdentification {
-	
-	private long id;
-	private String person_id;
-    private String type;
-    private String value;
+    private String type, value;
 
-    public ClientIdentification(long id,String person_id,String type, String value) {
+    public ClientIdentification() { }
+    
+    public ClientIdentification(String type, String value) {
         if (type == null) {
             throw new IllegalArgumentException("Identification type cannot be null.");
         }
@@ -19,26 +17,7 @@ public class ClientIdentification {
 
         this.setType(type);
         this.setValue(value);
-        this.setPerson_id(person_id);
-        this.setId(id);
     }
-
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getPerson_id() {
-		return person_id;
-	}
-
-	public void setPerson_id(String person_id) {
-		this.person_id = person_id;
-	}
 
 	public String getType() {
 		return type;
@@ -55,9 +34,10 @@ public class ClientIdentification {
 	public void setValue(String value) {
 		this.value = value;
 	}
+	
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, person_id, type, value);
+		return Objects.hash(type, value);
 	}
 
 	@Override
@@ -69,8 +49,7 @@ public class ClientIdentification {
 		if (getClass() != obj.getClass())
 			return false;
 		ClientIdentification other = (ClientIdentification) obj;
-		return id == other.id && Objects.equals(person_id, other.person_id) && Objects.equals(type, other.type)
+		return Objects.equals(type, other.type)
 				&& Objects.equals(value, other.value);
 	}
-
 }

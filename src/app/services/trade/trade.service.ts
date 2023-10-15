@@ -2,11 +2,11 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, of, throwError } from 'rxjs';
 import { INSTRUMENT_DATA } from 'src/app/const/instrument';
-import { PRICES } from 'src/app/const/prices';
 import { Instruments } from 'src/app/models/instruments';
 import { Order } from 'src/app/models/order';
 import { Prices } from 'src/app/models/prices';
 import { Trade } from 'src/app/models/trade';
+import { ClientService } from '../client/client.service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +16,7 @@ export class TradeService {
   url = 'http://localhost:8080/trade';
   portfolioUrl = 'http://localhost:8080/portfolio';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private clientService: ClientService) {}
 
   processOrder(order: {
     orderId: string;
@@ -28,7 +28,6 @@ export class TradeService {
     orderTimestamp: string;
   }) {
     return this.http.post(this.url + '/make-trade', order);
-
   }
 
   getCurrentHoldings(clientId: string): Observable<Trade[]> {
@@ -75,21 +74,6 @@ export class TradeService {
     let ele: Instruments = new Instruments('', '', '', '', '', 0, 0);
     INSTRUMENT_DATA.forEach((element) => {
       if (element.instrumentId == id) {
-        ele = element;
-      }
-    });
-    return of(ele);
-  }
-
-  getPriceById(id: String): Observable<Prices> {
-    let ele: Prices = new Prices(
-      0,
-      0,
-      '',
-      new Instruments('', '', '', '', '', 0, 0)
-    );
-    PRICES.forEach((element) => {
-      if (element.instrument.instrumentId == id) {
         ele = element;
       }
     });

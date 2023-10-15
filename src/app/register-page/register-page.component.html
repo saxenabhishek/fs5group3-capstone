@@ -1,4 +1,5 @@
 <section style="background-color: #2f4858;">
+  <app-navbar></app-navbar>
   <div class="container py-5">
     <div class="row d-flex justify-content-center align-items-center">
       <div class="col">
@@ -28,6 +29,9 @@
                           formControlName="fName"
                           required
                         />
+                        <span class="text-danger" *ngIf="(submitted && registrationData.fName.hasError('required')) || (registrationData.fName.touched && !registrationData.fName.dirty)">
+                          First Name is required
+                        </span>
                       </div>
                     </div>
                     <div class="col-md-6 mb-4">
@@ -55,29 +59,33 @@
                       formControlName="email"
                       required
                     />
-                    <!-- <div *ngIf="email.invalid && (email.dirty||email.touched)">
-                      <div *ngIf="email.errors?.required">Email is required</div>
-                      <div *ngIf="email.errors?.email">Email is invalid</div>
-                    </div>  -->
+                    <span class="text-danger" *ngIf="(registrationData.email.touched || submitted) && registrationData.email.errors?.['required']">
+                      Email address is required    
+                    </span>
+                    <span class="text-danger" *ngIf="registrationData.email.touched && registrationData.email.errors?.['email']">
+                        Enter a valid email address [Format: test@example.com]
+                    </span>
                   </div>
 
                   <div class="form-outline mb-4">
-                    <label class="form-label" for="password">
-                      Password</label
-                    >
+                    <label class="form-label" for="password">Password</label>
                     <input
-                      class="form-control form-control-md"
-                      [class.is-invalid]
+                      class="form-control form-control-md"  
                       type="password"
                       name="password"
                       id="password"
                       formControlName="password"
                       required
                     />
-                    <!-- <div *ngIf="email.invalid && (email.dirty||email.touched)">
-                      <div *ngIf="email.errors?.required">Email is required</div>
-                      <div *ngIf="email.errors?.email">Email is invalid</div>
-                    </div>  -->
+                    <span class="text-danger" *ngIf="(submitted || registrationData.password.touched) && registrationData.password.hasError('required')">
+                      Password cannot be empty. 
+                    </span>
+                    <span class="text-danger" *ngIf="(submitted || registrationData.password.dirty) && registrationData.password.hasError('pattern')">
+                      Password should have a 8-12 characters, at least 1 uppercase, 1 lowercase letter and 1 number
+                    </span>
+                    <span class="text-success" *ngIf="(submitted || registrationData.password.dirty) && !registrationData.password.hasError('required') && !registrationData.password.hasError('pattern')">
+                      Valid Password
+                    </span>
                   </div>
                   
                   <div class="row">
@@ -87,31 +95,40 @@
                         type="date"
                         class="form-control form-control-md"
                         formControlName="dob"
+                        [max]="currentDate"
                         required
                       />
+                      <span class="text-danger" *ngIf="(registrationData.dob.touched || submitted) && registrationData.dob.hasError('required')">
+                        Date of birth is required    
+                      </span>
+                      <span class="text-danger" *ngIf="registrationData.dob.touched && registrationData.dob.hasError('minimumAge')">
+                        Age must be more than 18 years    
+                      </span>
                     </div>
-  
+                    
                     <div class="col-md-6 mb-4">
-                      <label for="country" class="form-label">Country</label
-                      >
+                      <label for="country" class="form-label">Country</label>
                       <select
                         id="country"
                         class="form-select"
                         formControlName="country"
                       >
                         <option value="" disabled selected>-- Select a country --</option>
-                        <option value="india">India</option>
-                        <option value="us">USA</option>
-                        <option value="ireland">Ireland</option>
+                        <option value="India">India</option>
+                        <option value="United States">United States</option>
+                        <option value="Ireland">Ireland</option>
                       </select>
+                      <span class="text-danger" *ngIf="(registrationData.country.touched || submitted) && registrationData.country.hasError('required')">
+                        Country is required    
+                      </span>
                     </div>
                   </div>
                   
                   <div class="row">
                     <div class="col-md-4 mb-4" [ngSwitch]="registrationForm.get('country')?.value">
-                      <label for="postal-code" *ngSwitchCase="'india'">PIN Code</label>
-                      <label for="postal-code" *ngSwitchCase="'us'">ZIP Code</label>
-                      <label for="postal-code" *ngSwitchCase="'ireland'">EIR Code</label>
+                      <label for="postal-code" *ngSwitchCase="'India'">PIN Code</label>
+                      <label for="postal-code" *ngSwitchCase="'United States'">ZIP Code</label>
+                      <label for="postal-code" *ngSwitchCase="'Ireland'">EIR Code</label>
                       <input
                         *ngIf="registrationForm.get('country')?.value"
                         class="form-control form-control-md"
@@ -121,17 +138,15 @@
                         formControlName="postalCode"
                         required
                       />
+                      <span class="text-danger" *ngIf="registrationForm.get('country')?.value && ((registrationData.postalCode.touched || submitted) && registrationData.postalCode.hasError('required'))">
+                        Postal code is required    
+                      </span>
                     </div>
-                    <!-- <legend 
-                      *ngIf="registrationForm.get('country')?.value" 
-                      style="margin: 1.5rem 0 0.5rem;">
-                        Client Identification
-                    </legend> -->
   
                     <div class="col-md-8 mb-4" [ngSwitch]="registrationForm.get('country')?.value">
-                      <label for="identification" *ngSwitchCase="'india'">Aadhaar</label>
-                      <label for="identification" *ngSwitchCase="'us'">SSN</label>
-                      <label for="identification" *ngSwitchCase="'ireland'">Passport</label>
+                      <label for="identification" *ngSwitchCase="'India'">Aadhaar</label>
+                      <label for="identification" *ngSwitchCase="'United States'">SSN</label>
+                      <label for="identification" *ngSwitchCase="'Ireland'">Passport</label>
                       <input
                         *ngIf="registrationForm.get('country')?.value"
                         class="form-control form-control-md"
@@ -142,6 +157,9 @@
                         placeholder="Enter valid document details"
                         required
                       />
+                      <span class="text-danger" *ngIf="registrationForm.get('country')?.value && ((registrationData.identification.touched || submitted) && registrationData.identification.hasError('required'))">
+                        Id value is required    
+                      </span>
                     </div>
                   </div>
                   
@@ -153,11 +171,11 @@
                 </form>
                 
                 <br/>
-                <div *ngIf="!emailUnique" class="alert alert-danger" role="alert">
+                <div *ngIf="showErrorDiv" class="alert alert-danger" role="alert">
                   Email ID already exists !
                 </div>
 
-                <div *ngIf="emailUnique && userRegistered && showDiv" class="alert alert-success" role="alert">
+                <div *ngIf="userRegistered && showSuccessDiv" class="alert alert-success" role="alert">
                   Successfully registered ! <br/>Please log-in with your credentials.
                 </div>
 

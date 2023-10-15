@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ClientService } from '../services/client/client.service';
+import { catchError, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-login-page',
@@ -24,12 +25,14 @@ export class LoginPageComponent {
       Validators.required,
       Validators.pattern(
         '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$'
-      ),
-    ]),
+      )
+    ])
   });
-  submitted = false;
-  errorMsg?: String = undefined;
 
+  submitted: boolean = false;
+  showSuccessDiv: boolean= false;
+  showErrorDiv: boolean= false;  
+  
   constructor(private clientService: ClientService, private router: Router) {}
 
   get loginData() {
@@ -38,21 +41,32 @@ export class LoginPageComponent {
 
   onSubmit() {
     this.submitted = true;
-
-    // stop here if form is invalid
-    if (this.loginForm.invalid) {
-      let isvalid = this.clientService.verifyClientInfo(
+    if (!this.loginForm.invalid) {
+      this.clientService.verifyClientInfo(
         this.loginForm.get('email')?.value || '',
         this.loginForm.get('password')?.value || ''
-      );
-      if (isvalid) {
-        // todo: Make UI change to show login success
-        alert('logged in');
-        this.router.navigate(['']);
-      } else {
-        // todo: Do styling for error message
-        this.errorMsg = 'Invalid Login';
-      }
+      )
+      .pipe(
+        catchError((error: any) => {
+          this.showErrorDiv = true;
+          this.submitted= false;
+          console.error('API error for Login (POST Request):', error);
+          return throwError(() => error);
+      }))
+      .subscribe(() => {
+          this.showSuccessDiv = true;
+          this.showErrorDiv = false;
+          
+          setTimeout(() => {
+            this.showSuccessDiv = false;
+            this.submitted= false;
+            this.router.navigate(['/preferences/add']);          
+            this.loginForm.reset();
+          }, 1000);   
+      });  
+    }
+    else{
+      alert("Invalid Action !");
     }
   }
-} //
+} 

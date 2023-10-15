@@ -46,6 +46,7 @@ export class StockPageComponent {
   instrument?: Instruments;
   prices?: Prices;
   buyForm: FormGroup = new FormGroup({});
+  clientId: string= '';
 
   constructor(
     private route: ActivatedRoute,
@@ -78,9 +79,9 @@ export class StockPageComponent {
         text: 'Loading...',
       },
     };
-    this.tradeService.getPriceById(this.instrumentId).subscribe((data) => {
-      this.prices = data;
-      this.instrument = data.instrument;
+    this.tradeService.getCurrentPrices(this.instrumentId).subscribe((data) => {
+      this.prices = data[0];
+      this.instrument = data[0].instrument;
       this.buyForm.get('price')?.setValue(this.prices.askPrice);
       this.buyForm
         .get('quantity')
@@ -107,27 +108,19 @@ export class StockPageComponent {
 
   submitTrade() {
     console.debug('submitTrade()');
-
+    this.clientId = this.clientService.getClientId();
     let newOrder = new Order(
       'OID' + this.generateRandomString(3),
       this.instrumentId,
       this.buyForm.get('quantity')?.value,
       this.buyForm.get('price')?.value,
       new Direction('BUY'),
-      'UID001',
+      this.clientId,
       this.getTimeString()
     );
-    let processEdOrder = {
-      orderId: newOrder.orderId,
-      instrumentId: newOrder.instrumentId,
-      quantity: newOrder.quantity,
-      targetPrice: newOrder.targetPrice,
-      direction: newOrder.direction.stringValue,
-      clientId: newOrder.clientId,
-      orderTimestamp: newOrder.orderTimestamp,
-    };
-    console.debug(newOrder);
-    this.tradeService.processOrder(processEdOrder).subscribe({
+    let processedOrder = {...newOrder, direction: newOrder.direction.stringValue}
+    console.debug(processedOrder);
+    this.tradeService.processOrder(processedOrder).subscribe({
       next: (data) => {
         console.log(data);
         alert('trade executed');

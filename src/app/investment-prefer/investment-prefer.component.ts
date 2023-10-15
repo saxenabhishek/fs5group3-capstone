@@ -27,17 +27,18 @@ export class InvestmentPreferComponent implements OnInit {
     
   }
   
-  add(preference:Preference) {
-    console.log(preference);
-
-    this.preferenceService.addPreference(preference) .subscribe();
-
+  add() {
+    this.preferenceService.addPreference(this.investmentForm.value).subscribe( ( result ) => {
+      //console.log( result );
+      this.investmentForm.reset( {} );
+    } );
+  }
     
     
   
   }
  
-}
+
 
 
   
