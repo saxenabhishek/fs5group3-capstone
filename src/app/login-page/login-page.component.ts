@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  FormBuilder,
   FormGroup,
   Validators,
   FormControl,
@@ -8,6 +7,8 @@ import {
 import { Router } from '@angular/router';
 import { ClientService } from '../services/client/client.service';
 import { catchError, throwError } from 'rxjs';
+import { PreferencesService } from '../services/pref/preferences.service';
+import { NavbarComponent } from '../navbar/navbar.component'
 
 @Component({
   selector: 'app-login-page',
@@ -33,7 +34,8 @@ export class LoginPageComponent {
   showSuccessDiv: boolean= false;
   showErrorDiv: boolean= false;  
   
-  constructor(private clientService: ClientService, private router: Router) {}
+  constructor(private clientService: ClientService, private router: Router, 
+              private prefService: PreferencesService, private navbar: NavbarComponent) {}
 
   get loginData() {
     return this.loginForm.controls;
@@ -60,7 +62,17 @@ export class LoginPageComponent {
           setTimeout(() => {
             this.showSuccessDiv = false;
             this.submitted= false;
-            this.router.navigate(['/preferences/add']);          
+            this.prefService.getPreferenceById(this.clientService.verifyClient.clientId)
+                .subscribe(preference => {
+                  if (preference == null){
+                    this.prefService.newUser= true;
+                    this.router.navigate(['/preferences/add']);                     
+                  }       
+                  else{
+                    this.prefService.newUser= false;
+                    this.router.navigate(['/']); 
+                  } 
+                });
             this.loginForm.reset();
           }, 1000);   
       });  
