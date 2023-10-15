@@ -31,7 +31,8 @@
                         name="email"
                         id="email"
                         formControlName="email"
-                        required/>
+                        required
+                        />
                         <span class="text-danger" *ngIf="(loginData.email.touched || submitted) && loginData.email.errors?.['required']">
                             Email address is required    
                         </span>
@@ -48,8 +49,7 @@
                         id="password"
                         formControlName="password"
                         required
-                      />
-                      
+                      />                      
                       <span class="text-danger" *ngIf="(loginData.password.touched || submitted) && loginData.password.hasError('required')">
                         Password cannot be empty
                       </span>                    
@@ -59,14 +59,6 @@
                       <button type="submit" class="btn btn-lg ms-2">
                         Login
                       </button>                    
-                    </div>
-
-                    <br/>
-                    <div *ngIf="showErrorDiv" class="alert alert-danger" role="alert">                        
-                      Email ID or password is wrong !
-                    </div>
-                    <div *ngIf="showSuccessDiv" class="alert alert-success" role="alert">
-                      Login Successful !
                     </div>
                   </form>                 
                   <br/>                 

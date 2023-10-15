@@ -163,26 +163,15 @@
                     </div>
                   </div>
                   
-                  <div class="d-flex justify-content-end pt-3">
-                    <button type="submit" class="btn btn-lg ms-2">
+                  <div class="d-flex justify-content-end pt-3">                    
+                    <p class="col-md-8 mt-3">
+                      Already have an account?&nbsp;<a routerLink="/login">Login here</a>
+                    </p>
+                    <button type="submit" class="btn btn-lg ms-2 col-md-4">
                       Sign Up
                     </button>
                   </div>
                 </form>
-                
-                <br/>
-                <div *ngIf="showErrorDiv" class="alert alert-danger" role="alert">
-                  Email ID already exists !
-                </div>
-
-                <div *ngIf="userRegistered && showSuccessDiv" class="alert alert-success" role="alert">
-                  Successfully registered ! <br/>Please log-in with your credentials.
-                </div>
-
-                <br/>
-                <p>
-                  Already have an account?&nbsp;<a routerLink="/login">Login here</a>
-                </p>
               </div>
             </div>
           </div>

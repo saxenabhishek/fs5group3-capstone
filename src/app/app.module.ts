@@ -19,6 +19,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { InvestmentPreferComponent } from './investment-prefer/investment-prefer.component';
 import { InvestmentPreferUpdateComponent } from './investment-prefer-update/investment-prefer-update.component';
 import { PortfolioChartComponent } from './portfolio-chart/portfolio-chart.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { PortfolioChartComponent } from './portfolio-chart/portfolio-chart.compo
     FormsModule,
     BrowserAnimationsModule,
     NgApexchartsModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],
