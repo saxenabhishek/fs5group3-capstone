@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.fidelity.integration.mapper.PreferenceMapper">
+<mapper namespace="com.fidelity.integration.PreferenceMapper">
 
 	<resultMap type="Preference" id="PreferenceMap">
 		<id property="id"  column="CLIENT_ID" />                     
@@ -23,17 +23,6 @@
                        p.is_checked  
 				FROM  ft_preference p
 				ORDER BY  p.client_id
-	</select>
-	<select id="getPreferenceById" resultMap="PreferenceMap">
-	    	SELECT p.client_id, 
-					   p.investment_purpose, 
-					   p.risk_tolerance, 
-					   p.income_category,
-					   p.length_of_investment,
-                       p.is_checked  
-				FROM  ft_preference p
-				WHERE p.client_id=#{clientID}
-				
 	</select>
 
 	<insert id="insertPreference" parameterType="Preference">

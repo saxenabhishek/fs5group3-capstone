@@ -18,7 +18,7 @@ import com.fidelity.business.Preference;
 import com.fidelity.business.Price;
 import com.fidelity.business.RiskTolerance;
 import com.fidelity.business.Trade;
-import com.fidelity.integration.PreferenceDaoMyBatisImpl;
+import com.fidelity.integration.ClientDao;
 import com.fidelity.integration.PortfolioDaoImpl;
 import com.fidelity.integration.TradeDao;
 import com.fidelity.shared.Helper;
@@ -38,9 +38,12 @@ public final class TradeService {
 	@Autowired
 	PortfolioService portfolioService;
 
-	@Autowired
-	PreferenceDaoMyBatisImpl prefDao;
+//	@Autowired
+//	PreferenceDaoMyBatisImpl prefDao;
 
+	@Autowired
+	ClientDao clientDao;
+	
 	List<Price> instrumentPrices;
 
 	BigDecimal tolerance = Helper.makeBigDecimal("0.05");
@@ -191,7 +194,7 @@ public final class TradeService {
 	}
 
 	   public List<Trade> getTopBuyTrades(String clientId) {
-	        Preference clientPreference = prefDao.getPreferenceById(clientId);
+	        Preference clientPreference = clientDao.queryForPreferenceById(clientId);
 	        List<Trade> availableTrades = tradeDao.getRoboSuggestion(clientId);
 
 	        List<Trade> filteredTrades = filterTradesByPreference(clientPreference, availableTrades);
@@ -202,7 +205,7 @@ public final class TradeService {
 	                .collect(Collectors.toList());
 	    }
 	   public List<Trade> getTopSellTrades(String clientId) {
-		   Preference clientPreference = prefDao.getPreferenceById(clientId);
+		   	Preference clientPreference = clientDao.queryForPreferenceById(clientId);
 	        List<Trade> availableTrades = tradeDao.getRoboSuggestion(clientId);
 	        List<Trade> filteredTrades = filterTradesByPreference(clientPreference, availableTrades);
 	        List<Trade> sortedSellTrades = rankSellTrades(filteredTrades);

@@ -1,26 +1,55 @@
 import { Injectable } from '@angular/core';
 import { Preference } from '../../models/preference';
-import { Observable, of} from 'rxjs';
+import { Observable, catchError, of, throwError} from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { IntegerDTO } from 'src/app/models/integer-dto';
+import { ClientService } from '../client/client.service';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class PreferencesService {
-  preference!:Preference;
-  updatePrefer:Preference=new Preference('College Fund','CONSERVATIVE','40,001-60,000','0-5 years')
-
-  addPreference(preference: Preference): Observable<Preference> {
-    this.preference = preference;
-    return of(preference); 
-  } 
+  url='http://localhost:8080/client'; 
+  newUser: boolean= false;
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    }),
+  };
   
-  getPreference():Observable<Preference> { 
-    
-    return of(this.updatePrefer);  
+  constructor(private http: HttpClient, private clientService: ClientService) {}
 
-  }}
- 
+  addPreference(preference: Preference): Observable<IntegerDTO> {
+    console.log( preference );
+    return this.http.post<IntegerDTO>(`${this.url}/preference/add`, preference, this.httpOptions)
+            .pipe(
+              catchError((error) => {
+                console.error('API error for Add Preference (POST Request):', error);
+                return throwError(() => error);
+              })
+            );
+  } 
 
+  getPreferenceById(id: string ): Observable<Preference> {
+    return this.http.get<Preference>( `${this.url}/preference/${id}` )
+    .pipe(
+      catchError((error) => {
+        console.error('API error for GET Preference (GET Request):', error);
+        return throwError(() => error);
+      })
+    );
+  }
+  
+  updatePreference( preference: Preference ): Observable<IntegerDTO>  {
+    return this.http.put<IntegerDTO>( `${this.url}/preference/update`, preference, this.httpOptions )
+    .pipe(
+      catchError((error) => {
+        console.error('API error for Update Preference (PUT Request):', error);
+        return throwError(() => error);
+      })
+    );
+  } 
+}
   
 

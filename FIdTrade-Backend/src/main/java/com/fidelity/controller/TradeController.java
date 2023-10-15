@@ -11,15 +11,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fidelity.business.IncomeCategory;
 import com.fidelity.business.Instrument;
-import com.fidelity.business.LengthOfInvestment;
 import com.fidelity.business.Order;
-import com.fidelity.business.Preference;
-import com.fidelity.business.RiskTolerance;
 import com.fidelity.business.Trade;
 import com.fidelity.service.TradeService;
 
@@ -47,19 +42,12 @@ public class TradeController {
     	List<Trade> result = tradeService.getTopBuyTrades(clientID);
     	return result;
     }
-    
 
-    @GetMapping("")
-    String ping(){
-        logger.debug("ping()");
-        return "trade is up and running";
-    }
-
-    @GetMapping("/echo")
-    String echo(@RequestParam(defaultValue = " ") String param ){
-        logger.debug("echo({})", param);
-        return param;
-    }
+    // @GetMapping("/echo")
+    // String echo(@RequestParam(defaultValue = " ") String param ){
+    //     logger.debug("echo({})", param);
+    //     return param;
+    // }
 
     @PostMapping("/make-trade")
     ResponseEntity<Trade> makeTrade(@RequestBody Order order){
