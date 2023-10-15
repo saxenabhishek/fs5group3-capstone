@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Preference } from '../../models/preference';
-import { Observable, of} from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { Observable, catchError, of, throwError} from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { IntegerDTO } from 'src/app/models/integer-dto';
+import { ClientService } from '../client/client.service';
 
 
 @Injectable({
@@ -9,22 +11,45 @@ import { HttpClient } from '@angular/common/http';
 })
 export class PreferencesService {
   url='http://localhost:8080/client'; 
-  constructor( private http: HttpClient ) { }
- 
+  newUser: boolean= false;
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    }),
+  };
   
+  constructor(private http: HttpClient, private clientService: ClientService) {}
 
-  addPreference(preference: Preference) {
+  addPreference(preference: Preference): Observable<IntegerDTO> {
     console.log( preference );
-    return this.http.post( `${this.url}/preference/add`, preference );
+    return this.http.post<IntegerDTO>(`${this.url}/preference/add`, preference, this.httpOptions)
+            .pipe(
+              catchError((error) => {
+                console.error('API error for Add Preference (POST Request):', error);
+                return throwError(() => error);
+              })
+            );
   } 
-  getPreferenceById( id: string ) {
-    return this.http.get( `${this.url}/preference/${id}` );
+
+  getPreferenceById(id: string ): Observable<Preference> {
+    return this.http.get<Preference>( `${this.url}/preference/${id}` )
+    .pipe(
+      catchError((error) => {
+        console.error('API error for GET Preference (GET Request):', error);
+        return throwError(() => error);
+      })
+    );
   }
   
-  updatePreference( preference: any ) {
-    return this.http.put( `${this.url}/preference/update`, preference );
-  }
- 
+  updatePreference( preference: Preference ): Observable<IntegerDTO>  {
+    return this.http.put<IntegerDTO>( `${this.url}/preference/update`, preference, this.httpOptions )
+    .pipe(
+      catchError((error) => {
+        console.error('API error for Update Preference (PUT Request):', error);
+        return throwError(() => error);
+      })
+    );
+  } 
 }
   
 
