@@ -81,14 +81,14 @@ public class ClientController {
 	}
 	
 	@GetMapping("/verify-email/{email}")
-	ResponseEntity<Integer> verifyEmailAddress(@PathVariable String email) throws SQLException{
-		Integer verification;
-		ResponseEntity<Integer> response = null;
+	public ResponseEntity<DatabaseRequestResult> verifyEmailAddress(@PathVariable String email) throws SQLException{
+		int verification= 0;
+		ResponseEntity<DatabaseRequestResult> response = null;
 		
 		try {
 			verification = clientService.verifyEmailAddress(email);
-			if(verification.intValue() == 1 || verification.intValue() == 0)
-				response = ResponseEntity.status(HttpStatus.OK).body(verification);
+			if(verification == 1 || verification == 0)
+				response = ResponseEntity.status(HttpStatus.OK).body(new DatabaseRequestResult(verification));
 			else
 				response = ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}
@@ -100,16 +100,14 @@ public class ClientController {
 	}
 
     @GetMapping("/preference/{id}")
-	public ResponseEntity<Preference> queryForPreferenceById(@PathVariable String id) {
-		 
+	public ResponseEntity<Preference> queryForPreferenceById(@PathVariable String id) {		 
 		try {
 			Preference preference = clientService.findPreferenceById(id);
 			ResponseEntity<Preference> result;
 			if (preference != null ) {
 				result = ResponseEntity.ok(preference); 
 			}
-			else {
-				
+			else {				
 				result = ResponseEntity.noContent().build();
 			}
 			return result;
@@ -122,10 +120,14 @@ public class ClientController {
 
     @PostMapping("/preference/add")
 	@ResponseStatus(HttpStatus.CREATED)  
-	public DatabaseRequestResult insertPreference(@RequestBody Preference preference) {
-		int count = 0;
+	public ResponseEntity<DatabaseRequestResult> insertPreference(@RequestBody Preference preference) {
+		int count = 0;		
+		ResponseEntity<DatabaseRequestResult> response = null;
+		System.out.println(preference);
 		try {			
-			count = clientService.addPreference(preference);			
+			count = clientService.addPreference(preference);
+			if(count == 1)
+				response = ResponseEntity.status(HttpStatus.OK).body(new DatabaseRequestResult(count));
 		} 
 		catch (DuplicateKeyException e) {
 			// If the Preference id is already present in the database, return status 400
@@ -138,15 +140,19 @@ public class ClientController {
 		if (count == 0) {
 			throw new ServerWebInputException("Can't insert Preference " + preference);
 		}
-		return new DatabaseRequestResult(count);
+		return response;
 	}
 
     @PutMapping("/preference/update")
 	@ResponseStatus(HttpStatus.ACCEPTED)  
-	public DatabaseRequestResult updatePreference(@RequestBody Preference preference) {
+	public ResponseEntity<DatabaseRequestResult> updatePreference(@RequestBody Preference preference) {
 		int count = 0;
+		ResponseEntity<DatabaseRequestResult> response = null;
+
 		try {
 			count = clientService.modifyPreference(preference);
+			if(count == 1)
+				response = ResponseEntity.status(HttpStatus.OK).body(new DatabaseRequestResult(count));
 		} 
 		catch (Exception e) {
 			throw new ServerErrorException(DB_ERROR_MSG, e);
@@ -154,7 +160,7 @@ public class ClientController {
 		if (count == 0) {
 			throw new ServerWebInputException("Can't update Preference " + preference);
 		}
-		return new DatabaseRequestResult(count);
+		return response;
 	}
 
 }
