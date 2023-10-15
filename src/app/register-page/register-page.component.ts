@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Person } from '../models/person.model';
 import { ClientIdentification } from '../models/client-identification.model';
 import { Client } from '../models/client.model';
 import { ClientService } from '../services/client/client.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register-page',
@@ -33,16 +34,12 @@ export class RegisterPageComponent {
   });
 
   clients: Client[]= [];
-  userRegistered: boolean= false;
-  showSuccessDiv: boolean= false;
-  showErrorDiv: boolean= false;
   submitted: boolean= false;
   currentDate: string= "";
 
   constructor(
-    private fb: FormBuilder, 
     private clientService: ClientService,
-    private router: Router
+    private router: Router, private toastr: ToastrService
     ) {
       this.currentDate = new Date().toISOString().split('T')[0];
     }
@@ -102,26 +99,21 @@ export class RegisterPageComponent {
       
       this.clientService.verifyEmailAddress(newClient.person.email)
         .subscribe(flag => {
-          console.log("FLAG", flag)
           if (flag == 0){
             if(this.clientService.registerNewClient(newClient)){
-              this.userRegistered= true;
-              this.showSuccessDiv= true;
-    
-              // Makes success msg div disappear after 3 seconds
+              this.toastr.success('You are successfully registered', 'Success'); 
+              
               setTimeout(() => {
-                this.showSuccessDiv = false;
                 this.router.navigate(['/login']);
                 this.registrationForm.reset();
               }, 2000);
             }
           }
-          else{
-            console.log("User Exists");
-            this.showErrorDiv = true;
-            setTimeout(() => this.showErrorDiv = false, 2000);
-          }          
+          else
+            this.toastr.error('User Exists !', 'Error');       
         });
     }
+    else
+      this.toastr.error('Please fill the form correctly', 'Error');
   }
 }
