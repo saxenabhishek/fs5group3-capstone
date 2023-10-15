@@ -62,9 +62,9 @@ export class ClientService {
     return this.registerClient.clientId !== "" && this.registerClient.token !== "";
   }
 
-  getClientId(): Observable<string>{
+  getClientId(): string{
     if(this.verifyClient)
-      return of(this.verifyClient.clientId);
+      return this.verifyClient.clientId;
     
     throw new Error("Illegal state, no client is logged in")
 
