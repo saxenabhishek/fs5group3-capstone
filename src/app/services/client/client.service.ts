@@ -19,6 +19,34 @@ export class ClientService {
   };
 
   constructor(private http: HttpClient) {}
+  ngOnInit(){
+    this.checkIfClientIsLoggedIn()
+  }
+  checkIfClientIsLoggedIn() {
+    const client: ClientFMTS = JSON.parse(localStorage.getItem("client") || "{}"); 
+    const stringUnixTimestamp: string = localStorage.getItem("timestamp") || "0";
+    
+    let ts : Date =  new Date(parseInt(stringUnixTimestamp , 10)); 
+
+    let dateNow: Date = new Date();
+    const isWithinOneDay = (dateToCompare: Date): boolean => {
+      const currentDate = new Date();
+      const timeDifference = currentDate.getTime() - dateToCompare.getTime();
+      return timeDifference <= 24 * 60 * 60 * 1000;
+    };
+
+    if(isWithinOneDay(ts)){
+      this.verifyClient = client;
+    }
+    else{
+      this.verifyClient = new ClientFMTS("", "");
+      localStorage.removeItem("client")
+      localStorage.removeItem("timestamp")
+    }
+  }
+
+  currentClient?: Client = undefined;
+  private login: boolean = false;
 
   registerNewClient(newClient: Client): Observable<Boolean> {
     console.log("REGISTERnew: ", newClient)
@@ -40,6 +68,8 @@ export class ClientService {
         .pipe(
           switchMap((data: ClientFMTS) => {
             this.verifyClient = data;
+            localStorage.setItem("client", JSON.stringify(this.verifyClient))
+            localStorage.setItem("timestamp", Date.now().toString())
             return of(this.getIfLoggedIn());
           }))
         .pipe(
@@ -59,8 +89,8 @@ export class ClientService {
 
   getClientId(): string{
     if(this.verifyClient)
-      return this.verifyClient.clientId;
-    
+      return this.verifyClient.clientId;    
+
     throw new Error("Illegal state, no client is logged in")
 
   }

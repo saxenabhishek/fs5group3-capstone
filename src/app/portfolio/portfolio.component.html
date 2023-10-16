@@ -115,6 +115,26 @@
               }}
             </span>
           </td>
+          <td>
+            <button class="buy"
+            [disabled]="ifLoggedIn()"
+            (click)="clickTradeButton(trade.instrumentId, 'buy')"
+            >
+            Buy
+            <!-- <a [routerLink]="['/instrument', instrument.instrumentId]"> 
+            </a> -->
+          </button>
+        </td>
+        <td>
+          <button class="sell"
+          [disabled]="ifLoggedIn()"
+          (click)="clickTradeButton(trade.instrumentId, 'sell')"
+          >
+          Sell
+          <!-- <a [routerLink]="['/instrument', instrument.instrumentId]"> 
+          </a> -->
+        </button>
+      </td>
         </tr>
       </tbody>
     </table>

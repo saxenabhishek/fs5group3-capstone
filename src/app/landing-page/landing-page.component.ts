@@ -12,6 +12,10 @@ export class LandingPageComponent {
 
   constructor(private clientService: ClientService, private toastr: ToastrService) {}
 
+  ngOnInit(){
+    this.clientService.checkIfClientIsLoggedIn()
+  }
+
   featuredAssets: any[] = [
     {
       name: 'Alphabet Stocks',

@@ -4,7 +4,7 @@ import { TradeService } from '../services/trade/trade.service';
 import { Prices } from '../models/prices';
 import { Instruments } from '../models/instruments';
 import { ClientService } from '../services/client/client.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-portfolio',
@@ -21,7 +21,7 @@ export class PortfolioComponent implements OnInit{
   portfolioLabels: any[] = [];
   isLoading: boolean= true;
 
-  constructor(private tradeService: TradeService, private clientService: ClientService, private route: ActivatedRoute) { 
+  constructor(private tradeService: TradeService, private clientService: ClientService, private route: ActivatedRoute, private location: Router) { 
     const resolvedData = this.route.snapshot.data['prices'];
     if (resolvedData) 
       this.prices = resolvedData;
@@ -79,5 +79,14 @@ export class PortfolioComponent implements OnInit{
 
   abs(num: number): number{
     return Math.abs(num)
+  }
+
+  ifLoggedIn() {
+    console.debug(this.clientService.getIfLoggedIn());
+    return !this.clientService.getIfLoggedIn();
+  }
+
+  clickTradeButton(instId: String, option: string) {
+    this.location.navigate(['/instrument', instId, option]);
   }
 }
