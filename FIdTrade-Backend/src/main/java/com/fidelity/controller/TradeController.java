@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,14 +46,22 @@ public class TradeController {
     }
 
     @PostMapping("/make-trade")
+    @Transactional()
     ResponseEntity<Trade> makeTrade(@RequestBody Order order) {
         logger.debug("makeTrade({})", order.toString());
-        Trade newTrade = service.processOrder(order);
+        Trade newTrade;
+        try{
+            newTrade = service.processOrder(order);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().build();
+        }
         return ResponseEntity.ok(newTrade);
     }
 
     @GetMapping("/instruments")
-    ResponseEntity<List<Instrument>> getAllInstrumentsFMTS() {
+    ResponseEntity<List<Instrument>> getAllInstrumentsFMTS(){
         logger.debug("getAllInstrumentsFMTS()");
         // return ResponseEntity.ok(new ArrayList<Instrument>(0));
         return ResponseEntity.ok(service.getAllInstruments(""));
