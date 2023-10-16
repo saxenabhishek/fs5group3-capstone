@@ -52,6 +52,10 @@ td{
     width: 20%;
     text-align: right;
 }
+td span{
+    font-size: 1.3rem;
+    font-weight: 600;
+}
 th{
     width: 20%;
     color: rgb(82, 82, 82);

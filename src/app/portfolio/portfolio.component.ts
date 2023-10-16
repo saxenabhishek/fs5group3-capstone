@@ -14,12 +14,11 @@ import { ActivatedRoute } from '@angular/router';
 export class PortfolioComponent implements OnInit{
   trades: Trade[]= [];
   totalHoldings: number= 0;
-  totalCashValue: number= 0;
+  walletBalance: number= 0;
   prices: Prices[]= [];
   instruments: Instruments[]= [];
   portfolioData: number[] = []; 
-  portfolioLabels: any[] = [];
-  isLoading: boolean= true;
+  portfolioLabels: string[] = [];
 
   constructor(private tradeService: TradeService, private clientService: ClientService, private route: ActivatedRoute) { 
     const resolvedData = this.route.snapshot.data['prices'];
@@ -34,20 +33,15 @@ export class PortfolioComponent implements OnInit{
   calcTotalHoldings(){
     if (this.trades != null && this.trades.length > 0)
       this.trades.forEach(trade => 
-        this.totalHoldings+= (1 + 
-          ((this.getInstrumentAskPrice(trade.instrumentId) - trade.executionPrice) / trade.executionPrice)) * trade.cashValue);
-  }
-
-  calcTotalCashValue(){
-    if (this.trades != null && this.trades.length > 0)
-      this.trades.forEach(trade => this.totalCashValue+=  trade.cashValue);
+        this.totalHoldings+= (this.getInstrumentBidPrice(trade.instrumentId) / trade.executionPrice) * trade.cashValue
+      );
   }
   
   loadAllTrades(){
     this.tradeService.getCurrentHoldings(this.clientService.verifyClient.clientId)
         .subscribe(allTrades => {
           this.trades= allTrades
-          this.calcTotalCashValue();
+          this.getWalletBalance();
           this.calcTotalHoldings();
           this.setPortfolioChartValues();
         });
@@ -56,10 +50,14 @@ export class PortfolioComponent implements OnInit{
   setPortfolioChartValues(){
     if (this.trades != null && this.trades.length > 0){
       this.trades.forEach(trade => this.portfolioLabels.push(this.getInstrumentName(trade.instrumentId)));
-      this.trades.forEach(trade => this.portfolioData.push(((1 + 
-                                    (this.getInstrumentAskPrice(trade.instrumentId) - trade.executionPrice) 
-                                    / trade.executionPrice) * trade.cashValue)).toFixed(2));
+      this.trades.forEach(trade => this.portfolioData.push((this.getInstrumentBidPrice(trade.instrumentId) / trade.executionPrice) * trade.cashValue));
+      this.portfolioData= this.portfolioData.map(d => parseFloat(d.toFixed(2)));
     }  
+  }
+
+  getWalletBalance(){
+    this.tradeService.getWalletBalance(this.clientService.verifyClient.clientId)
+        .subscribe(wallet => this.walletBalance= wallet.walletBalance);
   }
 
   getInstrumentName(id: string): any{
@@ -72,9 +70,9 @@ export class PortfolioComponent implements OnInit{
       return this.prices.find(ins => ins.instrument.instrumentId === id)?.instrument.categoryId;
   }
 
-  getInstrumentAskPrice(id: string): any{
+  getInstrumentBidPrice(id: string): any{
     if (this.prices != null && this.prices.length > 0)
-      return this.prices.find(ins => ins.instrument.instrumentId === id)?.askPrice;    
+      return this.prices.find(ins => ins.instrument.instrumentId === id)?.bidPrice;    
   }
 
   abs(num: number): number{

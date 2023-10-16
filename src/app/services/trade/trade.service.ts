@@ -7,6 +7,7 @@ import { Order } from 'src/app/models/order';
 import { Prices } from 'src/app/models/prices';
 import { Trade } from 'src/app/models/trade';
 import { ClientService } from '../client/client.service';
+import { Wallet } from 'src/app/models/wallet.spec';
 
 @Injectable({
   providedIn: 'root',
@@ -32,7 +33,7 @@ export class TradeService {
 
   getCurrentHoldings(clientId: string): Observable<Trade[]> {
     return this.http
-      .get<Trade[]>(this.portfolioUrl + '/holdings?clientId=' + clientId)
+      .get<Trade[]>(`${this.portfolioUrl}/holdings?clientId=${clientId}`)
       .pipe(
         catchError((error) => {
           console.error('API error for GET Holdings:', error);
@@ -48,8 +49,9 @@ export class TradeService {
   getCurrentPrices(instrumentId: string): Observable<Prices[]> {
     let modURL;
     if (instrumentId != '')
-      modURL = this.portfolioUrl + '/prices?instrumentId=' + instrumentId;
-    else modURL = this.portfolioUrl + '/prices';
+      modURL = `${this.portfolioUrl}/prices?instrumentId=${instrumentId}`;
+    else 
+      modURL = `${this.portfolioUrl}/prices`;
 
     return this.http.get<Prices[]>(modURL).pipe(
       catchError((error) => {
@@ -59,9 +61,20 @@ export class TradeService {
     );
   }
 
+  getWalletBalance(clientId: string): Observable<Wallet>{
+    return this.http
+      .get<Wallet>(`${this.portfolioUrl}/holdings/wallet?clientId=${clientId}`)
+      .pipe(
+        catchError((error) => {
+          console.error('API error for GET Wallet Balance:', error);
+          return throwError(() => error);
+        })
+      );
+  }
+
   getTradeHistory(clientId: string): Observable<any[]> {
     return this.http
-      .get<any[]>(this.portfolioUrl + '/trade-history?clientId=' + clientId)
+      .get<any[]>(`${this.portfolioUrl}/trade-history?clientId=${clientId}`)
       .pipe(
         catchError((error) => {
           console.error('API error for GET Trade History:', error);
