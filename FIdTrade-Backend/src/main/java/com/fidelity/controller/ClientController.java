@@ -27,6 +27,9 @@ import com.fidelity.business.Client;
 import com.fidelity.business.ClientFMTS;
 
 import com.fidelity.business.Order;
+import com.fidelity.controller.dto.ClientDTO;
+import com.fidelity.controller.dto.DatabaseRequestResult;
+import com.fidelity.controller.dto.LoginRequest;
 import com.fidelity.integration.ReportActivityDao;
 
 @RestController
