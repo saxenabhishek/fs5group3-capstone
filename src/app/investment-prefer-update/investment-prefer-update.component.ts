@@ -6,6 +6,7 @@ import { ClientService } from '../services/client/client.service';
 import { RiskTolerance } from '../models/RiskTolerance';
 import { IncomeCategory } from '../models/IncomeCategory';
 import { InvestmentLength } from '../models/InvestmentLength';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-investment-prefer-update',
@@ -26,7 +27,8 @@ export class InvestmentPreferUpdateComponent implements OnInit{
 
   constructor(private fb: FormBuilder,
     private preferenceService: PreferencesService,
-    private clientService: ClientService
+    private clientService: ClientService,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit() {
@@ -74,7 +76,7 @@ export class InvestmentPreferUpdateComponent implements OnInit{
     return this.reversedEnumNameMapping[selectedValue];
   }
 
-  update() {
+  updatePreference() {
     if (this.updateForm.valid){      
       let preference= new Preference (
         this.clientService.verifyClient.clientId,
@@ -83,21 +85,21 @@ export class InvestmentPreferUpdateComponent implements OnInit{
         this.mapToEnumName(this.updateForm.get('income')?.value) || '',
         this.mapToEnumName(this.updateForm.get('length')?.value) || '',
         'T'
-      )
-      console.log(preference)
+      );
 
       this.preferenceService.updatePreference(preference)
         .subscribe(result => {
           if (result.rowCount == 1){
-            alert("Preference successfully updated")
+            this.toastr.success("Your preferences were successfully updated", 'Success');
             this.updateForm.reset( {} );
           }
-          else{
-            alert("Preference couldn't be updated")
-          }
+          else
+            this.toastr.error("Your preferences couldn't be updated", 'Error');
         }
       );
     }
+    else
+      this.toastr.error("Please fill out your preferences correctly", 'Error');
   }  
 }
 

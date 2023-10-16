@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import { ClientService } from '../services/client/client.service';
 import { catchError, throwError } from 'rxjs';
 import { PreferencesService } from '../services/pref/preferences.service';
-import { NavbarComponent } from '../navbar/navbar.component'
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login-page',
@@ -35,7 +35,7 @@ export class LoginPageComponent {
   showErrorDiv: boolean= false;  
   
   constructor(private clientService: ClientService, private router: Router, 
-              private prefService: PreferencesService, private navbar: NavbarComponent) {}
+              private prefService: PreferencesService, private toastr: ToastrService) {}
 
   get loginData() {
     return this.loginForm.controls;
@@ -49,18 +49,16 @@ export class LoginPageComponent {
         this.loginForm.get('password')?.value || ''
       )
       .pipe(
-        catchError((error: any) => {
-          this.showErrorDiv = true;
+        catchError((error: any) => {          
+          this.toastr.error('Login Failed ! Wrong email or passsword', 'Error');
           this.submitted= false;
           console.error('API error for Login (POST Request):', error);
           return throwError(() => error);
       }))
-      .subscribe(() => {
-          this.showSuccessDiv = true;
-          this.showErrorDiv = false;
-          
+      .subscribe(() => {        
+          this.toastr.success('Login Successful', 'Success');
+
           setTimeout(() => {
-            this.showSuccessDiv = false;
             this.submitted= false;
             this.prefService.getPreferenceById(this.clientService.verifyClient.clientId)
                 .subscribe(preference => {
@@ -77,8 +75,7 @@ export class LoginPageComponent {
           }, 1000);   
       });  
     }
-    else{
-      alert("Invalid Action !");
-    }
+    else
+      this.toastr.error('Please fill the form correctly', 'Error');
   }
 } 

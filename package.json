@@ -7,8 +7,6 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "start": "ng serve --proxy-config proxy.conf.json"
-    
-    
   },
   "private": true,
   "dependencies": {
@@ -25,6 +23,7 @@
     "@swimlane/ngx-charts": "^20.4.1",
     "apexcharts": "^3.42.0",
     "ng-apexcharts": "^1.8.0",
+    "ngx-toastr": "^15.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"

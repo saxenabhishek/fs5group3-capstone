@@ -7,6 +7,7 @@ import { InvestmentLength } from '../models/InvestmentLength';
 import { IncomeCategory } from '../models/IncomeCategory';
 import { RiskTolerance } from '../models/RiskTolerance';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-investment-prefer',
@@ -22,7 +23,8 @@ export class InvestmentPreferComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private router: Router,
               private preferenceService: PreferencesService,
-              private clientService: ClientService
+              private clientService: ClientService,
+              private toastr: ToastrService
     ) { }
 
   ngOnInit(): void {
@@ -74,15 +76,18 @@ export class InvestmentPreferComponent implements OnInit {
       this.preferenceService.addPreference(preference)
         .subscribe(result => {
           if (result.rowCount == 1){
-            alert("Preference successfully added")
+            this.toastr.success("Your preferences were successfully added", 'Success');
+            this.preferenceService.newUser= false;
             this.router.navigate(['/']); 
             this.investmentForm.reset( {} );
           }
-          else{
-            alert("Preference couldn't be added")
-          }
-      } );
+          else
+            this.toastr.error("Your preferences couldn't be added", 'Error');          
+        } 
+      );
     }
+    else
+      this.toastr.error("Please fill out your preferences correctly", 'Error');
   }  
 }
  

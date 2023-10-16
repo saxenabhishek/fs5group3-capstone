@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ClientService } from '../services/client/client.service';
 import { ClientFMTS } from '../models/client-fmts';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-landing-page',
@@ -9,7 +10,7 @@ import { ClientFMTS } from '../models/client-fmts';
 })
 export class LandingPageComponent {
 
-  constructor(private clientService: ClientService) {}
+  constructor(private clientService: ClientService, private toastr: ToastrService) {}
 
   featuredAssets: any[] = [
     {
@@ -39,6 +40,7 @@ export class LandingPageComponent {
   }
 
   LogOut(){
+    this.toastr.success('You are logged out', 'Success');
     if(this.isLoggedIn())
       setTimeout(() => this.clientService.verifyClient= new ClientFMTS("", ""), 1000);
   }
