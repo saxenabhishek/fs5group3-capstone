@@ -58,7 +58,8 @@
             QUANTITY,
             TARGETPRICE,
             DIRECTION,
-            CLIENTID
+            CLIENTID,
+            ORDERTIMESTAMP
         FROM FT_ORDER
         WHERE CLIENTID= #{id} AND DIRECTION= #{direction}
     </select>

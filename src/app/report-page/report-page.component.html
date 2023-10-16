@@ -4,9 +4,11 @@
   subText= 'View all your trades here'
 ></app-banner>
 <body>
-    <div class="button-container">
-        <button id="button1" (click)="loadBuyReport()">Buy Report</button>
-        <button id="button2" (click)="loadSellReport()">Sell Report</button> 
+    <div class="container">
+        <div class="button-container">
+            <button class= "btn" id="button1" (click)="loadBuyReport()">Buy Report</button>
+            <button class= "btn" id="button2" (click)="loadSellReport()">Sell Report</button> 
+        </div>
     </div>
 
     <table *ngIf="reports.length && selectedReport">
