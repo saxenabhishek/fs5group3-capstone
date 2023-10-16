@@ -1,0 +1,24 @@
+.hero {
+  font-family: Montserrat;
+  color: #2f4858;
+  position: relative;
+  width: 100%;
+  height: 15vw;
+  background-color: var(--color-gray);
+}
+
+.hero h2 {
+  font-weight: 600;
+  font-size: 3.5vw;
+}
+
+.hero h3 {
+  font-size: 1.5vw;
+}
+
+.hero div {
+  position: absolute;
+  top: 40%;
+  left: 20%;
+  width: 50%;
+}

@@ -15,7 +15,7 @@
   margin-left: 0;
   border-radius: 0rem 1rem 1rem 0rem;
   padding: 1rem;
-  background-color: #c0c0c0;
+  background-color: var(--color-coffee);
   color: white;
   font-weight: 500;
 }
@@ -37,31 +37,6 @@
   padding: 4px
 }
 
-.hero {
-  font-family: Montserrat;
-  color: #2f4858;
-  position: relative;
-  width: 100%;
-  height: 15vw;
-  /* background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%); */
-  background-color: #e5e4e2;
-}
-
-.hero h2 {
-  font-weight: 600;
-  font-size: 3.5vw;
-}
-
-.hero h3 {
-  font-size: 1.5vw;
-}
-
-.hero div {
-  position: absolute;
-  top: 40%;
-  left: 20%;
-  width: 50%;
-}
 
 button {
   /* border: 1px #F9ADA0  solid; */
@@ -75,15 +50,15 @@ button {
 }
 
 button:hover {
-  background-color: #2f4858;
+  background-color:  var(--color-orange);
   color: white;
 }
 
 figure {
-  border: 1px gray solid;
+  border: 1px #ababab solid;
   padding: 1rem;
   border-radius: 1rem 0rem 0rem 1rem;
-  /* margin: 0 1rem; */
+  margin: 0rem;
 }
 
 span.subm{
@@ -96,4 +71,6 @@ form {
   height: 100%;
 }
 
-
+span{
+  margin: 1rem 0 0 0 ;
+}

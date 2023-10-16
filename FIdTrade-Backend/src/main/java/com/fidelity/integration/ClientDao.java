@@ -24,4 +24,5 @@ public interface ClientDao {
     Preference queryForPreferenceById(String id);
     int insertPreference(Preference preference);
     int updatePreference(Preference preference);
+    int updateClientWalletBalance(String clientId, BigDecimal balance);
 }

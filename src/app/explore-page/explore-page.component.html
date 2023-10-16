@@ -1,10 +1,5 @@
 <app-navbar></app-navbar>
-<section class="hero">
-  <div>
-    <h2>Instruments</h2>
-    <h3>Buy anything you want</h3>
-  </div>
-</section>
+<app-banner mainText="Instruments" subText="Buy anything you want"></app-banner>
 
 <section class="container">
   <table>
@@ -27,9 +22,14 @@
       </td>
       <td>{{ instrument.instrumentDescription }}</td>
       <td>
-        <a [routerLink]="['/instrument', instrument.instrumentId]">
-          <button>Buy</button>
-        </a>
+        <button
+          [disabled]="ifLoggedIn()"
+          (click)="clickedBuyButton(instrument.instrumentId)"
+        >
+          Buy
+          <!-- <a [routerLink]="['/instrument', instrument.instrumentId]"> 
+           </a> -->
+        </button>
       </td>
     </tr>
   </table>

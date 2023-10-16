@@ -72,6 +72,14 @@ INSERT into ft_instrument (id, externalIdType, externalId, categoryId, instrumen
 INSERT into ft_instrument (id, externalIdType, externalId, categoryId, instrumentDescription, maxQuantity, minQuantity) VALUES ('T67883', 'CUSIP', '912810SE9', 'GOVT', 'USA, Bond 3.375 15nov2048 30Y', 10000, 100);
 INSERT into ft_instrument (id, externalIdType, externalId, categoryId, instrumentDescription, maxQuantity, minQuantity) VALUES ('T67878', 'CUSIP', '912810SD1', 'GOVT', 'USA, Bond 3 15aug2048 30Y', 10000, 100);
 INSERT into ft_instrument (id, externalIdType, externalId, categoryId, instrumentDescription, maxQuantity, minQuantity) VALUES ('Q123', 'CUSIP', '02079K107', 'STOCK', 'Alphabet Inc. Class C Capital Stock', 10000, 1);
+INSERT INTO ft_instrument (id, externalIdType, externalId, categoryId, instrumentDescription, maxQuantity, minQuantity) VALUES ('N123456', 'CUSIP', '46625H100', 'STOCK', 'JPMorgan Chase and Co. Capital Stock', 1000, 1);
+INSERT INTO ft_instrument (id, externalIdType, externalId, categoryId, instrumentDescription, maxQuantity, minQuantity) VALUES ('N123789', 'ISIN', 'US0846707026', 'STOCK', 'Berkshire Hathaway Inc. Class A', 10, 1);
+INSERT INTO ft_instrument (id, externalIdType, externalId, categoryId, instrumentDescription, maxQuantity, minQuantity) VALUES ('C100', 'CUSIP', '48123Y5A0', 'CD', 'JPMorgan Chase Bank, National Association 01/19', 1000, 100);
+INSERT INTO ft_instrument (id, externalIdType, externalId, categoryId, instrumentDescription, maxQuantity, minQuantity) VALUES ('Q456', 'CUSIP', '88160R101', 'STOCK', 'Tesla, Inc. Common Stock', 1000, 1);
+INSERT INTO ft_instrument (id, externalIdType, externalId, categoryId, instrumentDescription, maxQuantity, minQuantity) VALUES ('I1', 'CUSIP', '123456789', 'STOCK', 'Apple Inc. Common Stock', 1000, 1);
+INSERT INTO ft_instrument (id, externalIdType, externalId, categoryId, instrumentDescription, maxQuantity, minQuantity) VALUES('I2', 'CUSIP', '987654321', 'STOCK', 'Amazon.com Inc. Common Stock', 2000, 10);
+INSERT INTO ft_instrument (id, externalIdType, externalId, categoryId, instrumentDescription, maxQuantity, minQuantity) VALUES ('I3', 'CUSIP', '333333333', 'BOND', 'Microsoft Corporation 4.5% Bond 2030', 500, 100);
+
 
 INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (1.03375, 1.03390625, TO_TIMESTAMP('21-AUG-2019 10.00.02.000000000', 'DD-MON-YYYY HH.MI.SS.FF'), 'T67890');
 INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (0.998125, 0.99828125, TO_TIMESTAMP('21-AUG-2019 10.00.02.000000000', 'DD-MON-YYYY HH.MI.SS.FF'), 'T67894');
@@ -85,6 +93,58 @@ INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (
 INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (1162.42, 1161.42, TO_TIMESTAMP('21-AUG-2019 10.00.02.000000000', 'DD-MON-YYYY HH.MI.SS.FF'), 'Q123');
 INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (1172.42, 1162.42, TO_TIMESTAMP('22-AUG-2019 10.00.02.000000000', 'DD-MON-YYYY HH.MI.SS.FF'), 'Q123');
 INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (1182.42, 1175.42, TO_TIMESTAMP('23-AUG-2019 10.00.02.000000000', 'DD-MON-YYYY HH.MI.SS.FF'), 'Q123');
+INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (150.25, 149.75, TO_TIMESTAMP('23-AUG-19 10.00.01.042000000 AM', 'DD-MON-YY HH.MI.SS.FF AM'), 'I1');
+INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (3254.75, 3250.25, TO_TIMESTAMP('23-AUG-19 05.00.00.040000000 AM', 'DD-MON-YY HH.MI.SS.FF AM'), 'I2');
+INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (102.75, 102.25, TO_TIMESTAMP('23-AUG-19 10.00.02.042000000 AM', 'DD-MON-YY HH.MI.SS.FF AM'), 'I3');
+INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (104.75, 104.25, TO_TIMESTAMP('23-AUG-19 10.00.01.042000000 AM', 'DD-MON-YY HH.MI.SS.FF AM'), 'N123456');
+INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (312, 313, TO_TIMESTAMP('23-AUG-19 05.00.00.040000000 AM', 'DD-MON-YY HH.MI.SS.FF AM'), 'N123789');
+INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (95.92, 95.42, TO_TIMESTAMP('23-AUG-19 10.00.02.042000000 AM', 'DD-MON-YY HH.MI.SS.FF AM'), 'C100');
+INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (1.03375, 1.03390625, TO_TIMESTAMP('23-AUG-19 10.00.02.000000000 AM', 'DD-MON-YY HH.MI.SS.FF AM'), 'T67890');
+INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (0.998125, 0.99828125, TO_TIMESTAMP('23-AUG-19 10.00.02.002000000 AM', 'DD-MON-YY HH.MI.SS.FF AM'), 'T67894');
+INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (1, 1.00015625, TO_TIMESTAMP('23-AUG-19 10.00.02.002000000 AM', 'DD-MON-YY HH.MI.SS.FF AM'), 'T67895');
+INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (0.999375, 0.999375, TO_TIMESTAMP('23-AUG-19 10.00.02.002000000 AM', 'DD-MON-YY HH.MI.SS.FF AM'), 'T67897');
+INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (0.999375, 0.999375, TO_TIMESTAMP('23-AUG-19 10.00.02.002000000 AM', 'DD-MON-YY HH.MI.SS.FF AM'), 'T67899');
+INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (1.00375, 1.00375, TO_TIMESTAMP('23-AUG-19 10.00.02.002000000 AM', 'DD-MON-YY HH.MI.SS.FF AM'), 'T67880');
+INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (1.0596875, 1.0596875, TO_TIMESTAMP('23-AUG-19 10.00.02.002000000 AM', 'DD-MON-YY HH.MI.SS.FF AM'), 'T67883');
+INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (0.9853125, 0.98546875, TO_TIMESTAMP('23-AUG-19 10.00.02.002000000 AM', 'DD-MON-YY HH.MI.SS.FF AM'), 'T67878');
+
+-- Creative bond instruments for ft_instrument table
+INSERT INTO ft_instrument (id, externalIdType, externalId, categoryId, instrumentDescription, maxQuantity, minQuantity) VALUES ('B4', 'CUSIP', '9876543210', 'BOND', 'Elven Kingdom 15-Year Fantasy Bond', 1500, 5);
+INSERT INTO ft_instrument (id, externalIdType, externalId, categoryId, instrumentDescription, maxQuantity, minQuantity) VALUES ('B5', 'CUSIP', '3333333333', 'BOND', 'Time Travelers 30-Year Temporal Bond', 1000, 100);
+INSERT INTO ft_instrument (id, externalIdType, externalId, categoryId, instrumentDescription, maxQuantity, minQuantity) VALUES ('B6', 'CUSIP', '1111111111', 'BOND', 'Steampunk 5-Year Gears and Gadgets Bond', 2000, 10);
+INSERT INTO ft_instrument (id, externalIdType, externalId, categoryId, instrumentDescription, maxQuantity, minQuantity) VALUES ('B7', 'CUSIP', '9999999999', 'BOND', 'Dragons Hoard 25-Year Treasure Bond', 800, 50);
+INSERT INTO ft_instrument (id, externalIdType, externalId, categoryId, instrumentDescription, maxQuantity, minQuantity) VALUES ('B8', 'CUSIP', '7777777777', 'BOND', 'Atlantis 12-Year Underwater Bond', 1500, 20);
+INSERT INTO ft_instrument (id, externalIdType, externalId, categoryId, instrumentDescription, maxQuantity, minQuantity) VALUES ('B9', 'CUSIP', '5555555555', 'BOND', 'Pirate Ship 8-Year Buccaneer Bond', 2500, 100);
+INSERT INTO ft_instrument (id, externalIdType, externalId, categoryId, instrumentDescription, maxQuantity, minQuantity) VALUES ('B10', 'CUSIP', '2222222222', 'BOND', 'Space Explorer 50-Year Cosmic Bond', 500, 10);
+INSERT INTO ft_instrument (id, externalIdType, externalId, categoryId, instrumentDescription, maxQuantity, minQuantity) VALUES ('B11', 'CUSIP', '8888888888', 'BOND', 'Lost City 18-Year Archaeologist Bond', 1200, 30);
+INSERT INTO ft_instrument (id, externalIdType, externalId, categoryId, instrumentDescription, maxQuantity, minQuantity) VALUES ('B12', 'CUSIP', '4444444444', 'BOND', 'Robotic World 10-Year AI Bond', 1800, 40);
+INSERT INTO ft_instrument (id, externalIdType, externalId, categoryId, instrumentDescription, maxQuantity, minQuantity) VALUES ('B13', 'CUSIP', '6666666666', 'BOND', 'Witchs Brew 7-Year Magical Bond', 2100, 15);
+
+
+-- Creative bond prices for ft_price tableINSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (150.25, 149.75, TO_TIMESTAMP('21-AUG-19 10.00.01.042000000 AM', 'DD-MON-YY HH.MI.SS.FF AM'), 'I1');
+INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (3254.75, 3250.25, TO_TIMESTAMP('21-AUG-19 05.00.00.040000000 AM', 'DD-MON-YY HH.MI.SS.FF AM'), 'I2');
+INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (102.75, 102.25, TO_TIMESTAMP('21-AUG-19 10.00.02.042000000 AM', 'DD-MON-YY HH.MI.SS.FF AM'), 'I3');
+INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (104.75, 104.25, TO_TIMESTAMP('21-AUG-19 10.00.01.042000000 AM', 'DD-MON-YY HH.MI.SS.FF AM'), 'N123456');
+INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (312, 312, TO_TIMESTAMP('21-AUG-19 05.00.00.040000000 AM', 'DD-MON-YY HH.MI.SS.FF AM'), 'N123789');
+INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (95.92, 95.42, TO_TIMESTAMP('21-AUG-19 10.00.02.042000000 AM', 'DD-MON-YY HH.MI.SS.FF AM'), 'C100');
+INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (1.03375, 1.03390625, TO_TIMESTAMP('21-AUG-19 10.00.02.000000000 AM', 'DD-MON-YY HH.MI.SS.FF AM'), 'T67890');
+INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (0.998125, 0.99828125, TO_TIMESTAMP('21-AUG-19 10.00.02.002000000 AM', 'DD-MON-YY HH.MI.SS.FF AM'), 'T67894');
+INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (1, 1.00015625, TO_TIMESTAMP('21-AUG-19 10.00.02.002000000 AM', 'DD-MON-YY HH.MI.SS.FF AM'), 'T67895');
+INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (0.999375, 0.999375, TO_TIMESTAMP('21-AUG-19 10.00.02.002000000 AM', 'DD-MON-YY HH.MI.SS.FF AM'), 'T67897');
+INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (0.999375, 0.999375, TO_TIMESTAMP('21-AUG-19 10.00.02.002000000 AM', 'DD-MON-YY HH.MI.SS.FF AM'), 'T67899');
+INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (1.00375, 1.00375, TO_TIMESTAMP('21-AUG-19 10.00.02.002000000 AM', 'DD-MON-YY HH.MI.SS.FF AM'), 'T67880');
+INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (1.0596875, 1.0596875, TO_TIMESTAMP('21-AUG-19 10.00.02.002000000 AM', 'DD-MON-YY HH.MI.SS.FF AM'), 'T67883');
+INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (0.9853125, 0.98546875, TO_TIMESTAMP('21-AUG-19 10.00.02.002000000 AM', 'DD-MON-YY HH.MI.SS.FF AM'), 'T67878');
+INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES (112.75, 112.25, TO_TIMESTAMP('21-AUG-19 10.00.01.042000000 AM', 'DD-MON-YY HH.MI.SS.FF AM "GMT"'), 'B4');
+INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES(175.00, 174.50, TO_TIMESTAMP('21-AUG-19 05.00.00.040000000 AM', 'DD-MON-YY HH.MI.SS.FF AM'), 'B5');
+INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES(105.50, 105.00, TO_TIMESTAMP('21-AUG-19 10.00.02.042000000 AM', 'DD-MON-YY HH.MI.SS.FF AM "GMT"'), 'B6');
+INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES(120.25, 119.75, TO_TIMESTAMP('21-AUG-19 06.52.20.350000000 PM', 'DD-MON-YY HH.MI.SS.FF AM'), 'B7');
+INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES(88.75, 88.25, TO_TIMESTAMP('21-AUG-19 06.52.20.356000000 PM', 'DD-MON-YY HH.MI.SS.FF AM'), 'B8');
+INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES(135.00, 134.50, TO_TIMESTAMP('21-AUG-19 06.52.20.360000000 PM', 'DD-MON-YY HH.MI.SS.FF AM'), 'B9');
+INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES(200.50, 200.00, TO_TIMESTAMP('21-AUG-19 06.52.20.364000000 PM', 'DD-MON-YY HH.MI.SS.FF AM'), 'B10');
+INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES(155.25, 154.75, TO_TIMESTAMP('21-AUG-19 06.52.20.368000000 PM', 'DD-MON-YY HH.MI.SS.FF AM'), 'B11');
+INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES(110.75, 110.25, TO_TIMESTAMP('21-AUG-19 06.52.20.372000000 PM', 'DD-MON-YY HH.MI.SS.FF AM'), 'B12');
+INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES(95.50, 95.00, TO_TIMESTAMP('21-AUG-19 06.52.20.376000000 PM', 'DD-MON-YY HH.MI.SS.FF AM'), 'B13');
 
 ALTER TABLE "SCOTT"."FT_PRICE" MODIFY ("PRICETIMESTAMP" NOT NULL ENABLE);
 ALTER TABLE "SCOTT"."FT_PRICE" ADD CONSTRAINT "FT_PRICE_PK" PRIMARY KEY ("ID", "PRICETIMESTAMP");
