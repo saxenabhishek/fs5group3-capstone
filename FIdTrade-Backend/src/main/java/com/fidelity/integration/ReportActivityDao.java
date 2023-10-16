@@ -10,11 +10,13 @@ import com.fidelity.integration.mapper.TradeMapper;
 public class ReportActivityDao {
 	@Autowired 
 	private Logger logger;
+	
 	@Autowired
 	private TradeMapper mapper;
-	public List<Order> getReportActivity() {
+	
+	public List<Order> getReportActivity(String id, String direction) {
 		logger.debug("enter");
-        return mapper.getReportActivity();
+        return mapper.getReportActivity(id, direction);
 	}
 }
 

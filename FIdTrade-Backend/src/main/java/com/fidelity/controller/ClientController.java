@@ -1,10 +1,9 @@
 package com.fidelity.controller;
 
+import java.sql.SQLException;
 import java.util.List;
 
-import java.sql.SQLException;
 import org.slf4j.Logger;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
@@ -20,17 +19,16 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ServerErrorException;
 import org.springframework.web.server.ServerWebInputException;
-import com.fidelity.business.*;
 
-import com.fidelity.service.ClientService;
 import com.fidelity.business.Client;
 import com.fidelity.business.ClientFMTS;
-
 import com.fidelity.business.Order;
+import com.fidelity.business.Preference;
 import com.fidelity.controller.dto.ClientDTO;
 import com.fidelity.controller.dto.DatabaseRequestResult;
 import com.fidelity.controller.dto.LoginRequest;
 import com.fidelity.integration.ReportActivityDao;
+import com.fidelity.service.ClientService;
 
 @RestController
 @RequestMapping("/client")
@@ -175,10 +173,10 @@ public class ClientController {
 		return response;
 	}
 	
-    @GetMapping("/activityReport")
-    public ResponseEntity<List<Order>> getActivityReport() {
+    @GetMapping("/activity-report/{clientId}/{direction}")
+    public ResponseEntity<List<Order>> getActivityReport(@PathVariable String clientId, @PathVariable String direction) {
         // Call a service method to retrieve the list of orders
-        List<Order> orders = activityDao.getReportActivity();
+        List<Order> orders = activityDao.getReportActivity(clientId, direction);
 
         // Check if orders are empty or null
         if (orders == null || orders.isEmpty()) {
