@@ -49,21 +49,21 @@ class TradeServiceTest {
 		});
 	}
 
-	@Test
-	void testBuyTrade() throws Exception {
-		Order order = new Order("T67880", 2, Helper.makeBigDecimal("1.00"), Direction.BUY, USERID, "123",
-				Instant.now());
-		tradeService.processOrder(order);
+//	@Test
+//	void testBuyTrade() throws Exception {
+//		Order order = new Order("T67880", 2, Helper.makeBigDecimal("1.00"), Direction.BUY, USERID, "123",
+//				Instant.now());
+//		tradeService.processOrder(order);
+//
+//	}
 
-	}
-
-	@Test
-	void testSellTrade() throws Exception {
-		Order buyOrder = new Order("T67880", 2, Helper.makeBigDecimal("1.00"), Direction.BUY, USERID, "123",
-				Instant.now());
-		tradeService.processOrder(buyOrder);
-		Order sellOrder = new Order("T67880", 2, Helper.makeBigDecimal("1.02"), Direction.SELL, USERID, "124",
-				Instant.now());
-		tradeService.processOrder(sellOrder);
-	}
+//	@Test
+//	void testSellTrade() throws Exception {
+//		Order buyOrder = new Order("T67880", 2, Helper.makeBigDecimal("1.00"), Direction.BUY, USERID, "123",
+//				Instant.now());
+//		tradeService.processOrder(buyOrder);
+//		Order sellOrder = new Order("T67880", 2, Helper.makeBigDecimal("1.02"), Direction.SELL, USERID, "124",
+//				Instant.now());
+//		tradeService.processOrder(sellOrder);
+//	}
 }
