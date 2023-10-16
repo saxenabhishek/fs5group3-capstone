@@ -10,6 +10,8 @@ import {
   ApexXAxis,
   ApexTitleSubtitle,
   ApexNoData,
+  ApexDataLabels,
+  ApexStroke,
 } from 'ng-apexcharts';
 import { TradeService } from '../services/trade/trade.service';
 import { Instruments } from '../models/instruments';
@@ -23,9 +25,11 @@ import { ClientService } from '../services/client/client.service';
 export type ChartOptions = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
-  xaxis: ApexXAxis;
+  x_axis: ApexXAxis;
+  dataLabels: ApexDataLabels;
   title: ApexTitleSubtitle;
   noData: ApexNoData;
+  stroke: ApexStroke;
 };
 
 @Component({
@@ -38,15 +42,17 @@ export class StockPageComponent {
   public chartOptions: ChartOptions = {
     series: [],
     chart: { height: 0, type: 'line' },
-    xaxis: {},
+    x_axis: {},
     title: {},
     noData: {},
+    dataLabels: {},
+    stroke: {},
   };
   instrumentId: string = '';
   instrument?: Instruments;
   prices?: Prices;
   buyForm: FormGroup = new FormGroup({});
-  clientId: string= '';
+  clientId: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -65,6 +71,12 @@ export class StockPageComponent {
     });
     this.chartOptions = {
       series: [],
+      dataLabels: {
+        enabled: false,
+      },
+      stroke: {
+        curve: 'smooth',
+      },
       chart: {
         height: 500,
         type: 'line',
@@ -72,7 +84,7 @@ export class StockPageComponent {
       title: {
         text: this.instrumentId,
       },
-      xaxis: {
+      x_axis: {
         type: 'datetime',
       },
       noData: {
@@ -82,6 +94,7 @@ export class StockPageComponent {
     this.tradeService.getCurrentPrices(this.instrumentId).subscribe((data) => {
       this.prices = data[0];
       this.instrument = data[0].instrument;
+
       this.buyForm.get('price')?.setValue(this.prices.askPrice);
       this.buyForm
         .get('quantity')
@@ -91,18 +104,27 @@ export class StockPageComponent {
         ?.addValidators(
           Validators.min(this.prices.instrument.minQuantity.valueOf())
         );
-      console.debug(this.buyForm);
+
+      const askPrice = this.prices?.askPrice || 1000;
+      const priceRange = 0.1; // 10% price range
+
+      const minPrice = askPrice - askPrice * priceRange;
+      const maxPrice = askPrice + askPrice * priceRange;
+
+      const randomPriceList = [...Array(40)].map((e, i) => {
+        const randomPrice = Math.random() * (maxPrice - minPrice) + minPrice;
+        return [
+          new Date().getTime() - i * 180000000,
+          this.setPrecision(randomPrice, 2),
+        ];
+      });
+
       this.chartOptions.series = [
         {
-          // data: [10, 41, 35, 51, 49, 62, 69, 91, 148].map((e, i) => {
-          data: [...Array(20)].map((e, i) => {
-            return [
-              new Date().getTime() + i * 1800000,
-              Math.round(Math.random() * 100) + (this.prices?.askPrice || 1000),
-            ];
-          }),
+          data: [ [new Date().getTime(), askPrice] ,...randomPriceList,],
         },
       ];
+      // this.chartOptions.series[0].data.push([new Date().getTime() , askPrice || null)
     });
   }
 
@@ -118,7 +140,10 @@ export class StockPageComponent {
       this.clientId,
       this.getTimeString()
     );
-    let processedOrder = {...newOrder, direction: newOrder.direction.stringValue}
+    let processedOrder = {
+      ...newOrder,
+      direction: newOrder.direction.stringValue,
+    };
     console.debug(processedOrder);
     this.tradeService.processOrder(processedOrder).subscribe({
       next: (data) => {
@@ -158,10 +183,23 @@ export class StockPageComponent {
     const minutes = String(now.getMinutes()).padStart(2, '0'); // Zero-padded minutes (00-59)
     const seconds = String(now.getSeconds()).padStart(2, '0'); // Zero-padded seconds (00-59);
     const milliseconds = String(now.getMilliseconds()).padStart(3, '0'); // Milliseconds (000-999)
-    
+
     const formattedDateTime = `${year}-${month}-${date}T${hours}:${minutes}:${seconds}.${milliseconds}Z`;
-    
 
     return formattedDateTime;
+  }
+
+  setPrecision(number: number, precision: number): number {
+    const multiplier = Math.pow(10, precision);
+    const roundedNumber = Math.round(number * multiplier) / multiplier;
+    return roundedNumber;
+  }
+
+  getTotalPrice(){
+    return this.buyForm.get("price")?.value*this.buyForm.get("quantity")?.value
+  }
+
+  getExecPrice() {
+    return this.getTotalPrice()*1.05
   }
 }

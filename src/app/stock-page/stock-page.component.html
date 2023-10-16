@@ -1,10 +1,8 @@
 <app-navbar></app-navbar>
-<section class="hero">
-  <div>
-    <h2>{{ (instrument?.instrumentDescription | slice : 0 : 12) + "" }}</h2>
-    <h3>{{ prices?.askPrice | currency }}</h3>
-  </div>
-</section>
+<app-banner
+  [mainText]="instrument?.instrumentDescription || '' | slice : 0 : 12"
+  [subText]="(prices?.askPrice | currency) || '0.00'"
+></app-banner>
 
 <section class="container">
   <section class="main-part">
@@ -20,9 +18,11 @@
         <apx-chart
           [series]="chartOptions.series"
           [chart]="chartOptions.chart"
-          [xaxis]="chartOptions.xaxis"
+          [xaxis]="chartOptions.x_axis"
           [title]="chartOptions.title"
           [noData]="chartOptions.noData"
+          [stroke]="chartOptions.stroke"
+          [dataLabels]="chartOptions.dataLabels"
         ></apx-chart>
       </div>
     </figure>
@@ -36,6 +36,14 @@
       <span>
         <label for="author">Quantity</label>
         <input type="text" id="author" formControlName="quantity" />
+      </span>
+      <span>
+        <span>Total: </span>
+        <span>{{ getTotalPrice() | number : "1.2-3" }}</span>
+      </span>
+      <span>
+        <span>Execution Price(5%)</span>
+        <span>{{ getExecPrice() | number : "1.2-3" }}</span>
       </span>
       <span class="subm">
         <button type="submit" [disabled]="!isFormValid()">Buy</button>
