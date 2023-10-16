@@ -11,20 +11,25 @@ import { Route, Router } from '@angular/router';
   styleUrls: ['./explore-page.component.css'],
 })
 export class ExplorePageComponent {
-  constructor(private tradeService: TradeService, private clientService: ClientService , private location: Router) {}
+  constructor(
+    private tradeService: TradeService,
+    private clientService: ClientService,
+    private location: Router
+  ) {}
   instruments: Instruments[] = [];
   ngOnInit() {
-    this.tradeService
-      .getInstruments()
-      .subscribe((data) => (this.instruments = data));
+    this.tradeService.getInstruments().subscribe((data) => {
+      this.instruments = data;
+      console.debug(this.instruments);
+    });
   }
 
-  ifLoggedIn(){
-    console.debug(this.clientService.getIfLoggedIn())
+  ifLoggedIn() {
+    console.debug(this.clientService.getIfLoggedIn());
     return !this.clientService.getIfLoggedIn();
   }
 
-  clickedBuyButton(instId: String){
-    this.location.navigate(["/instrument", instId])
+  clickedBuyButton(instId: String) {
+    this.location.navigate(['/instrument', instId]);
   }
 }
