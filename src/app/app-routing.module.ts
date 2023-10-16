@@ -73,7 +73,7 @@ const routes: Routes = [
     component: ExplorePageComponent 
   },
   { 
-    path: 'instrument/:id', 
+    path: 'instrument/:id/:option', 
     component: StockPageComponent 
   }
 ];

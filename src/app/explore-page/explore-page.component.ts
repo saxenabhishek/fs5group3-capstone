@@ -30,6 +30,6 @@ export class ExplorePageComponent {
   }
 
   clickedBuyButton(instId: String) {
-    this.location.navigate(['/instrument', instId]);
+    this.location.navigate(['/instrument', instId, "buy"]);
   }
 }
