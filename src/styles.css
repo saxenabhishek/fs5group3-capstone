@@ -2,3 +2,10 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Montserrat, Roboto, "Helvetica Neue", sans-serif; }
+
+:root {
+    --color-gray: #EBE9F6;
+    --color-brown: #453C38;
+    --color-coffee: #6A5C55;
+    --color-orange: #F66E00;
+  }
