@@ -1,6 +1,7 @@
 package com.fidelity.integration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.Arrays;
@@ -33,6 +34,33 @@ class ClientDaoImplTest {
 	);
     
 	//Preference
+	@Test
+	void testGetPreferenceById() {
+	
+	
+		Preference pref =new Preference("UID001","College",RiskTolerance.AVERAGE,IncomeCategory.SixtyKToEigthyK,LengthOfInvestment.ZeroToFiveYears,"T");	
+		Preference p = dao.queryForPreferenceById("UID001");
+
+	
+		assertEquals(pref,p);
+
+		
+	
+
+	}
+	
+	@Test
+	void testGetPreferenceById_NotPresent() {
+		
+		Preference p = dao.queryForPreferenceById("UID099");
+
+	
+		assertNull(p);
+
+		
+	
+
+	}
 
 
 	@Test
@@ -50,6 +78,8 @@ class ClientDaoImplTest {
 	
 
 	}
+	
+
 
 	@Test
 	void testUpdatePreference() {
