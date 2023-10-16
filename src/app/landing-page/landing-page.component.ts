@@ -19,19 +19,14 @@ export class LandingPageComponent {
       imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Alphabet_Inc_Logo_2015.svg/2560px-Alphabet_Inc_Logo_2015.svg.png' 
     },
     {
-      name: 'Bitcoin',
-      description: 'Buy and trade Bitcoin, the world\'s most popular cryptocurrency.',
-      imageUrl: 'https://cdn.dribbble.com/users/81899/screenshots/1411041/attachments/205810/bitcoin.png?resize=400x300&vertical=center' 
+      name: 'Bonds',
+      description: 'Buy and trade popular Government Bonds',
+      imageUrl: 'https://images-media.currency.com/5ceb14e6/df72/50c3/aabb/b6c7f7fcd05e/on_page/treasury-bond-coupon.jpg' 
     },
     {
       name: 'Alphabet Stocks',
       description: 'Invest in the stocks of Alphabet for great returns.',
       imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Alphabet_Inc_Logo_2015.svg/2560px-Alphabet_Inc_Logo_2015.svg.png' 
-    },
-    {
-      name: 'Bitcoin',
-      description: 'Buy and trade Bitcoin, the world\'s most popular cryptocurrency.',
-      imageUrl: 'https://cdn.dribbble.com/users/81899/screenshots/1411041/attachments/205810/bitcoin.png?resize=400x300&vertical=center' 
     }
   ];
 
