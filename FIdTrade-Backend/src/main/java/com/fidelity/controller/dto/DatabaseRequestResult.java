@@ -1,4 +1,4 @@
-package com.fidelity.controller;
+package com.fidelity.controller.dto;
 
 public class DatabaseRequestResult {
     private int rowCount;

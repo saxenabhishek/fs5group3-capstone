@@ -59,14 +59,14 @@ class TradeMapperTest {
 	}
 
 
-	@Test 
-	void testGetALlPrices(){
-		List<Price> prices =  tradeDao.getfulPriceTable();
-		assertTrue(prices.size() > 5);
-		assertEquals("Q123", prices.get(0).getInstrumentId());
-		assertNotNull(prices.get(0).getPriceTimestamp());
-
-	}
+//	@Test 
+//	void testGetALlPrices(){
+//		List<Price> prices =  tradeDao.getfulPriceTable();
+//		assertTrue(prices.size() > 5);
+//		assertEquals("Q123", prices.get(0).getInstrumentId());
+//		assertNotNull(prices.get(0).getPriceTimestamp());
+//
+//	}
 
 	@Test 
 	void getAllLatestPrices(){

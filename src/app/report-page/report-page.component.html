@@ -1,46 +1,40 @@
 <app-navbar></app-navbar>
-<body><div class="center">
-    <h2>SELECT A REPORT</h2>
-</div>
+<app-banner
+  mainText= 'Reports'
+  subText= 'View all your trades here'
+></app-banner>
+<body>
+    <div class="container">
+        <div class="button-container">
+            <button class= "btn" id="button1" (click)="loadBuyReport()">Buy Report</button>
+            <button class= "btn" id="button2" (click)="loadSellReport()">Sell Report</button> 
+        </div>
+    </div>
 
-<div class="button-container">
-    <button id="button2">BUY REPORT</button>
-    <button id="button2">SELL REPORT</button> 
-</div>
-<div class="cent">
-    
-    <button class="button1" (click)="loadReport()">GENERATE REPORT</button>
-</div>
-<!-- <div class="cent">
-    <button id="button2">SELL REPORT</button>
-    <button class="button1" (click)="loadSellReport()">GENERATE REPORT</button>
-</div> -->
-<table *ngIf="reports.length">
-    <thead>
-        <tr>
-            <th>OrderID</th>
-            <th>ClientID</th>
-            <th>InstrumentID</th>
-            <th>Target Price</th>
-            <th>Direction</th>
-            <th>Quantity</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let r of reports">
-            <td>{{r.orderId}}</td>
-            <td>{{r.clientId}}</td>
-            <td>{{r.instrumentId}}</td>
-            <td>{{r.targetPrice}}</td>
-            <td>{{r.direction}}</td>
-            <td>{{r.quantity}}</td>
-            <!-- <td>{{r.orderTimestamp}}</td> -->
-        </tr>
-        <!-- <tr *ngFor="let d of data">
-            <td>{{d.id}}</td>
-        </tr> -->
-    </tbody>
-</table>
+    <table *ngIf="reports.length && selectedReport">
+        <thead>
+            <tr>
+                <th>OrderID</th>
+                <th>ClientID</th>
+                <th>InstrumentID</th>
+                <th>Target Price</th>
+                <th>Direction</th>
+                <th>Quantity</th>
+                <th>Trade Date/Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let r of reports">
+                <td>{{r.orderId}}</td>
+                <td>{{r.clientId}}</td>
+                <td>{{r.instrumentId}}</td>
+                <td>{{r.targetPrice}}</td>
+                <td>{{r.direction}}</td>
+                <td>{{r.quantity}}</td>
+                <td>{{r.orderTimestamp}}</td>
+            </tr>
+        </tbody>
+    </table>
 
-<!-- <div id="nobooks" *ngIf="!reports.length"><h2>Click on Generate Reports to View report</h2></div> -->
+    <div id="noreports" *ngIf="!reports.length && selectedReport"><h2>No trades to show</h2></div>
 </body>

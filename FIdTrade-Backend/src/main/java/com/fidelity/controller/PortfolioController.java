@@ -1,5 +1,6 @@
 package com.fidelity.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -16,6 +17,7 @@ import org.springframework.web.server.ServerErrorException;
 import com.fidelity.business.Order;
 import com.fidelity.business.Price;
 import com.fidelity.business.Trade;
+import com.fidelity.controller.dto.WalletDTO;
 import com.fidelity.integration.FMTSDao;
 import com.fidelity.service.PortfolioService;
 
@@ -58,6 +60,20 @@ public class PortfolioController {
 				return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 			else
 				return ResponseEntity.status(HttpStatus.OK).body(allHoldings);
+		}
+		catch (RuntimeException e) {
+			throw new ServerErrorException("Server side error", e);
+		}
+    }
+    
+    @GetMapping("/holdings/wallet")
+    ResponseEntity<WalletDTO> getWalletBalance(@RequestParam String clientId){
+    	try {
+    		WalletDTO walletBalance= portfolioService.retrieveWalletBalance(clientId);
+			if (walletBalance == null)
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+			else
+				return ResponseEntity.status(HttpStatus.OK).body(walletBalance);
 		}
 		catch (RuntimeException e) {
 			throw new ServerErrorException("Server side error", e);

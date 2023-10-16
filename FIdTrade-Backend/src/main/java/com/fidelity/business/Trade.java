@@ -20,7 +20,7 @@ public class Trade {
 	
 	public Trade() { }
 	
-	public Trade(Order order, BigDecimal executionPrice, String tradeId, Instant timestamp) {
+	public Trade(Order order, BigDecimal executionPrice, BigDecimal cashValue, String tradeId, Instant timestamp) {
 		
 		if (order == null)
 			throw new NullPointerException ("Order can't be null");
@@ -31,8 +31,7 @@ public class Trade {
 		this.executionPrice = executionPrice;
 		
 		this.quantity = order.getQuantity();
-		this.cashValue = executionPrice.multiply(new BigDecimal(quantity))
-								.add(new BigDecimal("2.0")).setScale(2, RoundingMode.HALF_UP);		
+		this.cashValue = cashValue;		
         this.direction = order.getDirection();
 		this.instrumentId = order.getInstrumentId();
 		this.clientId = order.getClientId();

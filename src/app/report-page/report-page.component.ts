@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ReportsService } from '../services/report/reports.service';
-import { MockReport } from '../models/mock-report';
 import { Order } from '../models/order';
+import { ClientService } from '../services/client/client.service';
 
 @Component({
   selector: 'app-report-page',
@@ -10,24 +10,19 @@ import { Order } from '../models/order';
 })
 export class ReportPageComponent {
   reports: Order[] = [];
-  // availableReports:string[]=[
-  //   'Trade Confirmation',
-  //   'Account Statements',
-  //   'Tax Documents',
-  //   'Order Confirmation',
-  //   'Trade Settlement Statement'
-  // ];
-  selectedReport: string = "";
-  constructor(private reportsService: ReportsService) { }
- 
+  selectedReport: boolean= false;
 
-  // loadReport() {
-  //   this.reportsService.getReport().subscribe(data => this.reports = data);
-  // }
-  loadReport() {
-    this.reportsService.getReport().subscribe(response => this.reports = response);
+  constructor(private reportsService: ReportsService, private clientService: ClientService) { }
+ 
+  loadBuyReport() {
+    this.selectedReport= true;
+    this.reportsService.getReport(this.clientService.verifyClient.clientId, "BUY")
+        .subscribe(response => this.reports = response);
   }
+
   loadSellReport() {
-    this.reportsService.getReport().subscribe(response => this.reports = response);
+    this.selectedReport= true;
+    this.reportsService.getReport(this.clientService.verifyClient.clientId, "SELL")
+        .subscribe(response => this.reports = response);
   }
 }

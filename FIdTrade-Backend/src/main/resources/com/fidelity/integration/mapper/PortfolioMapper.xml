@@ -87,4 +87,8 @@
     <select id="getClientExistence" parameterType="String" resultType="String">
 		SELECT ID FROM FT_CLIENT WHERE ID= #{clientId}
 	</select>
+	
+	<select id="getWalletBalance" parameterType="String" resultType="WalletDTO">
+		SELECT ID as clientId, WALLET_BAL as walletBalance from FT_CLIENT WHERE ID= #{clientId}
+	</select>
 </mapper>

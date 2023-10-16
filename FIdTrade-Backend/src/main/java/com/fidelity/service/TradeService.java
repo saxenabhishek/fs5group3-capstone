@@ -113,6 +113,7 @@ public class TradeService {
 
 		// will be true in most cases
 		execPrice = askPrice; 
+		System.out.println(execPrice);
 
 		// cashValue = (quantity * execPrice) * (1 + fee)
 		BigDecimal cashValue = new BigDecimal(order.getQuantity()).multiply(execPrice).multiply(BigDecimal.ONE.add(fee));
@@ -129,7 +130,7 @@ public class TradeService {
 
 		clientDao.updateClientWalletBalance(order.getClientId(), currentBalance.subtract(cashValue));
 
-		Trade trade = new Trade(order, cashValue, "TID" + Helper.generateRandomNumericString(3), Instant.now());
+		Trade trade = new Trade(order, execPrice, cashValue, "TID" + Helper.generateRandomNumericString(3), Instant.now());
 		tradeDao.addTrade(trade);
 
 		
@@ -184,6 +185,7 @@ public class TradeService {
 
 				trade = new Trade(
 						order,
+						execPrice,
 						cashValue,
 						"TID" + Helper.generateRandomNumericString(3),
 						Instant.now());

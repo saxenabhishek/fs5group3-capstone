@@ -1,11 +1,5 @@
-/* Primary color */
-:root {
-  --primary-color: #336699;
-}
-
 /* Background color */
 body {
-  background-color: #2f4858;
   color: #fff;
   font-family: Arial, sans-serif;
   margin: 0;
@@ -15,8 +9,8 @@ body {
 .hero {
   /* background-image: url("https://media.istockphoto.com/id/1317587887/photo/trading-charts-on-a-display.jpg?b=1&s=612x612&w=0&k=20&c=hUdGYMkhZCfk5eYSxJh247HHnHc6kvgWBBPrAR1zsXI="); */
   /* background-size: cover; */
-  color: #2f4858;
-  background-color: #e5e4e2;
+  color: var(--color-gray);
+  background-color: var(--color-gray);
   background-blend-mode: rgb(70, 66, 66);
   background-position: center;
   color: rgb(80, 80, 83);
@@ -35,12 +29,12 @@ body {
 }
 
 .logo {
-  width: 100px;
+  width: 15%;
   margin-bottom: 20px;
 }
 
 .hero-content {
-  max-width: 600px;
+  max-width: 50%;
   margin: 0 auto;
   transform: translateY(-20px);
   animation: slideUp 1.5s ease-in-out;
@@ -56,10 +50,13 @@ body {
 }
 
 .hero h1 {
-  font-size: 2.5rem;
+  font-size: 3.5vw;
   margin-bottom: 20px;
 }
-
+.hero p {
+  font-size: 1vw;
+  margin-bottom: 20px;
+}
 .cta-buttons {
   margin-top: 20px;
 }
@@ -76,41 +73,39 @@ body {
 
 .btn-primary {
   /* background-color: var(--primary-color); */
-  background-color: #2f4858;
+  background-color: var(--color-brown);
   color: #fff;
-}
-
-.btn-primary:hover {
-  background-color: #a0c8c9;
+  border-color: var(--color-brown);
 }
 
 .btn-secondary {
-  background-color: #96bfc5;
+  background-color: var(--color-coffee);
+  border-color: var(--color-coffee);
   color: #fff;
 }
 
-.btn-secondary:hover {
-  background-color: #82adbc;
+.btn-secondary:hover, .btn-primary:hover {
+  background-color: var(--color-gray);
 }
 
 /* Featured Assets section */
 .featured-assets {
-  background-color: #a0c8c9;
+  background-color: #ffffff;
   padding: 40px 0;
 }
 
 .section-title {
-  font-size: 1.5rem;
+  font-size: 2rem;
   text-align: center;
   margin-bottom: 20px;
-  color: var(--primary-color);
+  color: var(--color-brown);
 }
 
 .asset-card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #2f4858;
+  background-color: var(--color-brown);
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -139,12 +134,12 @@ body {
 .asset-name {
   font-size: 1.2rem;
   margin-top: 10px;
-  color: var(--primary-color);
+  color: var(--color-gray);
 }
 
 .asset-description {
   margin-top: 10px;
-  color: antiquewhite;
+  color: var(--color-gray);
 }
 
 .asset-link {
@@ -160,8 +155,12 @@ body {
 
 /* Contacts section */
 .contacts {
-  background-color: #96bfc5;
+  background-color: var(--color-coffee);
   padding: 40px 0;
+}
+
+.contacts .section-title{
+  color: var(--color-gray);
 }
 
 .contact-info {
@@ -179,18 +178,18 @@ body {
 .contact-item i {
   font-size: 24px;
   margin-right: 10px;
-  color: var(--primary-color);
+  color: var(--color-gray);
 }
 
 .contact-item p {
   margin: 0;
   font-size: 1rem;
-  color: #333;
+  color: var(--color-gray);
 }
 
 
 footer {
-  background-color: #2f4858; /* Background color for the footer */
+  background-color: var(--color-brown); /* Background color for the footer */
   color: #fff; /* Text color in the footer */
   padding: 10px 0;
   text-align: center;

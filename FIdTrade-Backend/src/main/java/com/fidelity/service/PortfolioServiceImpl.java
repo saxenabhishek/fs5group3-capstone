@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.fidelity.business.Order;
 import com.fidelity.business.Price;
 import com.fidelity.business.Trade;
+import com.fidelity.controller.dto.WalletDTO;
 import com.fidelity.integration.FMTSDao;
 import com.fidelity.integration.PortfolioDao;
 
@@ -72,5 +73,16 @@ public class PortfolioServiceImpl implements PortfolioService {
 			throw new FidTradeDatabaseException(msg, e);
 		}
 		return currentPrices;
+	}
+	
+	@Override
+	public WalletDTO retrieveWalletBalance(String clientId) {
+		try {
+			return portfolioDao.getWalletBalance(clientId);
+		}
+		catch (Exception e) {
+			String msg = "Error querying for wallet balance in the FidTrade database.";
+			throw new FidTradeDatabaseException(msg, e);
+		}
 	}
 }
