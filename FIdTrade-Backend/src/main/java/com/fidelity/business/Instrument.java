@@ -6,23 +6,22 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+// @AllArgsConstructor
+
+@NoArgsConstructor
+@ToString
 @Getter
 @Setter
-// @NoArgsConstructor
-@ToString
-// @AllArgsConstructor
 public class Instrument {
-    String instrumentId;
-    String externalId;
-    String externalIdType;
-    String instrumentDescription;
-    String categoryId;
-    long maxQuantity;
-    long minQuantity;
+	String instrumentId;
+	String externalId;
+	String externalIdType;
+	String instrumentDescription;
+	String categoryId;
+	long maxQuantity;
+	long minQuantity;
 
-    public Instrument() { }
-    
-    public Instrument(String instrumentId, String externalId, String externalIdType, String instrumentDescription,
+	public Instrument(String instrumentId, String externalId, String externalIdType, String instrumentDescription,
 			String categoryId, long maxQuantity, long minQuantity) {
 		super();
 		this.instrumentId = instrumentId;
@@ -35,8 +34,8 @@ public class Instrument {
 	}
 
 	public void setExternalId(String externalId) {
-        this.externalId = externalId;
-    }
+		this.externalId = externalId;
+	}
 
 	public String getInstrumentId() {
 		return instrumentId;
@@ -64,6 +63,6 @@ public class Instrument {
 
 	public long getMinQuantity() {
 		return minQuantity;
-	}   
-    
+	}
+
 }
