@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.fidelity.business.Order;
 import com.fidelity.business.Trade;
+import com.fidelity.controller.dto.WalletDTO;
 import com.fidelity.integration.mapper.PortfolioMapper;
 
 @Repository("portfolioDao")
@@ -47,5 +48,10 @@ public class PortfolioDaoImpl implements PortfolioDao {
 		logger.debug("GET all trade history");
         List<Order> tradeHistory= portfolioMapper.getAllTradeHistory(clientId);
         return tradeHistory;
+	}
+	
+	@Override
+	public WalletDTO getWalletBalance(String clientId) {
+		return portfolioMapper.getWalletBalance(clientId);
 	}
 }
