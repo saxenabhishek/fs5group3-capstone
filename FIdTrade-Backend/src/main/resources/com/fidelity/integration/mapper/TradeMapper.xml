@@ -13,7 +13,7 @@
 	</resultMap>
 
 	<resultMap id="instrumentResultMap" type="Instrument">
-		<result property = "description" column="instrumentdescription"/>
+		<result property = "instrumentDescription" column="instrumentdescription"/>
 		<result property = "externalId" column="externalid"/>
 		<result property = "maxQuantity" column="maxquantity"/>
 		<result property = "instrumentId" column="instrumentid"/>
