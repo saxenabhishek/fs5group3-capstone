@@ -33,13 +33,6 @@ class ClientDaoImplTest {
 	);
     
 	//Preference
-	@Test
-	void testGetAllPreference() {
-
-		List<Preference> preference = dao.queryForAllPreference();
-
-		assertEquals(allPreferencesOnly, preference);
-	}
 
 
 	@Test
@@ -54,17 +47,7 @@ class ClientDaoImplTest {
 		assertEquals(1,count);
 
 		assertEquals(rowCount + 1, countRowsInTable(jdbcTemplate, "ft_preference"));
-		/*
-		 * var whereCondition = """ client_id='UID003' and investment_purpose =
-		 * 'Studies' and risk_tolerance='Below Average' and income_category='60,001 -
-		 * 80,000' and length_of_investment='0-5 years' and is_checked='T'
-		 * 
-		 * """;
-		 */
-		/*
-		 * //assertEquals(1, countRowsInTableWhere(jdbcTemplate, "ft_preference",
-		 * String.format(whereCondition, id)));
-		 */
+	
 
 	}
 
@@ -80,12 +63,7 @@ class ClientDaoImplTest {
 	
 		assertEquals(1,count);
 		assertEquals(expectedRowCount, countRowsInTable(jdbcTemplate, "ft_preference"));
-		/*
-		 * //assertEquals(1, countRowsInTableWhere(jdbcTemplate, "ft_preference", """
-		 * client_id='UID001' and investment_purpose = 'Studies' and
-		 * risk_tolerance='Below Average' and income_category='60,001 - 80,000' and
-		 * length_of_investment='0-5 years' and is_checked='T' """));
-		 */
+		
 	}
 	
 

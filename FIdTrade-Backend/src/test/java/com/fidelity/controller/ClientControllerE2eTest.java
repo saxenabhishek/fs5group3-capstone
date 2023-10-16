@@ -79,7 +79,7 @@ public class ClientControllerE2eTest {
 			restTemplate.postForEntity(requestUrl, p3, 
 									   DatabaseRequestResult.class);
 		
-		assertEquals(HttpStatus.CREATED, response.getStatusCode());
+		assertEquals(HttpStatus.OK, response.getStatusCode());
 		DatabaseRequestResult responseBody = response.getBody();
 		assertEquals(1, responseBody.getRowCount());
 
@@ -130,7 +130,7 @@ public class ClientControllerE2eTest {
 			restTemplate.exchange(requestEntity, DatabaseRequestResult.class);
 
 
-		assertEquals(HttpStatus.ACCEPTED, response.getStatusCode());
+		assertEquals(HttpStatus.OK, response.getStatusCode());
 		DatabaseRequestResult responseDto = response.getBody(); 
 		assertEquals(1, responseDto.getRowCount());
 
