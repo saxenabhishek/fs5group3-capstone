@@ -10,30 +10,30 @@ public class ClientIdentificationTest {
 	@Test
     void testValidClientIdentificationCreation() {
         assertDoesNotThrow(() ->
-                new ClientIdentification(2345678, "UID001", "Passport", "AB1234567"));
+                new ClientIdentification("Passport", "AB1234567"));
     }
 
     @Test
     void testNullType() {
         assertThrows(IllegalArgumentException.class, () ->
-                new ClientIdentification(2345678, "UID001", null, "AB123"));
+                new ClientIdentification( null, "AB123"));
     }
 
     @Test
     void testEmptyType() {
         assertThrows(IllegalArgumentException.class, () ->
-                new ClientIdentification(2345678, "UID001", "", "AB123456789"));
+                new ClientIdentification("", "AB123456789"));
     }
 
     @Test
     void testEmptyValue() {
         assertThrows(IllegalArgumentException.class, () ->
-                new ClientIdentification(2345678, "UID001", "Passport", ""));
+                new ClientIdentification("Passport", ""));
     }
 
     @Test
     void testNullValue() {
         assertThrows(NullPointerException.class, () ->
-                new ClientIdentification(2345678, "UID001", "Passport", null));
+                new ClientIdentification( "Passport", null));
     }
 }

@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -57,7 +58,7 @@ public class PortfolioDaoImplTest {
 		List<Trade> holdings = portfolioDaoImpl.getHoldings(clientId);
 		assertNotNull(holdings);
 		assertEquals(50, holdings.get(0).getQuantity());	
-		assertEquals(Helper.makeBigDecimal("58071"), holdings.get(0).getCashValue());
+		assertEquals(new BigDecimal("58071"), holdings.get(0).getCashValue());
 
 		int rows= countUniqueInstrumentIds(jdbcTemplate, "ft_trade", "clientid= '" + clientId + "'");
 		assertEquals(holdings.size(), rows);

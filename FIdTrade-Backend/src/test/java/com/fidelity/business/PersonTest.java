@@ -12,55 +12,55 @@ public class PersonTest {
 	@Test
     void testValidPersonCreation() {
         assertDoesNotThrow(() ->
-                new Person("UID001", "India", "12345", LocalDate.of(2000, 01, 01), "test@gmail.com", "password"));
+                new Person("UID001", "India", "12345", "2000, 01, 01", "test@gmail.com", "password"));
     }
 
     @Test
     void testInvalidEmail() {
         assertThrows(IllegalArgumentException.class, () ->
-                new Person("UID001", "US", "12345678", LocalDate.of(2000, 01, 01), "invalid-email", "password3"));
+                new Person("UID001", "US", "12345678", "2000, 01, 01", "invalid-email", "password3"));
     }
 
     @Test
     void testNullEmail() {
         assertThrows(NullPointerException.class, () ->
-                new Person("UID001", "India", "12345", LocalDate.of(2000, 01, 01), null, "password4"));
+                new Person("UID001", "India", "12345", "2000, 01, 01", null, "password4"));
     }
 
     @Test
     void testEmptyPassword() {
         assertThrows(IllegalArgumentException.class, () ->
-                new Person("UID001", "US", "12345678", LocalDate.of(2000, 01, 01), "test3@domain3.com", ""));
+                new Person("UID001", "US", "12345678", "2000, 01, 01", "test3@domain3.com", ""));
     }
 
     @Test
     void testNullPassword() {
         assertThrows(IllegalArgumentException.class, () ->
-                new Person("UID001", "Ireland", "123", LocalDate.of(2000, 01, 01), "test4@domain4.com", null));
+                new Person("UID001", "Ireland", "123", "2000, 01, 01", "test4@domain4.com", null));
     }
 
     @Test
     void testNullCountry() {
         assertThrows(IllegalArgumentException.class, () ->
-                new Person("UID001", null, "123", LocalDate.of(2000, 01, 01), "test4@domain4.com", "password5"));
+                new Person("UID001", null, "123", "2000, 01, 01", "test4@domain4.com", "password5"));
     }
 
     @Test
     void testEmptyCountry() {
         assertThrows(IllegalArgumentException.class, () ->
-                new Person("UID001", "", "123", LocalDate.of(2000, 01, 01), "test4@domain4.com", "password6"));
+                new Person("UID001", "", "123", "2000, 01, 01", "test4@domain4.com", "password6"));
     }
 
     @Test
     void testNullPostalCode() {
         assertThrows(IllegalArgumentException.class, () ->
-                new Person("UID001", "US", null, LocalDate.of(2000, 01, 01), "test4@domain4.com", "password7"));
+                new Person("UID001", "US", null,"2000, 01, 01", "test4@domain4.com", "password7"));
     }
 
     @Test
     void testEmptyPostalCode() {
         assertThrows(IllegalArgumentException.class, () ->
-                new Person("UID001", "US", "", LocalDate.of(2000, 01, 01), "test4@domain4.com", "password8"));
+                new Person("UID001", "US", "", "2000, 01, 01", "test4@domain4.com", "password8"));
     }
 
     @Test
