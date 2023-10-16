@@ -145,7 +145,13 @@ public class TradeService {
 		BigDecimal execPrice = BigDecimal.ZERO.setScale(2, RoundingMode.HALF_DOWN);
 		Trade trade;
 
+		Client client = clientDao.getClientsByID(order.getClientId());
+
+		BigDecimal currentBalance = client.getWalletBalance();
+
 		List<Trade> portfolio =  portfolioService.retrieveCurrentHoldings(order.getClientId());
+
+		instrumentPrices = getAllPrices("");
 
 		if (portfolio != null) {
 			for (Trade p : portfolio) {
@@ -187,6 +193,7 @@ public class TradeService {
 				tradeDao.addTrade(trade);
 
 				// update user balance
+				clientDao.updateClientWalletBalance(order.getClientId(), currentBalance.add(cashValue));
 
 				return trade;
 

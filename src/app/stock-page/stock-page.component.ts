@@ -53,6 +53,8 @@ export class StockPageComponent {
   prices?: Prices;
   buyForm: FormGroup = new FormGroup({});
   clientId: string = '';
+  option!: string;
+  currentHolding!: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -62,6 +64,9 @@ export class StockPageComponent {
   ) {}
   ngOnInit() {
     this.instrumentId = this.route.snapshot.params['id'];
+    this.option = this.route.snapshot.params['option'];
+    this.clientService.checkIfClientIsLoggedIn();
+
     this.buyForm = this.formBuilder.group({
       price: [
         '',
@@ -91,11 +96,21 @@ export class StockPageComponent {
         text: 'Loading...',
       },
     };
+
+    this.checkIfAnyHoldings();
+    this.getInstrumentInfo();
+  }
+
+  getInstrumentInfo() {
     this.tradeService.getCurrentPrices(this.instrumentId).subscribe((data) => {
       this.prices = data[0];
       this.instrument = data[0].instrument;
 
-      this.buyForm.get('price')?.setValue(this.prices.askPrice);
+      this.buyForm
+        .get('price')
+        ?.setValue(
+          this.option === 'buy' ? this.prices.askPrice : this.prices.bidPrice
+        );
       this.buyForm
         .get('quantity')
         ?.setValue(this.prices.instrument.minQuantity);
@@ -121,7 +136,7 @@ export class StockPageComponent {
 
       this.chartOptions.series = [
         {
-          data: [ [new Date().getTime(), askPrice] ,...randomPriceList,],
+          data: [[new Date().getTime(), askPrice], ...randomPriceList],
         },
       ];
       // this.chartOptions.series[0].data.push([new Date().getTime() , askPrice || null)
@@ -136,7 +151,7 @@ export class StockPageComponent {
       this.instrumentId,
       this.buyForm.get('quantity')?.value,
       this.buyForm.get('price')?.value,
-      new Direction('BUY'),
+      this.option === 'buy' ? new Direction('BUY') : new Direction('SELL'),
       this.clientId,
       this.getTimeString()
     );
@@ -195,11 +210,23 @@ export class StockPageComponent {
     return roundedNumber;
   }
 
-  getTotalPrice(){
-    return this.buyForm.get("price")?.value*this.buyForm.get("quantity")?.value
+  getTotalPrice() {
+    return (
+      this.buyForm.get('price')?.value * this.buyForm.get('quantity')?.value
+    );
   }
 
   getExecPrice() {
-    return this.getTotalPrice()*1.05
+    return this.getTotalPrice() * 1.05;
+  }
+
+  checkIfAnyHoldings() {
+    this.tradeService
+      .getCurrentHoldings(this.clientService.getClientId())
+      .subscribe((allTrades) => {
+        this.currentHolding =
+          allTrades.find((e) => e.instrumentId == this.instrumentId)
+            ?.quantity || 0;
+      });
   }
 }

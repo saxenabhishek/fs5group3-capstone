@@ -10,7 +10,7 @@
     <th></th>
     <tr *ngFor="let instrument of instruments">
       <td>
-        <a [routerLink]="['/instrument', instrument.instrumentId]">{{
+        <a [routerLink]="['/instrument', instrument.instrumentId, 'buy']">{{
           instrument.externalId
         }}</a>
       </td>

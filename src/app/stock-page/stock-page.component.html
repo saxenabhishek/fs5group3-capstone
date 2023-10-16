@@ -38,16 +38,17 @@
         <input type="text" id="author" formControlName="quantity" />
       </span>
       <span>
-        <span>Total: </span>
-        <span>{{ getTotalPrice() | number : "1.2-3" }}</span>
+        <span>Total Cash Value: </span>
+        <span>{{ getTotalPrice() | currency:'INR':'symbol':'3.2-2' }}</span>
       </span>
       <span>
-        <span>Execution Price(5%)</span>
-        <span>{{ getExecPrice() | number : "1.2-3" }}</span>
+        <span>Execution Fee(5%)</span>
+        <span>{{ getExecPrice() | currency:'INR':'symbol':'3.2-2' }}</span>
       </span>
-      <span class="subm">
-        <button type="submit" [disabled]="!isFormValid()">Buy</button>
+      <span [class]=" 'subm'+ ' ' + option">
+        <button type="submit" [disabled]="!isFormValid()">{{option | titlecase}}</button>
       </span>
+      <span>Holding : {{this.currentHolding}}</span>
     </form>
   </aside>
 </section>

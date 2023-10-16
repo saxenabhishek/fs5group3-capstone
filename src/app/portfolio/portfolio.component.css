@@ -80,3 +80,30 @@ tr:hover{
 #notrades{
     margin: 0 auto;
 }
+
+button.buy{
+    /* border: 1px #F9ADA0  solid; */
+    border:none;
+    background-color: #D0F4DE;
+    color:#2f4858;
+    font-weight: 600;
+    padding: 1rem;
+    border-radius: 1rem;
+    width: 90%;
+  }
+
+  button.sell{
+    /* border: 1px #F9ADA0  solid; */
+    border:none;
+    background-color: #f4d0d0;
+    color:#2f4858;
+    font-weight: 600;
+    padding: 1rem;
+    border-radius: 1rem;
+    width: 90%;
+  }
+  
+  button:hover{
+    background-color: #2f4858;
+    color: white;
+  }

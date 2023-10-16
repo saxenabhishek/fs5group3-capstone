@@ -39,9 +39,7 @@
 
 
 button {
-  /* border: 1px #F9ADA0  solid; */
   border: none;
-  background-color: #d0f4de;
   color: #2f4858;
   font-weight: 600;
   padding: 1rem;
@@ -63,6 +61,14 @@ figure {
 
 span.subm{
   flex-grow: 3;
+}
+
+span.subm.buy button{
+  background-color:  #d0f4de;
+}
+
+span.subm.sell button{
+  background-color: #f4d0d0;
 }
 
 form {
