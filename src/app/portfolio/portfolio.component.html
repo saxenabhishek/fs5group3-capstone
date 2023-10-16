@@ -1,4 +1,8 @@
 <app-navbar></app-navbar>
+<app-banner
+  mainText= 'Your Portfolio'
+  subText= 'Tracking your holdings made easy'
+></app-banner>
 <section>
   <div class="portfolio-section overview-card row">
     <div class="col-md-6">
@@ -8,7 +12,7 @@
         </div>
         <div class="wallet">
             <h3 class="section-title">Wallet Balance</h3>
-            <div class="money-wallet">&dollar;{{ 1000000 - totalCashValue | number : "1.2-2" }}</div>
+            <div class="money-wallet">&dollar;{{ walletBalance | number : "1.2-2" }}</div>
         </div>
     </div>
     <div class="chart col-md-6" *ngIf="portfolioData.length != 0 && portfolioLabels.length != 0">
@@ -21,7 +25,7 @@
   </div>
 
   <div class="card-table">
-    <h3>Your Portfolio</h3>
+    <h3>Holdings</h3>
     <hr />
     <table *ngIf="trades != null && trades.length" cellspacing="0">
       <thead>
@@ -46,31 +50,25 @@
             <br />
             <span
               >{{
-                ((1 +
-                  (getInstrumentAskPrice(trade.instrumentId) - trade.executionPrice) /
-                    trade.executionPrice) *
-                  trade.cashValue *
-                  100) /
+                ((this.getInstrumentBidPrice(trade.instrumentId) / trade.executionPrice) * trade.cashValue * 100) /
                   totalHoldings | number : "1.2-2"
               }}
               &percnt;</span
             >
           </td>
           <td>
-            &dollar;{{ getInstrumentAskPrice(trade.instrumentId) | number : "1.2-4" }}
+            &dollar;{{ getInstrumentBidPrice(trade.instrumentId) | number : "1.2-4" }}
             <br />
             <span
               [ngStyle]="{
                 color:
-                  trade.executionPrice < getInstrumentAskPrice(trade.instrumentId)
-                    ? 'green'
-                    : trade.executionPrice > getInstrumentAskPrice(trade.instrumentId)
-                    ? 'red'
-                    : 'gray'
+                  trade.executionPrice < getInstrumentBidPrice(trade.instrumentId)
+                    ? 'green' : trade.executionPrice > getInstrumentBidPrice(trade.instrumentId)
+                    ? 'red' : 'gray'
               }"
             >
               {{
-                ((getInstrumentAskPrice(trade.instrumentId) - trade.executionPrice) * 100) /
+                ((getInstrumentBidPrice(trade.instrumentId) - trade.executionPrice) * 100) /
                   trade.executionPrice | number : "1.2-2"
               }}
               &percnt;
@@ -78,40 +76,21 @@
           </td>
           <td>
             {{
-              (1 +
-                (getInstrumentAskPrice(trade.instrumentId) - trade.executionPrice) / trade.executionPrice) *
-                trade.cashValue | number : "1.2-2"
+              (this.getInstrumentBidPrice(trade.instrumentId) / trade.executionPrice) * trade.cashValue | number : "1.2-2"
             }}
             <br />
             <span
               [ngStyle]="{
                 color:
-                  trade.cashValue -
-                    (1 +
-                      (getInstrumentAskPrice(trade.instrumentId) - trade.executionPrice) /
-                        trade.executionPrice) *
-                      trade.cashValue <
-                  0
-                    ? 'green'
-                    : trade.cashValue -
-                        (1 +
-                          (getInstrumentAskPrice(trade.instrumentId) - trade.executionPrice) /
-                            trade.executionPrice) *
-                          trade.cashValue >
-                      0
-                    ? 'red'
-                    : 'gray'
+                  trade.cashValue - (this.getInstrumentBidPrice(trade.instrumentId) / trade.executionPrice) * trade.cashValue < 0
+                  ? 'green'
+                  : trade.cashValue - (this.getInstrumentBidPrice(trade.instrumentId) / trade.executionPrice) * trade.cashValue > 0
+                  ? 'red' : 'gray'
               }"
             >
               &dollar;
               {{
-                abs(
-                  trade.cashValue -
-                    (1 +
-                      (getInstrumentAskPrice(trade.instrumentId) - trade.executionPrice) /
-                        trade.executionPrice) *
-                      trade.cashValue
-                ) | number : "1.2-2"
+                abs(trade.cashValue - (this.getInstrumentBidPrice(trade.instrumentId) / trade.executionPrice) * trade.cashValue) | number : "1.2-2"
               }}
             </span>
           </td>
