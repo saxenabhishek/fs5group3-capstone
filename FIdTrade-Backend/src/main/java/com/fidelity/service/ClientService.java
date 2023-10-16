@@ -15,4 +15,5 @@ public interface ClientService {
     Preference findPreferenceById(String id);
     int addPreference(Preference preference);
     int modifyPreference(Preference preference);
+    Client getClientById(String clientId);
 }

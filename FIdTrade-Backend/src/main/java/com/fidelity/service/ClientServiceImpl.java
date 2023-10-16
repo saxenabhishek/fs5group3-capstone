@@ -146,4 +146,10 @@ public class ClientServiceImpl implements ClientService{
 				|| preference.getLengthOfInvestment() == null) 
 			throw new IllegalArgumentException("Preference is not fully populated: " + preference);
 	}
+
+	@Override
+	public Client getClientById(String clientId) {
+		// TODO Auto-generated method stub
+		return clientDao.getClientsByID(clientId);
+	}
 }

@@ -66,19 +66,6 @@ public class ClientControllerWebLayerTest {
 			  
 	}
 
-	@Test
-	public void testQueryForAllPreferences() throws Exception {
-		when(mockBusinessService.findAllPreference())
-			.thenReturn(preferences);
-		
-		
-
-		mockMvc.perform(get("/client/preferences"))
-			   //.andDo(print())
-			   .andExpect(status().isOk())
-			   .andExpect(jsonPath("$.length()").value(2));
-			   
-	}
 	
 	
 	

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.fidelity.business.Instrument;
@@ -21,10 +22,10 @@ public interface TradeMapper {
 	" VALUES (#{orderId}, #{instrumentId}, #{quantity}, #{targetPrice}, #{direction}, #{clientId}, #{orderTimestamp})")
 	public int addOrder(Order o);
 
-	@Select("SELECT id instrumentId, externalid, externalidtype externalIdType, categoryid, instrumentdescription description, maxquantity, minquantity FROM ft_instrument")
+	@Select("SELECT id instrumentId, externalid, externalidtype externalIdType, categoryid, instrumentdescription, maxquantity, minquantity FROM ft_instrument")
     public List<Instrument> getAllInstruments();
 
-	@Select("SELECT id instrumentId, externalid, externalidtype externalIdType, categoryid, instrumentdescription description, maxquantity, minquantity FROM ft_instrument WHERE id = #{id}")
+	@Select("SELECT id instrumentId, externalid, externalidtype externalIdType, categoryid, instrumentdescription, maxquantity, minquantity FROM ft_instrument WHERE id = #{id}")
     public List<Instrument> getInstrumentById(String id);
 
 	@Select("select * FROM ft_price JOIN ft_instrument ins on ins.id = ft_price.instrumentid ")
@@ -34,6 +35,6 @@ public interface TradeMapper {
 
 	public List<Price> getPriceById(String priceId);
 
-	List<Order> getReportActivity();
+	List<Order> getReportActivity(@Param("id") String id, @Param("direction") String direction);
 
 }

@@ -9,6 +9,9 @@ import { Order } from 'src/app/models/order';
 })
 export class ReportsService {
   private apiUrl = 'http://localhost:8080/client';
+
+  constructor(private http: HttpClient) { }
+
 //   reports:MockReport[]= [{
 //     tradePrice: 12309,
 //     tradeType: 'Mutual Fund',
@@ -38,12 +41,10 @@ export class ReportsService {
 // {
 // return of(this.reports);
 // }
-getReport(): Observable<Order[]> {
-  return this.http.get<Order[]>(`${this.apiUrl}/activityReport`);
-}
-
+  getReport(clientId: string, direction: string): Observable<Order[]> {
+    return this.http.get<Order[]>(`${this.apiUrl}/activity-report/${clientId}/${direction}`);
+  }
 // /api/reports/generate
-  constructor(private http: HttpClient) { }
 
 }
 
