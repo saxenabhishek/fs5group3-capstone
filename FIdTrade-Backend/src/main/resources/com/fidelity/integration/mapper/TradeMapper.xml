@@ -50,7 +50,6 @@
 			select max(pricetimestamp) time from ft_price where ft_price.instrumentid = #{insId}
 		)
 	</select>
-
 	
     <select id="getReportActivity" resultMap="TradeHistoryId">
         SELECT
@@ -60,6 +59,7 @@
             TARGETPRICE,
             DIRECTION,
             CLIENTID
-            FROM FT_ORDER
+        FROM FT_ORDER
+        WHERE CLIENTID= #{id} AND DIRECTION= #{direction}
     </select>
 </mapper>
