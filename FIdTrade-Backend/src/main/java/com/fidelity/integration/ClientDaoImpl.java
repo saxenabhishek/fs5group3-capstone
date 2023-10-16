@@ -114,4 +114,9 @@ public class ClientDaoImpl implements ClientDao {
 		logger.debug("enter");
 		return clientMapper.getPreferenceById(id);
 	}
+
+	@Override
+	public int updateClientWalletBalance(String clientId, BigDecimal balance) {
+		return clientMapper.updateClientWalletBalance(clientId, balance);
+	}
 }

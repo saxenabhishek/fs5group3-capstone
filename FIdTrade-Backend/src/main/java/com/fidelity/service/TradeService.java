@@ -10,7 +10,9 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.fidelity.business.Client;
 import com.fidelity.business.Direction;
 import com.fidelity.business.Instrument;
 import com.fidelity.business.Order;
@@ -24,7 +26,7 @@ import com.fidelity.integration.TradeDao;
 import com.fidelity.shared.Helper;
 
 @Service
-public final class TradeService {
+public class TradeService {
 
 	@Autowired
 	Logger logger;
@@ -82,7 +84,13 @@ public final class TradeService {
 		BigDecimal execPrice;
 		
 		// get balance from client
-		double currentBalance = 1000000;
+		String clientID = order.getClientId();
+		if(clientID == null){
+			throw new RuntimeException("ClientId can not be null");
+		}
+		Client client = clientDao.getClientsByID(order.getClientId());
+
+		BigDecimal currentBalance = client.getWalletBalance();
 
 		instrumentPrices = getAllPrices("");
 		if (instrumentPrices == null && order.getDirection() != Direction.BUY) {
@@ -109,16 +117,21 @@ public final class TradeService {
 		// cashValue = (quantity * execPrice) * (1 + fee)
 		BigDecimal cashValue = new BigDecimal(order.getQuantity()).multiply(execPrice).multiply(BigDecimal.ONE.add(fee));
 
-		if (cashValue.compareTo(new BigDecimal(currentBalance)) > 0) {
+		logger.debug(cashValue.toPlainString());
+		logger.debug(currentBalance.toPlainString());
+
+		System.out.println(cashValue.toPlainString() + " the next one is current balance" +  currentBalance.toString());
+
+		if (cashValue.compareTo(currentBalance) > 0) {
 			throw new RuntimeException("Can't execute trade, not enough balance");
 		}
 
-		// Reduce currentBalance and update clientBalance
+
+		clientDao.updateClientWalletBalance(order.getClientId(), currentBalance.subtract(cashValue));
 
 		Trade trade = new Trade(order, cashValue, "TID" + Helper.generateRandomNumericString(3), Instant.now());
-
-		
 		tradeDao.addTrade(trade);
+
 		
 		return trade;
 
@@ -184,6 +197,7 @@ public final class TradeService {
 
 	}
 
+	@Transactional
 	public Trade processOrder(Order order) {
 		tradeDao.addOrder(order);
 		if (order.getDirection() == Direction.BUY){

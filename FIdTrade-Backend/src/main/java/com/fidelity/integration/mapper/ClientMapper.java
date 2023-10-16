@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
 
 import com.fidelity.business.Client;
 import com.fidelity.business.ClientIdentification;
@@ -28,4 +29,7 @@ public interface ClientMapper {
 	Preference getPreferenceById(@Param("id") String id);
     int insertPreference(Preference preference);
     int updatePreference(Preference preference);
+
+	@Update("update FT_CLIENT set wallet_bal = #{balance} WHERE id = #{clientId}")
+    int updateClientWalletBalance(@Param("clientId") String clientId,@Param("balance") BigDecimal balance);
 }
