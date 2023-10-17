@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 ActivatedRoute;
 
@@ -21,6 +21,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Order } from '../models/order';
 import { Direction } from '../models/direction';
 import { ClientService } from '../services/client/client.service';
+import { ToastrService } from 'ngx-toastr';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -58,10 +59,13 @@ export class StockPageComponent {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private tradeService: TradeService,
     private formBuilder: FormBuilder,
-    private clientService: ClientService
+    private clientService: ClientService,
+    private toastr: ToastrService
   ) {}
+  
   ngOnInit() {
     this.instrumentId = this.route.snapshot.params['id'];
     this.option = this.route.snapshot.params['option'];
@@ -163,10 +167,11 @@ export class StockPageComponent {
     this.tradeService.processOrder(processedOrder).subscribe({
       next: (data) => {
         console.log(data);
-        alert('trade executed');
+        this.toastr.success('Trade was successfully executed', 'Success');
+        this.router.navigate(["/portfolio"])
       },
       error: () => {
-        alert('trade could not be executed');
+        this.toastr.error('Trade couldn\'t be executed', 'Error');
       },
     });
   }

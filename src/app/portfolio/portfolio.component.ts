@@ -33,14 +33,14 @@ export class PortfolioComponent implements OnInit{
   calcTotalHoldings(){
     if (this.trades != null && this.trades.length > 0)
       this.trades.forEach(trade => 
-        this.totalHoldings+= (this.getInstrumentBidPrice(trade.instrumentId) / trade.executionPrice) * trade.cashValue
+        this.totalHoldings+= (this.getInstrumentBidPrice(trade.instrumentId) / this.getInstrumentAskPrice(trade.instrumentId)) * trade.cashValue
       );
   }
   
   loadAllTrades(){
     this.tradeService.getCurrentHoldings(this.clientService.verifyClient.clientId)
         .subscribe(allTrades => {
-          this.trades= allTrades
+          this.trades= allTrades.filter(e => e.quantity !== 0);
           this.getWalletBalance();
           this.calcTotalHoldings();
           this.setPortfolioChartValues();
@@ -50,7 +50,7 @@ export class PortfolioComponent implements OnInit{
   setPortfolioChartValues(){
     if (this.trades != null && this.trades.length > 0){
       this.trades.forEach(trade => this.portfolioLabels.push(this.getInstrumentName(trade.instrumentId)));
-      this.trades.forEach(trade => this.portfolioData.push((this.getInstrumentBidPrice(trade.instrumentId) / trade.executionPrice) * trade.cashValue));
+      this.trades.forEach(trade => this.portfolioData.push((this.getInstrumentBidPrice(trade.instrumentId) / this.getInstrumentAskPrice(trade.instrumentId)) * trade.cashValue));
       this.portfolioData= this.portfolioData.map(d => parseFloat(d.toFixed(2)));
     }  
   }
@@ -73,6 +73,11 @@ export class PortfolioComponent implements OnInit{
   getInstrumentBidPrice(id: string): any{
     if (this.prices != null && this.prices.length > 0)
       return this.prices.find(ins => ins.instrument.instrumentId === id)?.bidPrice;    
+  }
+
+  getInstrumentAskPrice(id: string): any{
+    if (this.prices != null && this.prices.length > 0)
+      return this.prices.find(ins => ins.instrument.instrumentId === id)?.askPrice;    
   }
 
   abs(num: number): number{

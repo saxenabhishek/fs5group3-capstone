@@ -37,3 +37,7 @@
     background-color: transparent;
     color: #96bfc5;
   }
+
+.form-body{
+  background-color: var(--color-gray);
+}

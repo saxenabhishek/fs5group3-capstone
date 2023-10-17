@@ -23,6 +23,10 @@ export class NavbarComponent {
     return this.clientService.getIfLoggedIn();
   }
 
+  checkIfLoggedIn(){
+    this.clientService.checkIfClientIsLoggedIn();
+  }
+
   // changeLogin(flag: boolean){
   //   this.login= flag;
   //   console.debug(this.login)
