@@ -42,7 +42,7 @@ public class PortfolioController {
 	    ){
 		try {
 			List<Price> instrumentPrices= portfolioService.retrieveCurrentInstrumentPrices(category, instrumentId);
-			if (instrumentPrices.size() == 0)
+			if (instrumentPrices == null)
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 			else
 				return ResponseEntity.status(HttpStatus.OK).body(instrumentPrices);

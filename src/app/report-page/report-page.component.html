@@ -11,7 +11,7 @@
         </div>
     </div>
 
-    <table *ngIf="reports.length && selectedReport">
+    <table *ngIf="reports != null && reports.length && selectedBuyReport">
         <thead>
             <tr>
                 <th>OrderID</th>
@@ -35,6 +35,32 @@
             </tr>
         </tbody>
     </table>
+    <div id="noreports" *ngIf="reports == null && selectedBuyReport"><h2>No buy trades to show</h2></div>
 
-    <div id="noreports" *ngIf="!reports.length && selectedReport"><h2>No trades to show</h2></div>
+    <table *ngIf="reports != null && reports.length && selectedSellReport">
+        <thead>
+            <tr>
+                <th>OrderID</th>
+                <th>ClientID</th>
+                <th>InstrumentID</th>
+                <th>Target Price</th>
+                <th>Direction</th>
+                <th>Quantity</th>
+                <th>Trade Date/Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let r of reports">
+                <td>{{r.orderId}}</td>
+                <td>{{r.clientId}}</td>
+                <td>{{r.instrumentId}}</td>
+                <td>{{r.targetPrice}}</td>
+                <td>{{r.direction}}</td>
+                <td>{{r.quantity}}</td>
+                <td>{{r.orderTimestamp}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div id="noreports" *ngIf="reports == null && selectedSellReport"><h2>No sell trades to show</h2></div>
+
 </body>

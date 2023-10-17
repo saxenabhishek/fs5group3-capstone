@@ -25,8 +25,6 @@
   </div>
 
   <div class="card-table">
-    <h3>Holdings</h3>
-    <hr />
     <table *ngIf="trades != null && trades.length" cellspacing="0">
       <thead>
         <th>Instrument</th>
@@ -50,7 +48,7 @@
             <br />
             <span
               >{{
-                ((this.getInstrumentBidPrice(trade.instrumentId) / trade.executionPrice) * trade.cashValue * 100) /
+                ((this.getInstrumentBidPrice(trade.instrumentId) / this.getInstrumentAskPrice(trade.instrumentId)) * trade.cashValue * 100) /
                   totalHoldings | number : "1.2-2"
               }}
               &percnt;</span
@@ -62,56 +60,52 @@
             <span
               [ngStyle]="{
                 color:
-                  trade.executionPrice < getInstrumentBidPrice(trade.instrumentId)
-                    ? 'green' : trade.executionPrice > getInstrumentBidPrice(trade.instrumentId)
+                  this.getInstrumentAskPrice(trade.instrumentId) < getInstrumentBidPrice(trade.instrumentId)
+                    ? 'green' : this.getInstrumentAskPrice(trade.instrumentId) > getInstrumentBidPrice(trade.instrumentId)
                     ? 'red' : 'gray'
               }"
             >
               {{
-                ((getInstrumentBidPrice(trade.instrumentId) - trade.executionPrice) * 100) /
-                  trade.executionPrice | number : "1.2-2"
+                ((getInstrumentBidPrice(trade.instrumentId) - this.getInstrumentAskPrice(trade.instrumentId)) * 100) /
+                  this.getInstrumentAskPrice(trade.instrumentId) | number : "1.2-2"
               }}
               &percnt;
             </span>
           </td>
           <td>
             {{
-              (this.getInstrumentBidPrice(trade.instrumentId) / trade.executionPrice) * trade.cashValue | number : "1.2-2"
+              (this.getInstrumentBidPrice(trade.instrumentId) / this.getInstrumentAskPrice(trade.instrumentId)) * trade.cashValue | number : "1.2-2"
             }}
             <br />
             <span
               [ngStyle]="{
                 color:
-                  trade.cashValue - (this.getInstrumentBidPrice(trade.instrumentId) / trade.executionPrice) * trade.cashValue < 0
+                  trade.cashValue - (this.getInstrumentBidPrice(trade.instrumentId) / this.getInstrumentAskPrice(trade.instrumentId)) * trade.cashValue < 0
                   ? 'green'
-                  : trade.cashValue - (this.getInstrumentBidPrice(trade.instrumentId) / trade.executionPrice) * trade.cashValue > 0
+                  : trade.cashValue - (this.getInstrumentBidPrice(trade.instrumentId) / this.getInstrumentAskPrice(trade.instrumentId)) * trade.cashValue > 0
                   ? 'red' : 'gray'
               }"
             >
               &dollar;
               {{
-                abs(trade.cashValue - (this.getInstrumentBidPrice(trade.instrumentId) / trade.executionPrice) * trade.cashValue) | number : "1.2-2"
+                abs(trade.cashValue - (this.getInstrumentBidPrice(trade.instrumentId) / this.getInstrumentAskPrice(trade.instrumentId)) * trade.cashValue) | number : "1.2-2"
               }}
             </span>
           </td>
           <td>
             <button class="buy"
-            [disabled]="ifLoggedIn()"
-            (click)="clickTradeButton(trade.instrumentId, 'buy')"
+                [disabled]="ifLoggedIn()"
+                (click)="clickTradeButton(trade.instrumentId, 'buy')"
             >
             Buy
-            <!-- <a [routerLink]="['/instrument', instrument.instrumentId]"> 
-            </a> -->
           </button>
         </td>
         <td>
           <button class="sell"
-          [disabled]="ifLoggedIn()"
-          (click)="clickTradeButton(trade.instrumentId, 'sell')"
+                [disabled]="ifLoggedIn()"
+                (click)="clickTradeButton(trade.instrumentId, 'sell')"
           >
           Sell
-          <!-- <a [routerLink]="['/instrument', instrument.instrumentId]"> 
-          </a> -->
         </button>
       </td>
         </tr>

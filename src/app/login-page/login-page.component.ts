@@ -57,22 +57,21 @@ export class LoginPageComponent {
       }))
       .subscribe(() => {        
           this.toastr.success('Login Successful', 'Success');
+          this.submitted= false;
 
-          setTimeout(() => {
-            this.submitted= false;
-            this.prefService.getPreferenceById(this.clientService.verifyClient.clientId)
-                .subscribe(preference => {
-                  if (preference == null){
-                    this.prefService.newUser= true;
-                    this.router.navigate(['/preferences/add']);                     
-                  }       
-                  else{
-                    this.prefService.newUser= false;
-                    this.router.navigate(['/']); 
-                  } 
-                });
-            this.loginForm.reset();
-          }, 1000);   
+          this.prefService.getPreferenceById(this.clientService.verifyClient.clientId)
+              .subscribe(preference => {
+                if (preference == null){
+                  this.prefService.newUser= true;
+                  this.router.navigate(['/preferences/add']);                     
+                }       
+                else{
+                  this.prefService.newUser= false;
+                  this.router.navigate(['/']); 
+                } 
+              });
+              
+          this.loginForm.reset();
       });  
     }
     else

@@ -65,7 +65,7 @@ tbody tr:nth-child(even) td {
     justify-content: space-evenly;
 }
 
-/* #button2, #button1 {
+#button2, #button1 {
     display: inline-block;
     padding: 15px 25px;
     padding-left: 20px;
@@ -79,7 +79,7 @@ tbody tr:nth-child(even) td {
     border: none;
     border-radius: 15px;
     box-shadow: 0 9px #999;
-} */
+}
 
 .button2:hover {
     background-color: #1e8ad2

@@ -13,16 +13,16 @@
 
     <ul class="nav-links">
       <div *ngIf="isLoggedIn()">
-        <a routerLink="/">Home</a>
-        <a routerLink="/portfolio">Portfolio</a>
-        <a routerLink="/trade-history">Trade History</a>
-        <a routerLink="/explore">Explore</a>      
-        <a *ngIf="newUser; else updatePref" routerLink="/preferences/add">Preferences</a>
+        <a routerLink="/" (click)="checkIfLoggedIn()">Home</a>
+        <a routerLink="/portfolio" (click)="checkIfLoggedIn()">Portfolio</a>
+        <a routerLink="/trade-history" (click)="checkIfLoggedIn()">Trade History</a>
+        <a routerLink="/explore" (click)="checkIfLoggedIn()">Explore</a>      
+        <a *ngIf="newUser; else updatePref" routerLink="/preferences/add" (click)="checkIfLoggedIn()">Preferences</a>
         <ng-template #updatePref >        
-          <a routerLink="/preferences/update">Preferences</a>
+          <a routerLink="/preferences/update" (click)="checkIfLoggedIn()">Preferences</a>
         </ng-template>
-        <a routerLink="/roboadvisor">Robo Advisor</a>
-        <a routerLink="/report">Reports</a>
+        <a routerLink="/roboadvisor" (click)="checkIfLoggedIn()">Robo Advisor</a>
+        <a routerLink="/report" (click)="checkIfLoggedIn()">Reports</a>
       </div>
 
       <div *ngIf="!isLoggedIn()">

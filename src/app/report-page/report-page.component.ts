@@ -10,18 +10,21 @@ import { ClientService } from '../services/client/client.service';
 })
 export class ReportPageComponent {
   reports: Order[] = [];
-  selectedReport: boolean= false;
+  selectedBuyReport: boolean= false;
+  selectedSellReport: boolean= false;
 
   constructor(private reportsService: ReportsService, private clientService: ClientService) { }
  
   loadBuyReport() {
-    this.selectedReport= true;
+    this.selectedSellReport= false;
+    this.selectedBuyReport= true;
     this.reportsService.getReport(this.clientService.verifyClient.clientId, "BUY")
         .subscribe(response => this.reports = response);
   }
 
   loadSellReport() {
-    this.selectedReport= true;
+    this.selectedBuyReport= false;
+    this.selectedSellReport= true;
     this.reportsService.getReport(this.clientService.verifyClient.clientId, "SELL")
         .subscribe(response => this.reports = response);
   }

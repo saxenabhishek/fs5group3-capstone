@@ -7,13 +7,13 @@ body {
 
 /* Hero section */
 .hero {
-  /* background-image: url("https://media.istockphoto.com/id/1317587887/photo/trading-charts-on-a-display.jpg?b=1&s=612x612&w=0&k=20&c=hUdGYMkhZCfk5eYSxJh247HHnHc6kvgWBBPrAR1zsXI="); */
-  /* background-size: cover; */
+  /* background-image: url("https://static.vecteezy.com/system/resources/thumbnails/022/659/642/small/3d-growth-stock-diagram-financial-graph-isolated-on-transparent-background-business-candlestick-chart-investment-market-trade-exchange-analysis-and-economy-finance-report-png.png"); 
+  background-size: cover;  */
   color: var(--color-gray);
   background-color: var(--color-gray);
   background-blend-mode: rgb(70, 66, 66);
   background-position: center;
-  color: rgb(80, 80, 83);
+  color: #2f4858;
   text-align: center;
   padding: 100px 0;
   animation: fadeIn 2s ease;
@@ -34,7 +34,7 @@ body {
 }
 
 .hero-content {
-  max-width: 50%;
+  max-width: 60%;
   margin: 0 auto;
   transform: translateY(-20px);
   animation: slideUp 1.5s ease-in-out;
@@ -54,7 +54,8 @@ body {
   margin-bottom: 20px;
 }
 .hero p {
-  font-size: 1vw;
+  font-size: 1.3rem;
+  font-weight: 500;
   margin-bottom: 20px;
 }
 .cta-buttons {
@@ -92,6 +93,10 @@ body {
 .featured-assets {
   background-color: #ffffff;
   padding: 40px 0;
+}
+
+.featured-assets .section-title{
+  font-size: 2.5rem;
 }
 
 .section-title {
@@ -132,13 +137,15 @@ body {
 }
 
 .asset-name {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
+  font-weight: 600;
   margin-top: 10px;
   color: var(--color-gray);
 }
 
 .asset-description {
   margin-top: 10px;
+  font-size: 1.1rem;
   color: var(--color-gray);
 }
 

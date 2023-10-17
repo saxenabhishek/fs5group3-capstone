@@ -3,9 +3,7 @@
   mainText= 'Trade History'
   subText= 'All your transactions in one place'
 ></app-banner>
-<div class="card-table" >    
-    <h3>Trade History</h3>
-    <hr>
+<div class="card-table" >      
     <table *ngIf="trades.length" cellspacing="0">
         <thead>
             <th>Instrument</th>
@@ -14,6 +12,7 @@
             <th>Shares</th>
             <th>Price</th>
         </thead>
+        
         <tbody>
             <tr *ngFor="let trade of trades">
                 <td>{{ getInstrumentName(trade.instrumentId)}}</td>

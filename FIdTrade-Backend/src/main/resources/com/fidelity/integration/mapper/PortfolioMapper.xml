@@ -36,7 +36,7 @@
 	<select id="getHoldings" parameterType="String" resultType="Trade">
 	    WITH AggregatedData AS (
 		    SELECT
-		        t.instrumentid,
+		        DISTINCT t.instrumentid,
 		        SUM(CASE WHEN t.direction = 'BUY' THEN o.quantity ELSE -o.quantity END) AS quantity,
 		        SUM(CASE WHEN t.direction = 'BUY' THEN t.cashvalue ELSE -t.cashvalue END) AS cashValue
 		    FROM
@@ -53,7 +53,6 @@
 		)
 		SELECT
 		    DISTINCT t.instrumentid,
-		    t.executionprice,
 		    ad.quantity,
 		    ad.cashValue
 		FROM

@@ -4,6 +4,8 @@ import { Observable, catchError, of, switchMap, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ClientFMTS } from 'src/app/models/client-fmts';
 import { IntegerDTO } from 'src/app/models/integer-dto';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +13,8 @@ import { IntegerDTO } from 'src/app/models/integer-dto';
 export class ClientService {
   registerClient: ClientFMTS = new ClientFMTS("", "");
   verifyClient: ClientFMTS = new ClientFMTS("", "");
+  currentClientEmail?: string = "";
+
   clientUrl= "http://localhost:8080/client/";
   httpOptions = {
     headers: new HttpHeaders({
@@ -18,38 +22,40 @@ export class ClientService {
     }),
   };
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private toastr: ToastrService, private route: Router) {}
+  
   ngOnInit(){
     this.checkIfClientIsLoggedIn()
   }
+
   checkIfClientIsLoggedIn() {
     const client: ClientFMTS = JSON.parse(localStorage.getItem("client") || "{}"); 
     const stringUnixTimestamp: string = localStorage.getItem("timestamp") || "0";
     
     let ts : Date =  new Date(parseInt(stringUnixTimestamp , 10)); 
 
-    let dateNow: Date = new Date();
-    const isWithinOneDay = (dateToCompare: Date): boolean => {
+    const isWithinExpiryTime = (dateToCompare: Date): boolean => {
       const currentDate = new Date();
       const timeDifference = currentDate.getTime() - dateToCompare.getTime();
-      return timeDifference <= 24 * 60 * 60 * 1000;
+      return timeDifference <= 12 * 60 * 60 * 1000;
     };
 
-    if(isWithinOneDay(ts)){
+    if(isWithinExpiryTime(ts)){
       this.verifyClient = client;
     }
     else{
+      if(this.currentClientEmail != ""){
+        this.currentClientEmail= "";
+        this.toastr.warning("You have been logged out", "Session Expired !");
+      }
       this.verifyClient = new ClientFMTS("", "");
-      localStorage.removeItem("client")
-      localStorage.removeItem("timestamp")
+      localStorage.removeItem("client");
+      localStorage.removeItem("timestamp");
+      this.route.navigate(["/"]);
     }
   }
 
-  currentClient?: Client = undefined;
-  private login: boolean = false;
-
   registerNewClient(newClient: Client): Observable<Boolean> {
-    console.log("REGISTERnew: ", newClient)
     this.http
         .post<ClientFMTS>(this.clientUrl + "register", newClient, this.httpOptions)
         .pipe(
@@ -67,6 +73,7 @@ export class ClientService {
         .post<ClientFMTS>(this.clientUrl + "login", { email: email, password: password }, this.httpOptions)
         .pipe(
           switchMap((data: ClientFMTS) => {
+            this.currentClientEmail= email ? email : "";
             this.verifyClient = data;
             localStorage.setItem("client", JSON.stringify(this.verifyClient))
             localStorage.setItem("timestamp", Date.now().toString())
