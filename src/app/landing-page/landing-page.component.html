@@ -9,7 +9,12 @@
           alt="Trading App Logo"
           class="logo"
         />
-        <h1>Welcome to FidTrade <span *ngIf="email != ''">, {{email}}</span></h1>
+        <h1 *ngIf="!email; else loginHeader">Welcome to FidTrade</h1>
+        <ng-template #loginHeader>
+          <h1>Welcome Back</h1>
+          <h2>{{email}}</h2>
+        </ng-template>
+        
         <p>Where Your Financial Dreams Find Their Blueprint, One Trade at a Time.</p>
         <div class="cta-buttons">
           <a 
