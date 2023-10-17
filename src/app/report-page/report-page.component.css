@@ -32,10 +32,10 @@ table {
     padding: 2px;
   }
 button {
-    color: #11bb90;
+    color: #6A5C55;
 }
 th {
-    background-color: #8fdfc4;
+    background-color: #F66E00;
     color: white;
     font-weight: bolder;
   }
@@ -57,7 +57,7 @@ th {
 color: #333;
 }
 tbody tr:nth-child(even) td {
-    background: #cad9d9;
+    background: #fcffff;
 }
 
 .button-container {
@@ -75,7 +75,7 @@ tbody tr:nth-child(even) td {
     text-decoration: none;
     outline: none;
     color: #fff;
-    background-color: #1a48d2;
+    background-color:#6A5C55;
     border: none;
     border-radius: 15px;
     box-shadow: 0 9px #999;
@@ -86,13 +86,13 @@ tbody tr:nth-child(even) td {
 }
 
 .button2:active {
-    background-color: #3e8e41;
+    background-color:#F66E00;
     box-shadow: 0 5px #666;
     transform: translateY(4px);
 }
 
 #button1 {
-    background-color: #4CAF50;
+    background-color: #F66E00;
 }
 
 .center {

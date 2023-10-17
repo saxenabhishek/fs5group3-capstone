@@ -40,7 +40,7 @@ button {
 
 
 th {
-    background-color: #04AA6D;
+    background-color:#6A5C55;
     color: white;
     font-weight: bolder;
   }
@@ -69,7 +69,7 @@ tbody tr:nth-child(even) td {
 }
 
 .button2:hover {
-    background-color: #1e8ad2
+    background-color: #F66E00
 }
 
 .button2:active {
@@ -79,7 +79,7 @@ tbody tr:nth-child(even) td {
 }
 
 .button1 {
-    background-color: #3fac43;
+    background-color: #F66E00;
     /* Green */
     border: none;
     color: white;
