@@ -13,7 +13,6 @@ import { Router } from '@angular/router';
 export class ClientService {
   registerClient: ClientFMTS = new ClientFMTS("", "");
   verifyClient: ClientFMTS = new ClientFMTS("", "");
-  currentClientEmail?: string = "";
 
   clientUrl= "http://localhost:8080/client/";
   httpOptions = {
@@ -44,12 +43,11 @@ export class ClientService {
       this.verifyClient = client;
     }
     else{
-      if(this.currentClientEmail != ""){
-        this.currentClientEmail= "";
+      if(this.verifyClient.clientId != "")
         this.toastr.warning("You have been logged out", "Session Expired !");
-      }
       this.verifyClient = new ClientFMTS("", "");
       localStorage.removeItem("client");
+      localStorage.removeItem("email");
       localStorage.removeItem("timestamp");
       this.route.navigate(["/"]);
     }
@@ -73,10 +71,10 @@ export class ClientService {
         .post<ClientFMTS>(this.clientUrl + "login", { email: email, password: password }, this.httpOptions)
         .pipe(
           switchMap((data: ClientFMTS) => {
-            this.currentClientEmail= email ? email : "";
             this.verifyClient = data;
-            localStorage.setItem("client", JSON.stringify(this.verifyClient))
-            localStorage.setItem("timestamp", Date.now().toString())
+            localStorage.setItem("client", JSON.stringify(this.verifyClient));
+            localStorage.setItem("email", email ? email : "");
+            localStorage.setItem("timestamp", Date.now().toString());
             return of(this.getIfLoggedIn());
           }))
         .pipe(

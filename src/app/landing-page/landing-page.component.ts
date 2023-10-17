@@ -10,12 +10,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./landing-page.component.css']
 })
 export class LandingPageComponent {
-  email: string= "";
+  email: any= null;
   constructor(private clientService: ClientService, private toastr: ToastrService, private route: Router) {}
 
   ngOnInit(){
     this.clientService.checkIfClientIsLoggedIn()
-    this.email= this.clientService.currentClientEmail ? this.clientService.currentClientEmail : "";
+    this.email= localStorage.getItem("email");
   }
 
   featuredAssets: any[] = [
@@ -40,11 +40,11 @@ export class LandingPageComponent {
     return this.clientService.getIfLoggedIn();
   }
 
-  LogOut(){    
-    this.email= "";
-    this.clientService.currentClientEmail= "";
+  LogOut(){ 
+    this.email= null;
     this.clientService.verifyClient = new ClientFMTS("", "");
     localStorage.removeItem("client");
+    localStorage.removeItem("email");
     localStorage.removeItem("timestamp");
     this.toastr.success('You are logged out', 'Success');
     this.route.navigate(["/"]);

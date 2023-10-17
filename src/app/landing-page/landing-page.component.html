@@ -9,7 +9,12 @@
           alt="Trading App Logo"
           class="logo"
         />
-        <h1>Welcome to FidTrade <span *ngIf="email != ''">, {{email}}</span></h1>
+        <h1 *ngIf="!email; else loginHeader">Welcome to FidTrade</h1>
+        <ng-template #loginHeader>
+          <h1>Welcome Back</h1>
+          <h2>{{email}}</h2>
+        </ng-template>
+        
         <p>Where Your Financial Dreams Find Their Blueprint, One Trade at a Time.</p>
         <div class="cta-buttons">
           <a 
@@ -54,16 +59,16 @@
         <h2 class="section-title">Contact Us</h2>
         <div class="contact-info">
           <div class="contact-item">
-            <i class="fas fa-map-marker-alt"></i>
-            <p>Your Address Here</p>
+            <i class="bi bi-geo-alt-fill"></i>
+            <p>Fidelity Investments, 8th Neville Tower, Tril Info Park Pvt. Ltd. SEZ, Ramanujan IT City, Taramani, Chennai, Tamil Nadu - 600113, India </p>
           </div>
           <div class="contact-item">
-            <i class="fas fa-phone"></i>
-            <p>+1 123-456-7890</p>
+            <i class="bi bi-telephone-fill"></i>
+            <p>+91 123-456-7890</p>
           </div>
           <div class="contact-item">
-            <i class="far fa-envelope"></i>
-            <p>info@example.com</p>
+            <i class="bi bi-envelope-fill"></i>
+            <p>fse5group3@fmr.com</p>
           </div>
         </div>
       </div>
@@ -71,9 +76,5 @@
   </main>
 
   <!-- app.component.html -->
-  <footer>
-    <div class="container">
-      <p>&copy; 2023 Fidelity Investments. All rights reserved.</p>
-    </div>
-  </footer>
+  <app-footer></app-footer>
 </div>

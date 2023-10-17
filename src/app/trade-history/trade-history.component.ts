@@ -1,7 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { TradeService } from '../services/trade/trade.service';
 import { Order } from '../models/order';
-import { Direction } from '../models/direction';
 import { ClientService } from '../services/client/client.service';
 import { ActivatedRoute } from '@angular/router';
 import { Prices } from '../models/prices';
@@ -14,7 +13,18 @@ import { Prices } from '../models/prices';
 export class TradeHistoryComponent implements OnInit{
   trades: Order[]= [];
   prices: Prices[]= [];
+  itemsPerPage = 100; // Number of items per page
+  currentPage = 1; // Current page
 
+  get totalPages(): number {
+    return Math.ceil(this.trades.length / this.itemsPerPage);
+  }
+
+  changePage(newPage: number) {
+    if (newPage > 0 && newPage <= this.totalPages) {
+      this.currentPage = newPage;
+    }
+  }
   constructor(private tradeService: TradeService, private clientService: ClientService,
                 private route: ActivatedRoute) { 
     const resolvedData = this.route.snapshot.data['prices'];
