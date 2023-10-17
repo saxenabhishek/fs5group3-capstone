@@ -14,7 +14,7 @@
         </thead>
         
         <tbody>
-            <tr *ngFor="let trade of trades">
+            <tr *ngFor="let trade of trades.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)">
                 <td>{{ getInstrumentName(trade.instrumentId)}}</td>
                 <td>{{trade.orderTimestamp}}</td>
                 <td [ngStyle]="{'color' : (trade.direction.stringValue == 'BUY') ? '#2F4858' : '#336699'}">
@@ -26,5 +26,13 @@
         </tbody>
     </table>
     
+    <div class="pagination" *ngIf="trades.length">
+        <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">Previous</button>
+        <span>{{currentPage}} / {{totalPages}}</span>
+        <button (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages">Next</button>
+    </div>
+
     <div id="notrades" *ngIf="!trades.length">No trading history available !</div>
 </div>
+
+<app-footer></app-footer>

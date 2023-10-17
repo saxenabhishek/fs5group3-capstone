@@ -1,6 +1,6 @@
 package com.fidelity.controller;
 
-import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -86,8 +86,13 @@ public class PortfolioController {
 			List<Order> tradeHistory= portfolioService.retrieveTradeHistory(clientId);
 			if (tradeHistory.size() == 0)
 				return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-			else
+			else {
+				Collections.sort(tradeHistory, (order1, order2) -> {
+		            // Sort in descending order (most recent first)
+		            return order2.getOrderTimestamp().compareTo(order1.getOrderTimestamp());
+		        });
 				return ResponseEntity.status(HttpStatus.OK).body(tradeHistory);
+			}
 		}
 		catch (RuntimeException e) {
 			throw new ServerErrorException("Server side error", e);

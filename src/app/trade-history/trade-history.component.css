@@ -43,3 +43,31 @@ tr:hover{
 tr, thead{
     border-bottom: 1px solid rgb(179, 179, 179);
 }
+
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.pagination button {
+    background-color: var(--color-coffee);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    margin: 0 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.pagination button:hover {
+    background-color: var(--color-brown);
+}
+
+.pagination span {
+    font-weight: bold;
+    margin: 0 0.5rem;
+}
