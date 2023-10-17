@@ -179,12 +179,13 @@ public class ClientController {
         List<Order> orders = activityDao.getReportActivity(clientId, direction);
 
         // Check if orders are empty or null
-        if (orders == null || orders.isEmpty()) {
+        if (orders == null) 
             // If there are no orders, return a 404 Not Found response
             return ResponseEntity.notFound().build();
-        } else {
+        else if (orders.isEmpty())
+        	return ResponseEntity.noContent().build();
             // If orders are found, return a 200 OK response with the list of orders
-            return ResponseEntity.ok(orders);
-        }
+        else
+        	return ResponseEntity.ok(orders);        
     }
 }

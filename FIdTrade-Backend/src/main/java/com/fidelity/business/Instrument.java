@@ -21,6 +21,8 @@ public class Instrument {
 	long maxQuantity;
 	long minQuantity;
 
+	public Instrument () { }
+	
 	public Instrument(String instrumentId, String externalId, String externalIdType, String instrumentDescription,
 			String categoryId, long maxQuantity, long minQuantity) {
 		super();
