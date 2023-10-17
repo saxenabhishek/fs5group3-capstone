@@ -1,0 +1,12 @@
+
+footer {
+    background-color: var(--color-brown); /* Background color for the footer */
+    color: #fff; /* Text color in the footer */
+    padding: 10px 0;
+    text-align: center;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}

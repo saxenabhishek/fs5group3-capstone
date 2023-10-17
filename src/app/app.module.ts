@@ -21,6 +21,7 @@ import { InvestmentPreferUpdateComponent } from './investment-prefer-update/inve
 import { PortfolioChartComponent } from './portfolio-chart/portfolio-chart.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BannerComponent } from './banner/banner.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { BannerComponent } from './banner/banner.component';
     InvestmentPreferComponent,
     InvestmentPreferUpdateComponent,
     PortfolioChartComponent,
-    BannerComponent
+    BannerComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

@@ -1,3 +1,6 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css");
+
+
 /* Background color */
 body {
   color: #fff;
@@ -183,6 +186,11 @@ body {
   display: flex;
   align-items: center;
   margin: 10px;
+  width: 40%;
+}
+
+.contact-item:first-child {
+  width: 60%;
 }
 
 .contact-item i {
@@ -195,14 +203,6 @@ body {
   margin: 0;
   font-size: 1rem;
   color: var(--color-gray);
-}
-
-
-footer {
-  background-color: var(--color-brown); /* Background color for the footer */
-  color: #fff; /* Text color in the footer */
-  padding: 10px 0;
-  text-align: center;
 }
 
 .container {
