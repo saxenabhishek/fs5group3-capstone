@@ -31,13 +31,15 @@ import com.fidelity.business.Price;
 
 @Repository("FMTSDao")
 public class FMTSDaoImpl implements FMTSDao {
+
+	final String BASEURL = "http://ec2-13-234-115-43.ap-south-1.compute.amazonaws.com:3000/";
 	
 	@Autowired
 	private RestTemplate restTemplate;
     
 	@Override
 	public List<Price> getCurrentPricesFromFMTS(String category, String instrumentId){
-		String url = "http://localhost:3000/fmts/trades/prices/";		
+		String url = BASEURL + "/fmts/trades/prices/";		
 		if (category != null)
 			url+= category;
 		HttpHeaders headers = new HttpHeaders();
@@ -83,7 +85,7 @@ public class FMTSDaoImpl implements FMTSDao {
 		clientFMTS.setEmail(client.getPerson().getEmail());
 		clientFMTS.setToken(""); 
 
-		String url = "http://localhost:3000/fmts/client"; 
+		String url = BASEURL + "/fmts/client"; 
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
