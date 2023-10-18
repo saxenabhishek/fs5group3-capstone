@@ -14,8 +14,8 @@ import { Wallet } from 'src/app/models/wallet.spec';
 })
 export class TradeService {
   trades: Trade[] = [];
-  url = 'http://localhost:8080/trade';
-  portfolioUrl = 'http://localhost:8080/portfolio';
+  url = 'http://ec2-13-234-115-43.ap-south-1.compute.amazonaws.com:8080/trade';
+  portfolioUrl = 'http://ec2-13-234-115-43.ap-south-1.compute.amazonaws.com:8080/portfolio';
 
   constructor(private http: HttpClient, private clientService: ClientService) {}
 

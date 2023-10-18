@@ -8,7 +8,7 @@ import { Order } from 'src/app/models/order';
   providedIn: 'root'
 })
 export class ReportsService {
-  private apiUrl = 'http://localhost:8080/client';
+  private apiUrl = 'http://ec2-13-234-115-43.ap-south-1.compute.amazonaws.com:8080/client';
 
   constructor(private http: HttpClient) { }
 

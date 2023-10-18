@@ -14,7 +14,7 @@ export class ClientService {
   registerClient: ClientFMTS = new ClientFMTS("", "");
   verifyClient: ClientFMTS = new ClientFMTS("", "");
 
-  clientUrl= "http://localhost:8080/client/";
+  clientUrl= "http://ec2-13-234-115-43.ap-south-1.compute.amazonaws.com:8080/client/";
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'

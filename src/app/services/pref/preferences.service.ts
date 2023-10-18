@@ -10,7 +10,7 @@ import { ClientService } from '../client/client.service';
   providedIn: 'root'
 })
 export class PreferencesService {
-  url='http://localhost:8080/client'; 
+  url='http://ec2-13-234-115-43.ap-south-1.compute.amazonaws.com:8080/client'; 
   newUser: boolean= false;
   httpOptions = {
     headers: new HttpHeaders({
