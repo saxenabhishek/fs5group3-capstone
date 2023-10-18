@@ -32,7 +32,7 @@ import com.fidelity.service.ClientService;
 
 @RestController
 @RequestMapping("/client")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 public class ClientController {
 	@Autowired
 	private ReportActivityDao activityDao;

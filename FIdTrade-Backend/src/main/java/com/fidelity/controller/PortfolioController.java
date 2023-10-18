@@ -21,7 +21,7 @@ import com.fidelity.controller.dto.WalletDTO;
 import com.fidelity.integration.FMTSDao;
 import com.fidelity.service.PortfolioService;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/portfolio")
 public class PortfolioController {

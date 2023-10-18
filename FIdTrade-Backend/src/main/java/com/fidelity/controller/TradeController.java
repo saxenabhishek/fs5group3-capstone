@@ -21,7 +21,7 @@ import com.fidelity.service.TradeService;
 
 @RestController
 @RequestMapping("/trade")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 public class TradeController {
 
     @Autowired
