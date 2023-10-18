@@ -146,8 +146,8 @@ INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES(1
 INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES(110.75, 110.25, TO_TIMESTAMP('21-AUG-19 06.52.20.372000000 PM', 'DD-MON-YY HH.MI.SS.FF AM'), 'B12');
 INSERT INTO ft_price (askPrice, bidPrice, priceTimestamp, instrumentId) VALUES(95.50, 95.00, TO_TIMESTAMP('21-AUG-19 06.52.20.376000000 PM', 'DD-MON-YY HH.MI.SS.FF AM'), 'B13');
 
-ALTER TABLE "SCOTT"."FT_PRICE" MODIFY ("PRICETIMESTAMP" NOT NULL ENABLE);
-ALTER TABLE "SCOTT"."FT_PRICE" ADD CONSTRAINT "FT_PRICE_PK" PRIMARY KEY ("ID", "PRICETIMESTAMP");
+ALTER TABLE "FT_PRICE" MODIFY ("PRICETIMESTAMP" NOT NULL ENABLE);
+ALTER TABLE "FT_PRICE" ADD CONSTRAINT "FT_PRICE_PK" PRIMARY KEY ("ID", "PRICETIMESTAMP");
 
 -- Create a new table for order data named ft_order with lowercase column names
 CREATE TABLE ft_order (
