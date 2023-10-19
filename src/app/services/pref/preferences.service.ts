@@ -4,13 +4,15 @@ import { Observable, catchError, of, throwError} from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { IntegerDTO } from 'src/app/models/integer-dto';
 import { ClientService } from '../client/client.service';
+import { BASEURL } from 'src/app/const/enviorment';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class PreferencesService {
-  url='http://ec2-13-234-115-43.ap-south-1.compute.amazonaws.com:8080/client'; 
+
+  url= BASEURL + '/client'; 
   newUser: boolean= false;
   httpOptions = {
     headers: new HttpHeaders({

@@ -8,14 +8,15 @@ import { Prices } from 'src/app/models/prices';
 import { Trade } from 'src/app/models/trade';
 import { ClientService } from '../client/client.service';
 import { Wallet } from 'src/app/models/wallet.spec';
+import { BASEURL } from 'src/app/const/enviorment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TradeService {
   trades: Trade[] = [];
-  url = 'http://ec2-13-234-115-43.ap-south-1.compute.amazonaws.com:8080/trade';
-  portfolioUrl = 'http://ec2-13-234-115-43.ap-south-1.compute.amazonaws.com:8080/portfolio';
+  url =  BASEURL + "/trade";
+  portfolioUrl = BASEURL  + "/portfolio"
 
   constructor(private http: HttpClient, private clientService: ClientService) {}
 

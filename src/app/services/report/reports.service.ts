@@ -3,12 +3,13 @@ import { MockReport } from '../../models/mock-report';
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Order } from 'src/app/models/order';
+import { BASEURL } from 'src/app/const/enviorment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReportsService {
-  private apiUrl = 'http://ec2-13-234-115-43.ap-south-1.compute.amazonaws.com:8080/client';
+  private apiUrl = BASEURL + '/client';
 
   constructor(private http: HttpClient) { }
 

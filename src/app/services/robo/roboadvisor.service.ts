@@ -3,12 +3,13 @@ import { MockRoboadvisor } from '../../models/mock-roboadvisor';
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Trade } from 'src/app/models/trade';
+import { BASEURL } from 'src/app/const/enviorment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RoboadvisorService {
-  private apiUrl="http://ec2-13-234-115-43.ap-south-1.compute.amazonaws.com:8080/trade";
+  private apiUrl= BASEURL + "/trade";
 
   constructor(private http: HttpClient) { }
 

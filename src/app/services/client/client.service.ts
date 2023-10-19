@@ -6,6 +6,7 @@ import { ClientFMTS } from 'src/app/models/client-fmts';
 import { IntegerDTO } from 'src/app/models/integer-dto';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { BASEURL } from 'src/app/const/enviorment';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,7 @@ export class ClientService {
   registerClient: ClientFMTS = new ClientFMTS("", "");
   verifyClient: ClientFMTS = new ClientFMTS("", "");
 
-  clientUrl= "http://ec2-13-234-115-43.ap-south-1.compute.amazonaws.com:8080/client/";
+  clientUrl= BASEURL + "/client";
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
@@ -55,7 +56,7 @@ export class ClientService {
 
   registerNewClient(newClient: Client): Observable<Boolean> {
     this.http
-        .post<ClientFMTS>(this.clientUrl + "register", newClient, this.httpOptions)
+        .post<ClientFMTS>(this.clientUrl + "/register", newClient, this.httpOptions)
         .pipe(
           catchError((error) => {
             console.error('API error for Register New Client (POST Request):', error);
@@ -68,7 +69,7 @@ export class ClientService {
 
   verifyClientInfo(email?: string, password?: string): Observable<boolean> {
     return this.http
-        .post<ClientFMTS>(this.clientUrl + "login", { email: email, password: password }, this.httpOptions)
+        .post<ClientFMTS>(this.clientUrl + "/login", { email: email, password: password }, this.httpOptions)
         .pipe(
           switchMap((data: ClientFMTS) => {
             this.verifyClient = data;
@@ -102,7 +103,7 @@ export class ClientService {
 
   verifyEmailAddress(email: string): Observable<number> {
     return this.http
-        .get<IntegerDTO>(this.clientUrl + "verify-email/" + email)
+        .get<IntegerDTO>(this.clientUrl + "/verify-email" + "/" + email)
         .pipe(
           switchMap((data: IntegerDTO) => of(data.rowCount)))
         .pipe(
